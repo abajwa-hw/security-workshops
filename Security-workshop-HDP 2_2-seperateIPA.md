@@ -179,7 +179,7 @@ hadoop fs -ls /user
 exit
 ```
 
-- Verify
+- Verify that LDAP users can successfully kinit and run HDFS commands
 
 ```
 su - paul
