@@ -1,6 +1,6 @@
-# Enable security on HDP 2.2 single node setup using *FreeIPA* as LDAP
+## Enable security on HDP 2.2 single node setup using *FreeIPA* as LDAP
 
-## Part 1: Authentication: Configure kerberos with LDAP on HDP sandbox using IPA
+#### Part 1: Authentication: Configure kerberos with LDAP on HDP sandbox using IPA
 
 Goals: 
 -Setup FreeIPA server and create end users and groups in its directory
@@ -259,10 +259,10 @@ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec && /usr/lib/hadoop/sbin/hadoop
 ```
                        
              
-#### Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps here
+#### Part 2: Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps here
             
              
-#### Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point using steps here
+#### Part 3: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point using steps here
             
 
 #### Other resources
