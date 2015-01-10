@@ -214,7 +214,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-hive-plugin.sh
 - restart Hive in Ambari
 
--As an LDAP user, perform some Hive activity
+- As an LDAP user, perform some Hive activity
 ```
 su ali
 kinit
@@ -227,82 +227,98 @@ beeline
 #hit enter twice
 use default;
 ```
-- Now you should see Hive plugin registered in Ranger 
+- Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
 
-#restart hue to make it aware of Ranger changes
+- Restart hue to make it aware of Ranger changes
+```
 service hue restart
-
+```
 
 #####  Hive Audit Exercises in Ranger
 
-#create user dir for ali
+
+- create user dir for ali
+```
 su  hdfs -c "hdfs dfs -mkdir /user/ali"
 su hdfs -c "hdfs dfs -chown ali /user/ali"
+```
 
-#Sign out of Hue and sign back in as ali/hortonworks
-#Run the below queries using the Beeswax Hue interface or beeline
+- Sign out of Hue and sign back in as ali/hortonworks
 
+- Run the below queries using the Beeswax Hue interface or beeline
 
-show tables;
-#check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
-
-#Create hive policies in Ranger for user ali
+- Create hive policies in Ranger for user ali
+```
 db name: default
 table: sample_07
 col name: code description
 user: ali and check “select”
 Add
+```
 
+```
 db name: default
 table: sample_08
 col name: *
 user: ali and check "select"
 Add
+```
+- Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
 
-Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
-
-#these will not work as user does not have access to all columns of sample_07
+- these will not work as user does not have access to all columns of sample_07
+```
 desc sample_07;
 select * from sample_07 limit 1;  
-
-#these should work  
+```
+- these should work  
+```
 select code,description from sample_07 limit 1;
-
 desc sample_08;
 select * from sample_08 limit 1;  
+```
 
-#Now look at the audit reports for the above and notice that audit reports for Beeswax queries show up in Ranger 
+- Now look at the audit reports for the above and notice that audit reports for Beeswax queries show up in Ranger 
 
 
-#Create hive policies in Ranger for group legal
+- Create hive policies in Ranger for group legal
+```
 db name: default
 table: sample_08
 col name: code description
 group: legal and check “select”
 Add
+```
 
-#Save and wait 30s
+- Save and wait 30s
 
-#create user dir for legal1
+- create user dir for legal1
+```
 su hdfs -c "hdfs dfs -mkdir /user/legal1"
 su hdfs -c "hdfs dfs -chown legal1 /user/legal1"
+```
 
-#This time lets try running the queries via Beeline interface
+- This time lets try running the queries via Beeline interface
+```
 su legal1
 klist
 kinit
 beeline
 !connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 #Hit enter twice when it prompts for password
+```
 
-#these should not work: "user does not have select priviledge"
+- these should not work: "user does not have select priviledge"
+```
 desc sample_08;
 select * from sample_08;  
+```
 
-#these should work  
+- these should work  
+```
 select code,description from sample_08 limit 5;
+```
 
-#Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
+- Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
 
 
 #####  Setup HBase repo in Ranger
