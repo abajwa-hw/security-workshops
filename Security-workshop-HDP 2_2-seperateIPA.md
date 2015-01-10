@@ -2,22 +2,20 @@
 
 #### Part 1: Authentication: Configure kerberos with LDAP on HDP sandbox using IPA
 
-Goals: 
--Setup FreeIPA server and create end users and groups in its directory
--Install FreeIPA client on sandbox VM to enable FreeIPA as central store of posix data using SSSD 
--Enable Kerberos for the HDP Cluster using FreeIPA server KDC to store Hadoop principals
--Integrate Hue with FreeIPAs directory
+- Goals: 
+  - Setup FreeIPA server and create end users and groups in its directory
+  - Install FreeIPA client on sandbox VM to enable FreeIPA as central store of posix data using SSSD 
+  - Enable Kerberos for the HDP Cluster using FreeIPA server KDC to store Hadoop principals
+  - Integrate Hue with FreeIPAs directory
 
-Why integrate security with LDAP? Plug Hadoop into enterprises existing Identity Management
-Getting the OS to recognize AD/LDAP's Users and Groups is critical for customers who need large populations 
-of their users to access Hadoop. 
 
-How to integrate with LDAP?
-IPA (Identity Policy Audit) is an integrated solution developed by Red Hat that wraps an LDAP/DNS/NTP/Kerberos
-server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
 
-We will be using a 2 VM setup: one with LDAP and one with HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
-The official 2.2 sandbox is not being used as it already has Ranger installed.
+- How to integrate with LDAP?
+  - IPA (Identity Policy Audit) is an integrated solution developed by Red Hat that wraps an LDAP/DNS/NTP/Kerberos server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
+
+- Setup details
+  - We will be using a 2 VM setup: one with LDAP and one with HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
+  - The official 2.2 sandbox is not being used as it already has Ranger installed.
 
 #### Install a CentOS VM from iso and install FreeIPA on it using instructions here
 
