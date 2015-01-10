@@ -1,0 +1,224 @@
+dn: uid=ali,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: ali
+sn: Bajwa
+uid: ali
+homedirectory:/home/ali
+uidNumber: 75000010
+gidNumber: 75000005
+userPassword:ali
+
+dn: uid=mktg1,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: mktg1
+sn: Smith
+uid: mktg1
+homedirectory:/home/mktg1
+uidNumber: 75000011
+gidNumber: 75000001
+userPassword:mktg1
+
+dn: uid=mktg2,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: mktg2
+sn: Smith
+uid: mktg2
+homedirectory:/home/mktg2
+uidNumber: 75000012
+gidNumber: 75000001
+userPassword:mktg2
+
+dn: uid=mktg3,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: mktg3
+sn: Smith
+uid: mktg3
+homedirectory:/home/mktg3
+uidNumber: 75000013
+gidNumber: 75000001
+userPassword:mktg3
+
+dn: uid=hr1,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: hr1
+sn: Smith
+uid: hr1
+homedirectory:/home/hr1
+uidNumber: 75000014
+gidNumber: 75000002
+userPassword:hr1
+
+dn: uid=hr2,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: hr2
+sn: Smith
+uid: hr2
+homedirectory:/home/hr2
+uidNumber: 75000015
+gidNumber: 75000002
+userPassword:hr2
+
+dn: uid=hr3,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: hr3
+sn: Smith
+uid: hr3
+homedirectory:/home/hr3
+uidNumber: 75000016
+gidNumber: 75000002
+userPassword:hr3
+
+dn: uid=legal1,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: legal1
+sn: Smith
+uid: legal1
+homedirectory:/home/legal1
+uidNumber: 75000017
+gidNumber: 75000003
+userPassword:legal1
+
+dn: uid=legal2,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: legal2
+sn: Smith
+uid: legal2
+homedirectory:/home/legal2
+uidNumber: 75000018
+gidNumber: 75000003
+userPassword:legal2
+
+dn: uid=legal3,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: legal3
+sn: Smith
+uid: legal3
+homedirectory:/home/legal3
+uidNumber: 75000019
+gidNumber: 75000003
+userPassword:legal3
+
+dn: uid=finance1,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+uid: finance1
+cn: finance1
+sn: Smith
+homedirectory:/home/finance1
+uidNumber: 75000020
+gidNumber: 75000004
+userPassword:finance1
+
+dn: uid=finance2,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: finance2
+sn: Smith
+uid: finance2
+homedirectory:/home/finance2
+uidNumber: 75000021
+gidNumber: 75000004
+userPassword:finance2
+
+dn: uid=finance3,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: finance3
+sn: Smith
+uid: finance3
+homedirectory:/home/finance3
+uidNumber: 75000022
+gidNumber: 75000004
+userPassword:finance3
+
+dn: uid=sales1,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: sales1
+sn: Smith
+uid: sales1
+homedirectory:/home/sales1
+uidNumber: 75000023
+gidNumber: 75000005
+userPassword:sales1
+
+dn: uid=sales2,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: sales2
+sn: Smith
+uid: sales2
+homedirectory:/home/sales2
+uidNumber: 75000024
+gidNumber: 75000005
+userPassword:sales2
+
+dn: uid=sales3,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: sales3
+sn: Smith
+uid: sales3
+homedirectory:/home/sales3
+uidNumber: 75000025
+gidNumber: 75000005
+userPassword:sales3
+

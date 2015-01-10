@@ -1,0 +1,44 @@
+dn: cn=marketing,ou=Groups,dc=hortonworks,dc=com
+cn: marketing
+objectclass: posixgroup
+gidNumber: 75000001
+memberuid: mktg1
+memberuid: mktg2
+memberuid: mktg3
+memberuid: ali
+
+dn: cn=hr,ou=Groups,dc=hortonworks,dc=com
+cn: hr
+objectclass: posixgroup
+gidNumber: 75000002
+memberuid: hr1
+memberuid: hr2
+memberuid: hr3
+memberuid: ali
+
+dn: cn=legal,ou=Groups,dc=hortonworks,dc=com
+cn: legal
+objectclass: posixgroup
+gidNumber: 75000003
+memberuid: legal1
+memberuid: legal2
+memberuid: legal3
+memberuid: ali
+
+dn: cn=finance,ou=Groups,dc=hortonworks,dc=com
+cn: finance
+objectclass: posixgroup
+gidNumber: 75000004
+memberuid: finance1
+memberuid: finance2
+memberuid: finance3
+memberuid: ali
+
+dn: cn=sales,ou=Groups,dc=hortonworks,dc=com
+cn: sales
+objectclass: posixgroup
+gidNumber: 75000005
+memberuid: sales1
+memberuid: sales2
+memberuid: sales3
+memberuid: ali
