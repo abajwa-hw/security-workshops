@@ -212,23 +212,22 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 
 ./enable-hive-plugin.sh
-#restart Hive in Ambari
+- restart Hive in Ambari
 
-kadmin.local
-addprinc ali/sandbox.hortonworks.com@HORTONWORKS.COM
-#enter hortonworks twice
-exit
-
+-As an LDAP user, perform some Hive activity
+```
 su ali
 kinit
 #kinit: Client not found in Kerberos database while getting initial credentials
-kinit ali/sandbox.hortonworks.com@HORTONWORKS.COM
+kinit ali
 #hortonworks
 
 beeline
 !connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 #hit enter twice
-
+use default;
+```
+- Now you should see Hive plugin registered in Ranger 
 
 #restart hue to make it aware of Ranger changes
 service hue restart
