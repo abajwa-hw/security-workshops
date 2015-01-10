@@ -230,7 +230,9 @@ groups legal2
 This shows the how the end user gets a combined view of the linux and LDAP worlds in single lookup
 
 - confirm that user does not have unix account on the VM...
+```
 cat /etc/passwd | grep ali
+```
 
 - ...but that you can still su as an LDAP user
 ```
