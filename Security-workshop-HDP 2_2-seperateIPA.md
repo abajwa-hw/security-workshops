@@ -163,6 +163,8 @@ kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HOR
 If the wizard errors out towards the end due to a component not starting up, 
 its not a problem: you should be able to start it up manually via Ambari
 
+- Verify that we have kerberos enablement on our cluster and that hue user can kinit successfully using Hue keytab
+
 ```
 su - hue
 #Attempt to read HDFS: this should fail as hue user does not have kerberos ticket yet
@@ -177,7 +179,22 @@ hadoop fs -ls /user
 exit
 ```
 
-- This confirms that we have successfully enabled kerberos on our cluster
+- Verify
+
+```
+su - paul
+#Attempt to read HDFS: this should fail as hue user does not have kerberos ticket yet
+hadoop fs -ls
+#Confirm that the use does not have ticket
+klist
+#Create a kerberos ticket for the user
+kinit 
+#enter hortonworks
+#verify that hue user can now get ticket and can access HDFS
+klist
+hadoop fs -ls /user
+exit
+```
 
 - Open Hue and notice it no longer works e.g. FileBrowser givers error
 http://sandbox.hortonworks.com:8000
