@@ -130,4 +130,40 @@ uiud, uidNumber, posixaccount, person, krbPrincipalName
 - Click on hr group and notice attributes. Some important ones:
 cn, gidNumber, posixgroup
 
-- FreeIPA setup is now complete. You can proceed with the rest of the workshop.
+- Configure VM to boot in text mode
+plymouth-set-default-theme text
+- Open file /boot/grub/grub.conf and remove both instances of "rhgb"
+
+- Setup time to be updated on regular basis to avoid kerberos errors
+```
+echo "service ntpd stop" > /root/updateclock.sh
+echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
+echo "service ntpd start" >> /root/updateclock.sh
+chmod 755 /root/updateclock.sh
+echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
+```
+
+- Create script to generate /etc/hosts entry on startup
+
+echo "# Do not remove the following line, or various programs" > /etc/hosts
+echo "# that require network functionality will fail." >> /etc/hosts
+echo "127.0.0.1         localhost.localdomain localhost" >> /etc/hosts
+echo "IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')" >> /etc/hosts
+echo "$IP  ldap.hortonworks.com  ldap" >> /etc/hosts
+
+echo "service ipa start" >> /etc/rc.local
+
+- Note: moving forward before starting the HDP VM, you need to ensure IPA services are up. If not, they need to be started: 
+```
+#check status
+service ipa status
+
+#start services
+service ipa start
+
+#stop services
+service ipa stop
+```
+
+
+- FreeIPA setup is complete. You can proceed with the rest of the workshop.
