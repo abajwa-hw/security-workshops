@@ -8,19 +8,19 @@
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
 
-At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
+At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger using the following steps:
 
-- verify you can su as rangeradmin and set the password to hortonworks
+- Verify you can su as rangeradmin and set the password to hortonworks
 ```
 su rangeradmin
 ```
 
-- download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
+- Download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
 ```
 yum install -y ranger-admin 
 ```
 
-- configure/install policymgr
+- Configure/install policymgr
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-admin/
 vi install.properties
