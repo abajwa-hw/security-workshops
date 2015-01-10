@@ -17,9 +17,9 @@
   - We will be using a 2 VM setup: one with LDAP and one with HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
   - The official 2.2 sandbox is not being used as it already has Ranger installed.
 
-#### Install a CentOS VM from iso and install FreeIPA on it using instructions here
+#### A. Install a CentOS VM from iso and install FreeIPA on it using instructions here
 
-#### Import HDP 2.2 single node VM, install IPAclient and then secure it with KDC on IPA server  
+#### B. Import HDP 2.2 single node VM, install IPAclient and then secure it with KDC on IPA server  
 
 - Pre-requisites
   - Download prebuilt HDP 2.2 GA sandbox VM image with Hue from [here](https://dl.dropboxusercontent.com/u/114020/Hortonworks_2.2_GA.ova)
@@ -35,12 +35,15 @@ ssh root@sandbox.hortonworks.com
 ```
 
 - add entry for ldap.hortonworks.com into the /etc/hosts file of the sandbox VM 
+```
 echo "192.168.191.211 ldap.hortonworks.com ldap" >> /etc/hosts
-
+```
 - On sandbox VM, the /etc/hosts entry for IPA gets cleared on reboot
 Edit the file below and add to bottom of the file replace IP address with that of your IPA server
+```
 vi /usr/lib/hue/tools/start_scripts/gen_hosts.sh
 echo "192.168.191.211 ldap.hortonworks.com  ldap" >> /etc/hosts
+```
 
 - Alternatively, if you prefer to instead be prompted for the IP address of your IPA server on each reboot, add below to bottom of gen_hosts.sh
 ```
@@ -62,39 +65,56 @@ done
 ```
 
 - On IPA VM,add entry for sandbox.hortonworks.com into the /etc/hosts file of the IPA VM 
+```
 echo "192.168.191.185 sandbox.hortonworks.com sandbox" >> /etc/hosts
+```
 
 - Now both VMs and your laptop should have an entry for sandbox and ipa
 
 - install IPA client
+```
 yum install ipa-client openldap-clients -y
-
+```
 - Sync time with ntp server to ensure time is upto date 
+```
 service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
+```
 
 - In the ntp.conf file, replace "server 127.127.1.0" with the below
+```
 vi /etc/ntp.conf
 server ldap.hortonworks.com
+```
 
 - Install client: When prompted enter: yes > yes > hortonworks
+```
 ipa-client-install --domain=hortonworks.com --server=ldap.hortonworks.com  --mkhomedir --ntp-server=north-america.pool.ntp.org -p admin@HORTONWORKS.COM -W
+```
 
-- review that kerberos conf file was updated correctly with realm
+- review that kerberos conf file was updated correctly with realm (no actian needed)
+```
 vi /etc/krb5.conf
+```
 
-- review that SSSD was correctly configured with ipa and sandbox hostnames
+- review that SSSD was correctly configured with ipa and sandbox hostnames (no actian needed)
+```
 vi /etc/sssd/sssd.conf 
+```
 
-- review PAM related files and confirm the pam_sss.so entries are present
+- review PAM related files and confirm the pam_sss.so entries are present (no actian needed)
+```
 vi /etc/pam.d/smartcard-auth
 vi /etc/pam.d/password-auth 
 vi /etc/pam.d/system-auth
 vi /etc/pam.d/fingerprint-auth
+```
 
 - test that LDAP queries work
+```
 ldapsearch -h ldap.hortonworks.com:389 -D 'uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com' -w hortonworks -x -b 'dc=hortonworks,dc=com' uid=paul
+```
 
 - test that LDAP users can be accessed from filesystem.  
 id ali
