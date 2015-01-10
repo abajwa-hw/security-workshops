@@ -158,7 +158,6 @@ chmod +x gen_keytabs.sh
 ./gen_keytabs.sh
 ```
 
-
 - Verify keytabs and principals got created (should return at least 17)
 ls -la /etc/security/keytabs/*.keytab | wc -l
 
@@ -205,10 +204,10 @@ hadoop fs -ls /user
 exit
 ```
 
-- Open Hue and notice it no longer works e.g. FileBrowser givers error
+- Open Hue and notice it **no longer works** e.g. FileBrowser givers error
 http://sandbox.hortonworks.com:8000
 
-- Make Ambari/Hue config changes to allow it to work in Kerborized environment and to allow login of LDAP users using instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Hue-kerberos-LDAP.md)
+- **Make the config changes needed to make Hue work on a LDAP enbled kerborized cluster using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Hue-kerberos-LDAP.md)**
 
 - Confirm that paul user does not have unix account (we already saw it present in LDAP via JXplorer)
 ```
@@ -219,7 +218,7 @@ cat /etc/passwd | grep paul
 
 
 #### We have now setup Authentication
-Users can authenticate using kinit via shell and submit hadoop commands or log into HUE to access Hadoop.
+Ldap users can authenticate using kinit via shell and submit hadoop commands or log into HUE to access Hadoop.
 
 
 - Extra:

@@ -108,4 +108,12 @@ If you do need this functionality, you will need to configure OpenLDAP/KDC.
 
 TODO: add steps for this from https://help.ubuntu.com/10.04/serverguide/kerberos-ldap.html
 
+- Extra:
+On rebooting the VM you may notice that datanode service does not come up on its own and you need to start it manually via Ambari
+To automate this, change startup script to start data node as root:
+```
+vi /usr/lib/hue/tools/start_scripts/start_deps.mf
 
+#find the line containing 'conf start datanode' and replace with below
+export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec && /usr/lib/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop/conf start datanode,\
+```
