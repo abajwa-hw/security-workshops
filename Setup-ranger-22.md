@@ -8,34 +8,44 @@
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
 
-#verify you can su as rangeradmin and set the password to hortonworks
+- verify you can su as rangeradmin and set the password to hortonworks
+```
 su rangeradmin
+```
 
-#download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
+- download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
+```
 yum install -y ranger-admin 
+```
 
-
-#configure/install policymgr
+- configure/install policymgr
+```
 cd /usr/hdp/2.2.0.0-2041/ranger-admin/
 vi install.properties
-
-#No changes needed: just confirm the below are set this way:
+```
+- No changes needed: just confirm the below are set this way:
+```
 authentication_method=NONE
 remoteLoginEnabled=true
 authServiceHostName=localhost
 authServicePort=5151
+```
 
-#confirm mysql info by trying to connect
-mysql -u rangeradmin -phortonworks -h localhost
-
+- Start Ranger Admin
+```
 export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
 ./setup.sh
 #enter hortonworks for the passwords
 service ranger-admin start
+```
 
-#configure/install/start ugsync
+- Install user/groups sync agent (ugsync) 
+```
 yum install ranger-usersync
 #to uninstall: yum remove ranger_2_2_0_0_2041-usersync ranger-usersync
+```
+- Configure ugsync to pull users from LDAP 
+```
 cd /usr/hdp/2.2.0.0-2041/ranger-usersync
 vi install.properties
 
@@ -49,28 +59,28 @@ SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 logdir=/var/log/ranger/usersync
 
 ./setup.sh
+```
+- Start the service
+```
 service ranger-usersync start
-
-#confirm agent started
+```
+- confirm Agent/Ranger started
+```
 ps -ef | grep UnixAuthenticationService
 ps -ef|grep proc_ranger
+```
 
-#Ope log file to confirm agent was able to import users/groups from LDAP
-tail -f /var/log/uxugsync/unix-auth-sync.log
+- Open log file to confirm agent was able to import users/groups from LDAP
+```tail -f /var/log/uxugsync/unix-auth-sync.log```
 
-#open WebUI and login as admin/admin. 
-#Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
+- Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
 http://sandbox.hortonworks.com:6080
 
 
-Ranger - Setup HDFS repo
--------------------------
+####  Setup HDFS repo in Ranger
 
-#Create user rangeradmin
-
-In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below 
-most values come from HDFS configs in Ambari):
-
+- In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
+```
 Repository name: hdfs_sandbox
 Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
 Password: rangeradmin
@@ -83,11 +93,15 @@ dfs.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 dfs.secondary.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 hadoop.rpc.protection : (blank)
 Common Name For Certificate: (blank)
+```
 
-
-#make sure mysql connection works before installing HDFS plugin
+- Make sure mysql connection works before setting up HDFS plugin
+```
 mysql -u rangerlogger -phortonworks -h localhost
+```
 
+- Setup Ranger HDFS plugin
+```
 cd /usr/hdp/2.2.0.0-2041/ranger-hdfs-plugin
 vi install.properties
 
@@ -102,20 +116,22 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 
 ./enable-hdfs-plugin.sh
-#restart HDFS via Ambari
+```
 
-#create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
+- Restart HDFS via Ambari
+
+- Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
+```
 #run as root
 su hdfs -c "hdfs dfs -mkdir /rangerdemo"
 su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
+```
 
-#Notice the HDFS agent should show up in Ranger UI under Audit > Agents
-#Also notice that under Audit > Big Data tab you can see audit trail of what user accessed HDFS at what time with what result
+- Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Big Data tab you can see audit trail of what user accessed HDFS at what time with what result
 
 
-Ranger - HDFS Audit Exercises:
-------------------------------
-
+#### HDFS Audit Exercises in Ranger:
+```
 su ali
 hdfs dfs -ls /rangerdemo
 #should fail saying "Failed to find any Kerberos tgt"
@@ -124,20 +140,23 @@ kinit
 #enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
 hdfs dfs -ls /rangerdemo
 #this should fail with "Permission denied"
-#Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
+```
+- Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 
-#Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy
+- Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy
 Resource path: /rangerdemo
 Recursive: True
 User: ali and give read, write, execute
 Save > OK and wait 30s
 
-#now this should succeed
+- now this should succeed
+```
 hdfs dfs -ls /rangerdemo
+```
+- Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 
-#Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
-
-#Attempt to access dir before/after adding group level Ranger HDFS policy
+- Attempt to access dir before/after adding group level Ranger HDFS policy
+```
 su hr1
 hdfs dfs -ls /rangerdemo
 #should fail saying "Failed to find any Kerberos tgt"
@@ -146,26 +165,28 @@ kinit
 #enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
 hdfs dfs -ls /rangerdemo
 #this should fail with "Permission denied". View the audit page for the new activity
+```
 
-#Add hr group to existing policy in Ranger
+- Add hr group to existing policy in Ranger
 Under Policy Manager tab, click "/rangerdemo" link
 under group add "hr" and give read, write, execute
 Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
 
-#this should pass now. View the audit page for the new activity
+- this should pass now. View the audit page for the new activity
+```
 hdfs dfs -ls /rangerdemo
+```
 
-#Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
+- Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
 
-Ranger - Setup Hive repo
--------------------------
+####  Setup Hive repo in Ranger
 
-#In Ambari, add admins group and restart HDFS
+- In Ambari, add admins group and restart HDFS
 hadoop.proxyuser.hive.groups: users, hr, admins
 
 
-#In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
+- In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
 
 Repository name= hive_sandbox
 Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
@@ -174,7 +195,7 @@ jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
 jdbc.url= jdbc:hive2://sandbox:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 Click Test and Add
 
-#install Hive plugin
+- install Hive plugin
 
 cd /usr/hdp/2.2.0.0-2041/ranger-hive-plugin
 vi install.properties
@@ -193,38 +214,27 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-hive-plugin.sh
 #restart Hive in Ambari
 
-root@sandbox ~]# kadmin.local
-Authenticating as principal ambari-qa/admin@HORTONWORKS.COM with password.
-kadmin.local:  addprinc ali/sandbox.hortonworks.com@HORTONWORKS.COM
-WARNING: no policy specified for ali/sandbox.hortonworks.com@HORTONWORKS.COM; defaulting to no policy
-Enter password for principal "ali/sandbox.hortonworks.com@HORTONWORKS.COM":
-Re-enter password for principal "ali/sandbox.hortonworks.com@HORTONWORKS.COM":
-Principal "ali/sandbox.hortonworks.com@HORTONWORKS.COM" created.
-kadmin.local:  exit
-[root@sandbox ~]# su ali
-sh-4.1$ kinit
-kinit: Client not found in Kerberos database while getting initial credentials
-sh-4.1$ kinit ali/sandbox.hortonworks.com@HORTONWORKS.COM
-Password for ali/sandbox.hortonworks.com@HORTONWORKS.COM:
+kadmin.local
+addprinc ali/sandbox.hortonworks.com@HORTONWORKS.COM
+#enter hortonworks twice
+exit
 
-sh-4.1$ beeline
-Beeline version 0.14.0.2.2.0.0-2041 by Apache Hive
-beeline> !connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
-scan complete in 4ms
-Connecting to jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
-Enter username for jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM:
-Enter password for jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM:
+su ali
+kinit
+#kinit: Client not found in Kerberos database while getting initial credentials
+kinit ali/sandbox.hortonworks.com@HORTONWORKS.COM
+#hortonworks
 
-
-
+beeline
+!connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
+#hit enter twice
 
 
 #restart hue to make it aware of Ranger changes
 service hue restart
 
 
-Ranger - Hive Audit Exercises
-------------------------------
+####  Hive Audit Exercises in Ranger
 
 #create user dir for ali
 su  hdfs -c "hdfs dfs -mkdir /user/ali"
@@ -296,8 +306,7 @@ select code,description from sample_08 limit 5;
 #Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
 
 
-Ranger - Setup HBase repo
--------------------------
+####  Setup HBase repo in Ranger
 
 #Start HBase using Ambari
 
@@ -314,7 +323,7 @@ hbase.zookeeper.quorum=sandbox.hortonworks.com
 zookeeper.znode.parent=/hbase-secure
 
 
-Click Test and Add
+- Click Test and Add
 
 #install Hbase plugin
 
@@ -346,10 +355,4 @@ list 'default'
 create 't1', 'f1'
 ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 
----------------------------------------------------------
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------
-End of part 2 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
---------------------------------------------------------------------------------------------------------------------------------------------------             
+- Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
