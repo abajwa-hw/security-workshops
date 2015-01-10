@@ -311,11 +311,11 @@ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec && /usr/lib/hadoop/sbin/hadoop
 ```
                        
              
-#### Part 2: Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps here
+#### Part 2: Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md)
             
              
-#### Part 3: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point using steps here
-            
+#### Part 3: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md)
+
 
 #### Other resources
 
