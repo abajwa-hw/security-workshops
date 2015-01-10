@@ -218,11 +218,12 @@ cat /etc/passwd | grep paul
 
 
 - We have now setup Authentication
+
 Ldap users can authenticate using kinit via shell and submit hadoop commands or log into HUE to access Hadoop.
 
 
 - Extra:
-On rebooting the VM you may notice that datanode service does not come up on its own and you need to start it manually via Ambari
+On rebooting the VM you may notice that datanode service does not come up on its own and you need to start it manually via Ambari.
 To automate this, change startup script to start data node as root:
 ```
 vi /usr/lib/hue/tools/start_scripts/start_deps.mf
