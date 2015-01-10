@@ -215,13 +215,14 @@ add below
 ```
 
 - allow hive to impersonate users from whichever LDAP groups you choose
+```
 hadoop.proxyuser.hive.groups = users, hr 
-
+```
 - restart HDFS via Ambari
 
 - Edit /etc/hue/conf/hue.ini by uncommenting/changing properties to make it kerberos aware
-	-Change all instances of "security_enabled" to true
-	-Change all instances of "localhost" to "sandbox.hortonworks.com" 
+	- Change all instances of "security_enabled" to true
+	- Change all instances of "localhost" to "sandbox.hortonworks.com" 
 	```	
 	hue_keytab=/etc/security/keytabs/hue.service.keytab
 	hue_principal=hue/sandbox.hortonworks.com@HORTONWORKS.COM
@@ -241,26 +242,30 @@ http://sandbox.hortonworks.com:8000
 - Logout as hue user and notice that we can not login as paul/hortonworks
 
 - Make changes to /etc/hue/conf/hue.ini to set backend to LDAP	
-	-backend=desktop.auth.backend.LdapBackend
-	-pam_service=login
-	-base_dn="DC=hortonworks,DC=com"
-	-ldap_url=ldap://ldap.hortonworks.com
-	-ldap_username_pattern="uid=<username>,cn=users,cn=accounts,dc=hortonworks,dc=com"
-	-create_users_on_login=true
-	-user_filter="objectclass=person"
-	-user_name_attr=uid
-	-group_filter="objectclass=*"
-	-group_name_attr=cn
+    ```
+	backend=desktop.auth.backend.LdapBackend
+	pam_service=login
+	base_dn="DC=hortonworks,DC=com"
+	ldap_url=ldap://ldap.hortonworks.com
+	ldap_username_pattern="uid=<username>,cn=users,cn=accounts,dc=hortonworks,dc=com"
+	create_users_on_login=true
+	user_filter="objectclass=person"
+	user_name_attr=uid
+	group_filter="objectclass=*"
+	group_name_attr=cn
+	```
 	
-	
+- Restart Hue
+```
 service hue restart
+```
 
 - Confirm that paul user does not have unix account (we already saw it present in LDAP via JXplorer)
+```
 cat /etc/passwd | grep paul
+```
 
 - login to Hue as paul/hortonworks and notice that FileBrowser, HCat, Hive now work
-
-
 
 
 #### We have now setup Authentication
@@ -285,7 +290,6 @@ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec && /usr/lib/hadoop/sbin/hadoop
             
 
 #### Other resources
-
 
 
 - Sample script to setup volume encryption using LUKS 
