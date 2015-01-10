@@ -148,7 +148,7 @@ sandbox.hortonworks.com,Hue,hue/sandbox.hortonworks.com@HORTONWORKS.COM,hue.serv
 sandbox.hortonworks.com,Knox,knox/sandbox.hortonworks.com@HORTONWORKS.COM,knox.service.keytab,/etc/security/keytabs,knox,hadoop,400
 ```
 
-- On sandbox vm, create the keytab files for the Hadoop components
+- On sandbox vm, create the keytab files for the Hadoop components (ignore the message about one of the keytabs not getting generated)
 ```
 kinit admin
 mkdir /etc/security/keytabs/
@@ -157,7 +157,7 @@ awk -F"," '/sandbox/ {print "ipa-getkeytab -s ldap.hortonworks.com -p "$3" -k /e
 chmod +x gen_keytabs.sh
 ./gen_keytabs.sh
 ```
-ignore the message about one of the keytabs not getting generated
+
 
 - Verify keytabs and principals got created (should return at least 17)
 ls -la /etc/security/keytabs/*.keytab | wc -l
