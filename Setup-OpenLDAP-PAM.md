@@ -12,10 +12,6 @@
  - https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-a-basic-ldap-server-on-an-ubuntu-12-04-vps
 
 
-- Pre-requisites? 
-  - Download HDP 2.2 GA sandbox VM image with Hue from https://dl.dropboxusercontent.com/u/114020/Hortonworks_2.2_GA.ova
-  - Import Hortonworks_2.2_GA.ova into VirtualBox/VMWare and configure its memory size to be at least 8GB RAM 
-
 - Create an entry on your laptops /etc/hosts pointing to IP address of sandbox VM
 ```
 sudo vi /etc/hosts
@@ -68,7 +64,8 @@ cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
 ```
 
 - Setup SLAPD
-```vi /etc/openldap/slapd.conf
+```
+vi /etc/openldap/slapd.conf
 #change all instances of my-domain to hortonworks
 #change all instances of Manager to admin
 #Replace 3 lines related to TLSCertificate to
@@ -141,10 +138,11 @@ username: cn=admin,dc=hortonworks,dc=com
 pass: hortonworks
 
 - Create yours groups and users. Since slapd service has been started you can either use ldapadd to do this....
+```
 #ldapadd -h localhost -p 389 -x -D "cn=admin,dc=hortonworks,dc=com" -W -f base.ldif 
 ldapadd -h localhost -p 389 -x -D "cn=admin,dc=hortonworks,dc=com" -W -f groups.ldif
 ldapadd -h localhost -p 389 -x -D "cn=admin,dc=hortonworks,dc=com" -W -f users.ldif 
-
+```
 - Alternatively you can do this in phpLdapAdmin UI:
 
 Import > paste contents of ldif > Proceed
