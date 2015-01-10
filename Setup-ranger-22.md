@@ -1,12 +1,14 @@
 
 #####  Authorization & Audit: allow users to specify access policies and enable audit around Hadoop from a central location via a UI, integrated with LDAP
 
-Goals: 
+- Goals: 
   - Install Apache Ranger
   - Sync users between Apache Ranger and FreeIPA
   - Configure HDFS & Hive to use Apache Ranger 
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
+
+At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
 
 - verify you can su as rangeradmin and set the password to hortonworks
 ```
