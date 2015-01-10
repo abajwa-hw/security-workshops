@@ -73,11 +73,11 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 
-#obtain a kerberos ticket for admin user using the hortonworks passwords setup earlier
+- obtain a kerberos ticket for admin user using the hortonworks passwords setup earlier
 ```
 kinit admin
 ```
-#Setup LDAP users, groups, passwords
+- Setup LDAP users, groups, passwords
 
 ```
 ipa group-add marketing --desc marketing
