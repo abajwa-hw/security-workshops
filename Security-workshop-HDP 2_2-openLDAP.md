@@ -3,9 +3,6 @@
 
 #### Setup LDAP: Install a CentOS VM from iso and install FreeIPA on it using instructions here
 
-- How to integrate with LDAP?
-  - [IPA](http://freeipa.org) (Identity Policy Audit) is an integrated solution developed by [Red Hat](http://www.redhat.com) that wraps an LDAP/DNS/NTP/Kerberos server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
-
 - Setup details
   - We will be using a single VM setup: with OpenLDAP installed on same VM as HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
   - The official 2.2 sandbox is not being used as it already has Ranger installed.
