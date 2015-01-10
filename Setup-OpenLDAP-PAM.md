@@ -74,7 +74,7 @@ TLSCertificateFile /etc/pki/tls/certs/slapd.pem
 TLSCertificateKeyFile /etc/pki/tls/certs/slapd.pem
 #Find the rootpw section and enter your password from above
 rootpw                  {SSHA}DzNam8oSUFQ1PmxeC3pwnexV6kv8QrNl
-```
+
 
 vi /etc/sysconfig/ldap
 #set SLAPD_LDAPS=yes
