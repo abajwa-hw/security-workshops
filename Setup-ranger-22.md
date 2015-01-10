@@ -323,10 +323,10 @@ select code,description from sample_08 limit 5;
 
 #####  Setup HBase repo in Ranger
 
-#Start HBase using Ambari
+- Start HBase using Ambari
 
-#In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
-
+- In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
+```
 Repository name= hbase_sandbox
 Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
 Password: rangeradmin
@@ -336,15 +336,14 @@ hbase.security.authentication=kerberos
 hbase.zookeeper.property.clientPort=2181
 hbase.zookeeper.quorum=sandbox.hortonworks.com
 zookeeper.znode.parent=/hbase-secure
-
+```
 
 - Click Test and Add
 
-#install Hbase plugin
-
+- Install Hbase plugin
+```
 cd /usr/hdp/2.2.0.0-2041/ranger-hbase-plugin
 vi install.properties
-
 
 POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
 REPOSITORY_NAME=hbase_sandbox
@@ -355,13 +354,19 @@ XAAUDIT.DB.HOSTNAME=localhost
 XAAUDIT.DB.DATABASE_NAME=ranger_audit
 XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
+```
 
+- Enable plugin
+```
 ./enable-hbase-plugin.sh
+```
 
 #make change in ambari and restart Hbase
+```
 hbase.security.authorization=true
 hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 hbase.coprocessor.region.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
+```
 
 #####  HBase audit exercises in Ranger
 ```
