@@ -1,7 +1,7 @@
 
 #####  Authorization & Audit: allow users to specify access policies and enable audit around Hadoop from a central location via a UI, integrated with LDAP
 
-- Goals: 
+Goals: 
   - Install Apache Ranger
   - Sync users between Apache Ranger and FreeIPA
   - Configure HDFS & Hive to use Apache Ranger 
