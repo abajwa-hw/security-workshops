@@ -95,10 +95,10 @@ exit
 ```
 - This confirms that we have successfully enabled kerberos on our cluster
 
-- Open Hue and notice it no longer works e.g. FileBrowser givers error
+- Open Hue and notice it **no longer works** e.g. FileBrowser givers error
 http://sandbox.hortonworks.com:8000
 
-- Next, make the config changes needed to make Hue work on a LDAP enbled kerborized cluster using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Hue-kerberos-LDAP.md)
+- Next, make the config changes needed to make Hue work on a LDAP enbled kerborized cluster using steps **[here]**(https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Hue-kerberos-LDAP.md)
 
 
 - At this point you can not kinit as LDAP users (e.g hr1), but you may not need this if your users will use Knox for webhdfs/ODBC access
