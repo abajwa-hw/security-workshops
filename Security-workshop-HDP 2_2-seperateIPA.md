@@ -223,6 +223,7 @@ hadoop.proxyuser.hive.groups = users, hr
 - Edit /etc/hue/conf/hue.ini by uncommenting/changing properties to make it kerberos aware
 	- Change all instances of "security_enabled" to true
 	- Change all instances of "localhost" to "sandbox.hortonworks.com" 
+	- Make below edits to the file:
 	```	
 	hue_keytab=/etc/security/keytabs/hue.service.keytab
 	hue_principal=hue/sandbox.hortonworks.com@HORTONWORKS.COM
@@ -241,7 +242,7 @@ http://sandbox.hortonworks.com:8000
    
 - Logout as hue user and notice that we can not login as paul/hortonworks
 
-- Make changes to /etc/hue/conf/hue.ini to set backend to LDAP	
+- Make changes to /etc/hue/conf/hue.ini to set backend to LDAP:
     ```
 	backend=desktop.auth.backend.LdapBackend
 	pam_service=login
