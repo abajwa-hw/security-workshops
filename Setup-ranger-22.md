@@ -1,5 +1,5 @@
 
-#####  Authorization & Audit: To allow users to specify access policies and enable audit around Hadoop from a central location via a UI, integrated with LDAP
+#####  Authorization & Audit: allow users to specify access policies and enable audit around Hadoop from a central location via a UI, integrated with LDAP
 
 - Goals: 
   - Install Apache Ranger
