@@ -8,7 +8,7 @@
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
 
-At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger using the following steps:
+- At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
 
 - Verify you can su as rangeradmin and set the password to hortonworks
 ```
