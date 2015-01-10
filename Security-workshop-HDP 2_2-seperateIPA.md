@@ -11,7 +11,7 @@
 
 
 - How to integrate with LDAP?
-  - IPA (Identity Policy Audit) is an integrated solution developed by Red Hat that wraps an LDAP/DNS/NTP/Kerberos server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
+  - [IPA](http://freeipa.org) (Identity Policy Audit) is an integrated solution developed by [Red Hat](http://www.redhat.com) that wraps an LDAP/DNS/NTP/Kerberos server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
 
 - Setup details
   - We will be using a 2 VM setup: one with LDAP and one with HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
