@@ -77,7 +77,7 @@ ps -ef|grep proc_ranger
 http://sandbox.hortonworks.com:6080
 
 
-####  Setup HDFS repo in Ranger
+#####  Setup HDFS repo in Ranger
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
 ```
@@ -130,7 +130,7 @@ su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Big Data tab you can see audit trail of what user accessed HDFS at what time with what result
 
 
-#### HDFS Audit Exercises in Ranger:
+##### HDFS Audit Exercises in Ranger:
 ```
 su ali
 hdfs dfs -ls /rangerdemo
@@ -180,7 +180,7 @@ hdfs dfs -ls /rangerdemo
 - Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
 
-####  Setup Hive repo in Ranger
+#####  Setup Hive repo in Ranger
 
 - In Ambari, add admins group and restart HDFS
 hadoop.proxyuser.hive.groups: users, hr, admins
@@ -234,7 +234,7 @@ beeline
 service hue restart
 
 
-####  Hive Audit Exercises in Ranger
+#####  Hive Audit Exercises in Ranger
 
 #create user dir for ali
 su  hdfs -c "hdfs dfs -mkdir /user/ali"
@@ -306,7 +306,7 @@ select code,description from sample_08 limit 5;
 #Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
 
 
-####  Setup HBase repo in Ranger
+#####  Setup HBase repo in Ranger
 
 #Start HBase using Ambari
 
@@ -348,6 +348,7 @@ hbase.security.authorization=true
 hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 hbase.coprocessor.region.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 
+#####  HBase audit exercises in Ranger
 su ali
 klist
 hbase shell
