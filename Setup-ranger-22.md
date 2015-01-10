@@ -361,7 +361,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-hbase-plugin.sh
 ```
 
-#make change in ambari and restart Hbase
+# Make the below changes in ambari and restart Hbase
 ```
 hbase.security.authorization=true
 hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
