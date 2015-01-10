@@ -1,6 +1,6 @@
 ## Enable security on HDP 2.2 single node setup using *OpenLDAP* as LDAP
 
-- Setup details
+#### Setup details
   - We will be using a single VM setup: with OpenLDAP installed on same VM as HDP 2.2. In this example we will be using a single node HDP 2.2 setup installed via Ambari with Hue setup
   - The official 2.2 sandbox is not being used as it already has Ranger installed.
 
