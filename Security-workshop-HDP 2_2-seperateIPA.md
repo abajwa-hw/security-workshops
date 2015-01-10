@@ -114,19 +114,20 @@ Click Next > Next
 Do NOT click Apply yet
 Download CSV and ftp to both ipa and sandbox VMs 
 
--  **Go back to the IPA VM** create principals for Hadoop components on IPA server VM using the csv
-
-- add hue and knox principal, making sure no empty lines at the end
-vi host-principal-keytab-list.csv
-sandbox.hortonworks.com,Hue,hue/sandbox.hortonworks.com@HORTONWORKS.COM,hue.service.keytab,/etc/security/keytabs,hue,hadoop,400
-sandbox.hortonworks.com,Knox,knox/sandbox.hortonworks.com@HORTONWORKS.COM,knox.service.keytab,/etc/security/keytabs,knox,hadoop,400
-
-- create principals. The following message is ignorable: service with name "HTTP/sandbox.hortonworks.com@HORTONWORKS.COM" already exists
-for i in `awk -F"," '/service/ {print $3}' host-principal-keytab-list.csv` ; do ipa service-add $i ; done
-ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
-ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
-ipa user-add storm  --first=STORM --last=HADOOP --homedir=/home/storm --shell=/bin/bash 
-
+-  **Go back to the IPA VM** to run these steps to create principals for Hadoop components on IPA VM using the csv
+  - Edit host-principal-keytab-list.csv and add hue and knox principal at the end, making sure no empty lines at the end
+  ```
+  vi host-principal-keytab-list.csv
+  sandbox.hortonworks.com,Hue,hue/sandbox.hortonworks.com@HORTONWORKS.COM,hue.service.keytab,/etc/security/keytabs,hue,hadoop,400
+  sandbox.hortonworks.com,Knox,knox/sandbox.hortonworks.com@HORTONWORKS.COM,knox.service.keytab,/etc/security/keytabs,knox,hadoop,400
+  ```
+  - create principals. The following message is ignorable: service with name "HTTP/sandbox.hortonworks.com@HORTONWORKS.COM" already exists
+  ```
+  for i in `awk -F"," '/service/ {print $3}' host-principal-keytab-list.csv` ; do ipa service-add $i ; done
+  ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
+  ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
+  ipa user-add storm  --first=STORM --last=HADOOP --homedir=/home/storm --shell=/bin/bash 
+  ```
 
 - We are now done with setup on IPA VM. The remaining steps will only be run on sandbox VM
 
