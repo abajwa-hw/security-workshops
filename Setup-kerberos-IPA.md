@@ -217,7 +217,7 @@ cat /etc/passwd | grep paul
 - login to Hue as paul/hortonworks and notice that FileBrowser, HCat, Hive now work
 
 
-#### We have now setup Authentication
+- We have now setup Authentication
 Ldap users can authenticate using kinit via shell and submit hadoop commands or log into HUE to access Hadoop.
 
 
