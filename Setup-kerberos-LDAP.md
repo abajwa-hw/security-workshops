@@ -2,7 +2,9 @@
 
 
 - Install kerberos (usually needed on each node but sandbox only has one)
+```
 yum -y install krb5-server krb5-libs krb5-auth-dialog krb5-workstation
+```
 
 - Configure kerberos
 ```
