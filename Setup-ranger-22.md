@@ -80,6 +80,7 @@ ps -ef|grep proc_ranger
 - Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
 http://sandbox.hortonworks.com:6080
 
+---------------------
 
 #####  Setup HDFS repo in Ranger
 
@@ -183,6 +184,7 @@ hdfs dfs -ls /rangerdemo
 
 - Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
+---------------------
 
 #####  Setup Hive repo in Ranger
 
@@ -324,6 +326,7 @@ select code,description from sample_08 limit 5;
 
 - Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
 
+---------------------
 
 #####  Setup HBase repo in Ranger
 
@@ -381,5 +384,6 @@ list 'default'
 create 't1', 'f1'
 #ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 ```
+---------------------
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
