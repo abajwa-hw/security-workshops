@@ -245,3 +245,5 @@ exit
 service nslcd start
 chkconfig nslcd on
 ```
+
+- At this point we have setup openLDAP, imported users and groups, setup NSCD/PAM to allow OS to recognize LDAP users

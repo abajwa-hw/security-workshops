@@ -1,5 +1,5 @@
 
-####  Import HDP 2.2 single node VM, install IPAclient and then secure it with KDC on IPA server  
+####  Import HDP single node VM, install IPAclient and then secure it with KDC on IPA server  
 
 - Goals: 
   - Setup FreeIPA server and create end users and groups in its directory

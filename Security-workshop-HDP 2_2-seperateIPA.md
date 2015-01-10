@@ -20,11 +20,10 @@
 Configure kerberos with LDAP on single node running HDP 2.2 using IPA. Instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md)
              
 #### Part 2: Authorization/Audit
-Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md)
+Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager on HDP 2.2 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md)
             
-          
 #### Part 3: Perimeter Security
-Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md)
+Enable Knox to work with kerberos enabled cluster to enable perimeter security on HDP 2.2 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md)
 
 #### Other resources
 
