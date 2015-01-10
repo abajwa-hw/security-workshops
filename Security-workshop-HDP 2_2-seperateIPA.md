@@ -116,23 +116,30 @@ vi /etc/pam.d/fingerprint-auth
 ldapsearch -h ldap.hortonworks.com:389 -D 'uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com' -w hortonworks -x -b 'dc=hortonworks,dc=com' uid=paul
 ```
 
-- test that LDAP users can be accessed from filesystem.  
+- test that LDAP users can be accessed from filesystem. 
+``` 
 id ali
 groups paul
-- This shows that the OS now recognizes users and groups defined only in our LDAP 
-- The end user is getting a combined view of the linux and LDAP worlds in single lookup
+```
+This shows that the OS now recognizes users and groups defined only in our LDAP 
+The end user is getting a combined view of the linux and LDAP worlds in single lookup
 
 - enable sssd on startup 
+```
 chkconfig sssd on
+```
 
 - start Ambari and run the security wizard
+```
 ./start_ambari.sh
+```
 
-- Ambari > Admin > Security > Enable Security
-Realm name = HORTONWORKS.COM
-Click Next > Next
-Do NOT click Apply yet
-Download CSV and ftp to both ipa and sandbox VMs 
+- In Ambari follow the below steps:
+  - Under Admin > Security > Enable Security
+  - Realm name = HORTONWORKS.COM
+  - Click Next > Next
+  - Do NOT click Apply yet
+  - Download CSV and ftp to both ipa and sandbox VMs 
 
 -  **Go back to the IPA VM** to run these steps to create principals for Hadoop components on IPA VM using the csv
   - Edit host-principal-keytab-list.csv and add hue and knox principal at the end, making sure no empty lines at the end
