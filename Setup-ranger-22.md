@@ -349,11 +349,13 @@ hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthor
 hbase.coprocessor.region.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 
 #####  HBase audit exercises in Ranger
+```
 su ali
 klist
 hbase shell
 list 'default'
 create 't1', 'f1'
-ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
+#ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
+```
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
