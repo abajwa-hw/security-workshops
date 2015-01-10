@@ -17,7 +17,7 @@
 - Download prebuilt HDP 2.2 GA sandbox VM image with Hue from [here](https://dl.dropboxusercontent.com/u/114020/Hortonworks_2.2_GA.ova). Import Hortonworks_2.2_GA.ova into VirtualBox/VMWare and configure its memory size to be at least 8GB RAM and start VM
        
 #### Part 1: Authentication                       
-Configure kerberos with LDAP on single node running HDP 2.2 using IPA. Instructions [here]()
+Configure kerberos with LDAP on single node running HDP 2.2 using IPA. Instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md)
              
 #### Part 2: Authorization/Audit
 Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md)
