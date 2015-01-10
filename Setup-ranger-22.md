@@ -3,7 +3,7 @@
 
 - Goals: 
   - Install Apache Ranger
-  - Sync users between Apache Ranger and FreeIPA
+  - Sync users between Apache Ranger and LDAP
   - Configure HDFS & Hive to use Apache Ranger 
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
