@@ -177,13 +177,13 @@ chmod +x gen_keytabs.sh
 ```
 ignore the message about one of the keytabs not getting generated
 
-- verify keytabs and principals got created (should return at least 17)
+- Verify keytabs and principals got created (should return at least 17)
 ls -la /etc/security/keytabs/*.keytab | wc -l
 
-- check that keytab info can be ccessed by klist
+- Check that keytab info can be ccessed by klist
 klist -ekt /etc/security/keytabs/nn.service.keytab
 
-- verify you can kinit as hadoop components. This should not return any errors
+- Verify you can kinit as hadoop components. This should not return any errors
 kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HORTONWORKS.COM
 
 - Click Apply in Ambari to enable security and restart all the components
