@@ -10,7 +10,7 @@
 
 At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
 
-#####  Install Ranger and its User/Group sync agent (to sync users from LDAP to webUI)
+#####  Install Ranger and its User/Group sync agent
 
 
 - Download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
