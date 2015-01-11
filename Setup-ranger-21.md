@@ -14,6 +14,7 @@
 - Contents:
   - [Install Ranger and its User/Group sync agent](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#install-ranger-and-its-usergroup-sync-agent)
   - [Setup HDFS repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hdfs-repo-in-ranger)
+  - [HDFS Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hdfs-audit-exercises-in-ranger)
   - [Setup Hive repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hive-repo-in-ranger)
   - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hive-audit-exercises-in-ranger)
   - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hbase-repo-in-ranger)
