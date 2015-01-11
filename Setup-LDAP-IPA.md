@@ -34,17 +34,21 @@ ssh root@ldap.hortonworks.com
 ```
 
 - Apply OS updates
+```
 yum -y update
+```
 
 - turn off firewall
+```
 service iptables save
 service iptables stop
 chkconfig iptables off
-
+```
 - install IPA server
+```
 yum install -y "*ipa-server" bind bind-dyndb-ldap
-
-- add entry for ldap.hortonworks.com into the /etc/hosts file of the VM
+```
+- add entry for ldap.hortonworks.com into the /etc/hosts file of the VM <br />
 Assuming your network adapter is eth1, run below and then confirm the entry was correctly added
 ```
 IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
