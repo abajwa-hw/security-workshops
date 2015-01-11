@@ -1,5 +1,10 @@
 #### Hue config changes needed to make Hue work on a LDAP-enbled, kerborized cluster
 
+- Goals: 
+  - Kerberos enable Hue and integrate it with FreeIPAs directory
+
+- Now that kerberos has been enabled on the sandbox VM and LDAP has also been setup, we can configure Hue to for this configuration
+   
 -  Edit the kerberos principal to hadoop user mapping to add Hue
 Under Ambari > HDFS > Configs > hadoop.security.auth_to_local, add hue entry below. If the other entries do not exist, add them all
 ```
