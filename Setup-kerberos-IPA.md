@@ -7,6 +7,13 @@
   - Enable Kerberos for the HDP Cluster using FreeIPA server KDC to store Hadoop principals
   - Integrate Hue with FreeIPAs directory
   
+- Pre-requisites: 
+  - Have a started HDP sandbox VM started
+
+-----------------------
+ 
+#### Setup sandbox VM as IPA client so it recognizes LDAP users
+   
 - After VM boots up, find the IP address of the VM and add an entry into your machines hosts file e.g.
 ```
 192.168.191.241 sandbox.hortonworks.com sandbox    
@@ -111,6 +118,10 @@ The end user is getting a combined view of the linux and LDAP worlds in single l
 chkconfig sssd on
 ```
 
+-----------------------
+ 
+#### Generate keytabs and run Ambari security wizard
+
 - start Ambari and run the security wizard
 ```
 ./start_ambari.sh
@@ -207,6 +218,10 @@ hadoop fs -ls /user
 exit
 ```
 
+-----------------------
+ 
+#### Configure Hue for LDAP/kerberos
+
 - Open Hue and notice it **no longer works** e.g. FileBrowser givers error
 http://sandbox.hortonworks.com:8000
 
@@ -223,7 +238,11 @@ cat /etc/passwd | grep paul
 - We have now setup Authentication: LDAP users can authenticate using kinit via shell and submit hadoop commands or log into HUE to access Hadoop.
 
 
-- Extra:
+-----------------------
+ 
+#### Extra config
+
+- Update sandbox boot up script
 On rebooting the VM you may notice that datanode service does not come up on its own and you need to start it manually via Ambari.
 To automate this, change startup script to start data node as root:
 ```
