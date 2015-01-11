@@ -138,6 +138,9 @@ uiud, uidNumber, posixaccount, person, krbPrincipalName
 - Click on hr group and notice attributes. Some important ones:
 cn, gidNumber, posixgroup
 
+
+##### Extra steps to ensure IPA services are automatically started on boot
+
 - Configure VM to boot in text mode
 plymouth-set-default-theme text
 - Open file /boot/grub/grub.conf and remove both instances of "rhgb"
