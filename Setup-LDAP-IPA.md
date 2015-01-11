@@ -152,14 +152,21 @@ echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
 ```
 
 - Create script to generate /etc/hosts entry on startup
-
+```
+vi /root/gen_hosts.sh
 echo "# Do not remove the following line, or various programs" > /etc/hosts
 echo "# that require network functionality will fail." >> /etc/hosts
 echo "127.0.0.1         localhost.localdomain localhost" >> /etc/hosts
 echo "IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')" >> /etc/hosts
 echo "$IP  ldap.hortonworks.com  ldap" >> /etc/hosts
+```
 
+- Add this gen_hosts script, and command to bring up IPA services to boot script
+```
+chmod 755 /root/gen_hosts.sh
+echo "/root/gen_hosts.sh" >> /etc/rc.local
 echo "service ipa start" >> /etc/rc.local
+```
 
 - Note: moving forward before starting the HDP VM, you need to ensure IPA services are up. If not, they need to be started: 
 ```
