@@ -10,6 +10,13 @@
 - Pre-requisites: 
   - Have a started HDP sandbox VM started
 
+- Contents:
+  - [Setup sandbox VM as IPA client so it recognizes LDAP users](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#setup-sandbox-vm-as-ipa-client-so-it-recognizes-ldap-users)
+  - [Generate keytabs and run Ambari security wizard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#generate-keytabs-and-run-ambari-security-wizard)
+  - [Configure Hue for LDAP/kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#configure-hue-for-ldapkerberos)
+  - [Extra config](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#extra-config)
+  
+  
 -----------------------
  
 #### Setup sandbox VM as IPA client so it recognizes LDAP users
