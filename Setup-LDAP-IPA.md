@@ -10,10 +10,12 @@
   - http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso
 
 - Contents:
-  - [Setup Centos 6.5 on VM]()
-  - [Install and setup FreeIPA on VM]()
-  - [Import business users into LDAP]()
-  - [Configure IPA services are automatically started on boot]()
+  - [Setup Centos 6.5 on VM](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#setup-centos-65-on-vm)
+  - [Install and setup FreeIPA on VM](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#install-and-setup-freeipa-on-vm)
+  - [Import business users into LDAP](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#import-business-users-into-ldap)
+  - [Configure IPA services are automatically started on boot](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#configure-ipa-services-are-automatically-started-on-boot)
+
+------------------------
   
 ##### Setup Centos 6.5 on VM
 - Start a CentOS VM using above ISO
