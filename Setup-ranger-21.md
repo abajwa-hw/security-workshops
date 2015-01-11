@@ -131,7 +131,9 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
 - Edit HDFS settings via Ambari, under HDFS > Configs :
+```
 dfs.permissions.enabled = true
+```
 
 - Before restarting HDFS add below snippet to bottom of the file to start the Hadoop Security Agent with the NameNode service::
 ```
