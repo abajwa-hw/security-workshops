@@ -1,10 +1,21 @@
 
-##### Install a CentOS VM from iso and install FreeIPA on it 
+## Setup FreeIPA VM
+ 
+- Goals:
+  - Install a CentOS VM from iso and install FreeIPA on it
+  
 - Pre-requisites: 
   - Install VM software like VMWare or VirtualBox on your laptop
-  - Download CentOS 6.5 ISO image onto your laptop e.g.
+  - Download CentOS 6.5 ISO image onto your laptop e.g. from
   - http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso
 
+- Contents:
+  - [Setup Centos 6.5 on VM]()
+  - [Install and setup FreeIPA on VM]()
+  - [Import business users into LDAP]()
+  - [Configure IPA services are automatically started on boot]()
+  
+##### Setup Centos 6.5 on VM
 - Start a CentOS VM using above ISO
   - Open VMWare Fusion and click File > New > Install from disc/image > Use another disk 
   - Select the iso file >  Deselect easy install > Customize settings > name: CentOSx64-IPAserver
@@ -32,6 +43,10 @@ sudo vi /etc/hosts
 ssh root@ldap.hortonworks.com
 #password hadoop
 ```
+
+--------------------------
+
+##### Install and setup FreeIPA on VM
 
 - Apply OS updates
 ```
@@ -80,6 +95,10 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 ```
+
+--------------------------
+
+##### Import business users into LDAP
 
 - obtain a kerberos ticket for admin user using the hortonworks passwords setup earlier
 ```
@@ -138,8 +157,9 @@ uiud, uidNumber, posixaccount, person, krbPrincipalName
 - Click on hr group and notice attributes. Some important ones:
 cn, gidNumber, posixgroup
 
-
-##### Extra steps to ensure IPA services are automatically started on boot
+--------------------------
+ 
+##### Configure IPA services are automatically started on boot
 
 - Configure VM to boot in text mode
   - Run below command:
