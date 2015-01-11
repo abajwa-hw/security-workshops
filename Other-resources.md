@@ -38,6 +38,11 @@ echo "crypted_disk2 /dev/sdb mydisk.key luks" >> /etc/crypttab
 In 2.2, these can be configured to be live in HDFS (or combination of above). The format of this is also normalized to JSON so can run Hive queries for analysis
 There is also an idea of 'Store and forward': write to local file and periodically write to HDFS. In the future, we can aggregate same calls and write to kafka and other components
 
+- There are three main steps to set this up on 2.2. Detailed steps and script provided below:
+  - Create folders in HDFS using sample script [here](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/create_hdfs_folders_for_audit.sh)
+  - Set up audit policies using sample script [here](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/set_audit_policies.sh)
+  - Enable HDFS logging in Ranger plugin
+  
 ```
 #Need to create folders in HDFS 
 ./create_hdfs_folders_for_audit.sh
