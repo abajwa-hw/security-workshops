@@ -142,8 +142,11 @@ cn, gidNumber, posixgroup
 ##### Extra steps to ensure IPA services are automatically started on boot
 
 - Configure VM to boot in text mode
-plymouth-set-default-theme text
-- Open file /boot/grub/grub.conf and remove both instances of "rhgb"
+  - Run below command:
+  ```
+  plymouth-set-default-theme text
+  ```
+  - Edit file /boot/grub/grub.conf and remove both instances of "rhgb"
 
 - Setup time to be updated on regular basis to avoid kerberos errors
 ```
