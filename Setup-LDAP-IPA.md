@@ -69,13 +69,17 @@ ipa-server-install --setup-dns
   - Install/create and configure a Kerberos Key Distribution Center (KDC)
   - Configure Apache (httpd)
 
-- Not Needed configure the components to startup automatically on reboot
+- configure the components to startup automatically on reboot **(TODO: Not Needed?)**
+```
 for i in ipa krb5kdc ntpd named httpd dirsrv; do chkconfig $i on; done
+```
 
 - Sync time with ntp server to ensure time is upto date 
+```
 service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
+```
 
 - obtain a kerberos ticket for admin user using the hortonworks passwords setup earlier
 ```
