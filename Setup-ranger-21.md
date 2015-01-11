@@ -182,7 +182,7 @@ hdfs dfs -ls /rangerdemo
 ```
 - Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 
-- Attempt to access dir before/after adding group level Ranger HDFS policy
+- Attempt to access dir before adding group level Ranger HDFS policy
 ```
 su hr1
 hdfs dfs -ls /rangerdemo
@@ -199,7 +199,7 @@ Under Policy Manager tab, click "/rangerdemo" link
 under group add "hr" and give read, write, execute
 Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
 
-- this should pass now. View the audit page for the new activity
+-  Attempt to access dir after adding group level Ranger HDFS policy and this should pass now. View the audit page for the new activity
 ```
 hdfs dfs -ls /rangerdemo
 ```
