@@ -60,10 +60,13 @@ SYNC_LDAP_BIND_DN = uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
 SYNC_LDAP_BIND_PASSWORD = hortonworks
 SYNC_LDAP_USER_SEARCH_BASE = cn=users,cn=accounts,dc=hortonworks,dc=com
 SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
-
-./install.sh
-
 ```
+
+- Install the service
+```
+./install.sh
+```
+
 - Start the service
 ```
 ./start.sh
