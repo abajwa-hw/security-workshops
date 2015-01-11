@@ -83,6 +83,7 @@ tail -f /var/log/uxugsync/unix-auth-sync.log
 ```
 
 - Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
+
 http://sandbox.hortonworks.com:6080
 
 ---------------------
