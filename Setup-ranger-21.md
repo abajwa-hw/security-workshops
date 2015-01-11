@@ -8,8 +8,21 @@
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
 
-At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
+- Pre-requisites:
+  - At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
 
+- Contents:
+  - [Install Ranger and its User/Group sync agent](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#install-ranger-and-its-usergroup-sync-agent)
+  - [Setup HDFS repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hdfs-repo-in-ranger)
+  - [Setup Hive repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hive-repo-in-ranger)
+  - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hive-audit-exercises-in-ranger)
+  - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hbase-repo-in-ranger)
+  - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hbase-audit-exercises-in-ranger)
+  
+
+
+
+  
 #####  Install Ranger and its User/Group sync agent
 
 
@@ -87,6 +100,12 @@ tail -f /var/log/uxugsync/unix-auth-sync.log
 http://sandbox.hortonworks.com:6080
 
 ---------------------
+
+
+
+
+
+
 
 #####  Setup HDFS repo in Ranger
 
@@ -207,6 +226,15 @@ hdfs dfs -ls /rangerdemo
 - Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
 ---------------------
+
+
+
+
+
+
+
+
+
 
 #####  Setup Hive repo in Ranger
 
@@ -406,6 +434,14 @@ select code,description from sample_08 limit 5;
 - Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
 
 ---------------------
+
+
+
+
+
+
+
+
 
 #####  Setup HBase repo in Ranger
 
