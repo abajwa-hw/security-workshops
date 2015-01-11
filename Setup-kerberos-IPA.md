@@ -121,34 +121,38 @@ chkconfig sssd on
   - Realm name = HORTONWORKS.COM
   - Click Next > Next
   - Do NOT click Apply yet
-  - Download CSV and ftp to both ipa and sandbox VMs 
+  - Download CSV and ftp to **both IPA and sandbox VMs** where we will use it to:
+    - Create the Hadoop service principals on the IPA VM
+    - Create the Hadoop service keytabs on the sandbox VM
 
--  **Go back to the IPA VM** to run these steps to create principals for Hadoop components on IPA VM using the csv
-  - Edit host-principal-keytab-list.csv and add hue and knox principal at the end, making sure no empty lines at the end
+-  **On the IPA VM** to run these steps to create principals for Hadoop components on IPA VM using the csv
+  - Edit host-principal-keytab-list.csv and and move entry containing 'rm.service.keytab' to top of the file. Also add hue and knox principal at the end, making sure no empty lines at the end
   ```
   vi host-principal-keytab-list.csv
   sandbox.hortonworks.com,Hue,hue/sandbox.hortonworks.com@HORTONWORKS.COM,hue.service.keytab,/etc/security/keytabs,hue,hadoop,400
   sandbox.hortonworks.com,Knox,knox/sandbox.hortonworks.com@HORTONWORKS.COM,knox.service.keytab,/etc/security/keytabs,knox,hadoop,400
   ```
-  - create principals. 
+  - Create Hadoop service principals on the IPA VM
   ```
   for i in `awk -F"," '/service/ {print $3}' host-principal-keytab-list.csv` ; do ipa service-add $i ; done
   ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
   ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
+  #The below is not needed for HDP 2.1, only 2.2
   ipa user-add storm  --first=STORM --last=HADOOP --homedir=/home/storm --shell=/bin/bash 
   ```
-  The following message is ignorable: service with name "HTTP/sandbox.hortonworks.com@HORTONWORKS.COM" already exists
+  The following message is ignorable: service with name "HTTP/sandbox.hortonworks.com@HORTONWORKS.COM" already exists <br />
+  
 
 - We are now done with setup on IPA VM. The remaining steps will only be run on sandbox VM
 
-- **On sandbox VM** make the same changes to csv file
+- **On sandbox VM** make the same changes to csv file as above: first move the entry containing 'rm.service.keytab' to top of the file and add below entries to the end of the file 
 ``` 
 vi host-principal-keytab-list.csv
 sandbox.hortonworks.com,Hue,hue/sandbox.hortonworks.com@HORTONWORKS.COM,hue.service.keytab,/etc/security/keytabs,hue,hadoop,400
 sandbox.hortonworks.com,Knox,knox/sandbox.hortonworks.com@HORTONWORKS.COM,knox.service.keytab,/etc/security/keytabs,knox,hadoop,400
 ```
 
-- On sandbox vm, create the keytab files for the Hadoop components (ignore the message about one of the keytabs not getting generated)
+- On the same sandbox vm, create the keytab files for the Hadoop components (ignore the message about one of the keytabs not getting generated)
 ```
 kinit admin
 mkdir /etc/security/keytabs/
@@ -167,9 +171,8 @@ klist -ekt /etc/security/keytabs/nn.service.keytab
 - Verify you can kinit as hadoop components. This should not return any errors
 kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HORTONWORKS.COM
 
-- Click Apply in Ambari to enable security and restart all the components
-If the wizard errors out towards the end due to a component not starting up, 
-its not a problem: you should be able to start it up manually via Ambari
+- Click Apply in Ambari to enable security and restart all the components (may take 10-15 min)
+If the wizard errors out towards the end due to a component not starting up, its not a problem: you should be able to start it up manually via Ambari
 
 - Verify that we have kerberos enablement on our cluster and that hue user can kinit successfully using Hue keytab
 
