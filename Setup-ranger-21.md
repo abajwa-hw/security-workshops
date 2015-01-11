@@ -169,12 +169,13 @@ hdfs dfs -ls /rangerdemo
 ```
 - Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 
-- Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy
+- Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy:
+```
 Resource path: /rangerdemo
 Recursive: True
 User: ali and give read, write, execute
 Save > OK and wait 30s
-
+```
 - now this should succeed
 ```
 hdfs dfs -ls /rangerdemo
