@@ -8,7 +8,19 @@
   - Define HDFS & Hive Access Policy For Users
   - Log into Hue as the end user and note the authorization policies being enforced
 
-At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
+- Pre-requisites:
+  - At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
+
+- Contents:
+  - [Install Ranger and its User/Group sync agent](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#install-ranger-and-its-usergroup-sync-agent)
+  - [Setup HDFS repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-hdfs-repo-in-ranger)
+  - [HDFS Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#hdfs-audit-exercises-in-ranger)
+  - [Setup Hive repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-hive-repo-in-ranger)
+  - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#hive-audit-exercises-in-ranger)
+  - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-hbase-repo-in-ranger)
+  - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#hbase-audit-exercises-in-ranger)
+  
+
 
 #####  Install Ranger and its User/Group sync agent
 
