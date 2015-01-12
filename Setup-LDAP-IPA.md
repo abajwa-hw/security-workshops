@@ -117,7 +117,6 @@ ipa group-add finance --desc finance
 
 
 #Setup LDAP users
-ipa user-add xapolicymgr --first=XAPolicy --last=Manager
 ipa user-add  ali --first=ALI --last=BAJWA
 ipa user-add  paul --first=PAUL --last=HEARMON
 ipa user-add legal1 --first=legal1 --last=legal1
@@ -126,6 +125,8 @@ ipa user-add legal3 --first=legal3 --last=legal3
 ipa user-add hr1 --first=hr1 --last=hr1
 ipa user-add hr2 --first=hr2 --last=hr2
 ipa user-add hr3 --first=hr3 --last=hr3
+ipa user-add xapolicymgr --first=XAPolicy --last=Manager
+ipa user-add rangeradmin --first=Ranger --last=Admin
 
 #Add users to groups
 ipa group-add-member sales --users=ali,paul
@@ -147,6 +148,7 @@ ipa passwd hr1 < tmp.txt
 ipa passwd hr2 < tmp.txt
 ipa passwd hr3 < tmp.txt
 ipa passwd xapolicymgr < tmp.txt
+ipa passwd rangeradmin < tmp.txt
 rm -f tmp.txt
 ```
 - Use JXplorer to browse the LDAP structure we just setup
