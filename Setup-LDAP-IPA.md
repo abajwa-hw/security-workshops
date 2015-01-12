@@ -66,9 +66,9 @@ chkconfig iptables off
 yum install -y "*ipa-server" bind bind-dyndb-ldap
 ```
 - add entry for ldap.hortonworks.com into the /etc/hosts file of the VM <br />
-Assuming your network adapter is eth1, run below and then confirm the entry was correctly added
+Assuming your network adapter is eth0, run below and then confirm the entry was correctly added
 ```
-IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 echo $IP  ldap.hortonworks.com >> /etc/hosts
 ```
 
@@ -185,7 +185,7 @@ vi /root/gen_hosts.sh
 echo "# Do not remove the following line, or various programs" > /etc/hosts
 echo "# that require network functionality will fail." >> /etc/hosts
 echo "127.0.0.1         localhost.localdomain localhost" >> /etc/hosts
-echo "IP=$(/sbin/ifconfig eth1 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')" >> /etc/hosts
+echo "IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')" >> /etc/hosts
 echo "$IP  ldap.hortonworks.com  ldap" >> /etc/hosts
 ```
 
