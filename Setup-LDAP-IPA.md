@@ -133,7 +133,7 @@ ipa group-add-member sales --users=ali,paul
 ipa group-add-member finance --users=ali,paul
 ipa group-add-member legal --users=legal1,legal2,legal3
 ipa group-add-member hr --users=hr1,hr2,hr3
-
+ipa group-add-member admins --users=xapolicymgr,rangeradmin
 
 #Set passwords for accounts: hortonworks
 echo hortonworks >> tmp.txt
