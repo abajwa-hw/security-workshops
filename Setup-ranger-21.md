@@ -21,6 +21,8 @@
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hbase-audit-exercises-in-ranger)
   
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=Qi-fxJTNhtY" target="_blank"><img src="http://img.youtube.com/vi/Qi-fxJTNhtY/0.jpg" alt="Authorization and Audit" width="240" height="180" border="10" /></a>
+
 ---------------------------
 
 
