@@ -135,6 +135,9 @@ XAAUDIT.DB.DATABASE_NAME=ranger_audit
 XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 
+```
+- Enable Ranger HDFS plugin
+```
 ./enable-hdfs-plugin.sh
 ```
 
@@ -388,7 +391,7 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-- Enable plugin
+- Enable Ranger HBase plugin
 ```
 ./enable-hbase-plugin.sh
 ```
