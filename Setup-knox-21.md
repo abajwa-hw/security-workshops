@@ -9,6 +9,11 @@
 - Why? 
   - Enables Perimeter Security so there is a single point of cluster access using Hadoop REST APIs, JDBC and ODBC calls 
 
+- Video:
+  - <a href="http://www.youtube.com/watch?feature=player_embedded&v=klAWTodCPZo" target="_blank"><img src="http://img.youtube.com/vi/klAWTodCPZo/0.jpg" alt="Perimeter Security" width="240" height="180" border="10" /></a>
+
+----------------------
+
 #### Setup Knox on HDP 2.1 sandbox
 
 - Add the below to HDFS config via Ambari:
