@@ -262,6 +262,7 @@ Click Add
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running Hive**
 
+```
 cd /tmp/xasecure
 wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-hive-3.5.001-release.tar
 tar -xvf xasecure-hive-3.5.001-release.tar
@@ -274,6 +275,7 @@ XAAUDIT.DB.HOSTNAME=localhost
 XAAUDIT.DB.DATABASE_NAME=xasecure
 XAAUDIT.DB.USER_NAME=xalogger
 XAAUDIT.DB.PASSWORD=hortonworks
+```
 
 - Start Hive plugin
 ```
