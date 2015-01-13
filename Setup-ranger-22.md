@@ -417,6 +417,7 @@ create 't1', 'f1'
 **Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
 
 **TODO:** add steps
+
 ---------------------
 
 #####  Setup Storm repo in Ranger
