@@ -20,7 +20,7 @@
   - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hbase-repo-in-ranger)
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hbase-audit-exercises-in-ranger)
   
-
+Note: if this were a multi-node cluster, you would run these steps on the host running the NameNode
 
 ---------------------------
 
