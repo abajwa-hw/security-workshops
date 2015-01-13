@@ -217,7 +217,9 @@ jdbc.url= jdbc:hive2://sandbox:10000/default;principal=hive/sandbox.hortonworks.
 Click Test and Add
 
 - install Hive plugin
+
 **Note: if this were a multi-node cluster, you would run these steps on the host running Hive**
+
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-hive-plugin
 vi install.properties
@@ -368,7 +370,9 @@ zookeeper.znode.parent=/hbase-secure
 - Click Test and Add
 
 - Install HBase plugin
+
 **Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-hbase-plugin
 vi install.properties
