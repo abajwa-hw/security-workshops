@@ -20,7 +20,6 @@
   - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#setup-hbase-repo-in-ranger)
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-21.md#hbase-audit-exercises-in-ranger)
   
-Note: if this were a multi-node cluster, you would run these steps on the host running the NameNode
 
 ---------------------------
 
@@ -133,6 +132,7 @@ mysql -u xalogger -phortonworks -h localhost xasecure
 ```
 
 - Setup Ranger HDFS plugin
+Note: if this were a multi-node cluster, you would run these steps on the host running the NameNode
 ```
 cd /tmp/xasecure
 wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-hadoop-3.5.001-release.tar
@@ -256,6 +256,7 @@ jdbc.url= jdbc:hive2://sandbox:10000/
 Click Add
 ```
 - install Hive plugin
+Note: if this were a multi-node cluster, you would run these steps on the host running Hive
 
 cd /tmp/xasecure
 wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-hive-3.5.001-release.tar
@@ -449,6 +450,8 @@ select code,description from sample_08 limit 5;
 #####  Setup HBase repo in Ranger
 
 - Start HBase using Ambari
+
+Note: if this were a multi-node cluster, you would run these steps on the host running HBase
 
 - **TODO: add HBase plugin config steps**
 
