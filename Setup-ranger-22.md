@@ -118,6 +118,8 @@ mysql -u rangerlogger -phortonworks -h localhost
 ```
 
 - Setup Ranger HDFS plugin
+Note: if this were a multi-node cluster, you would run these steps on the host running NameNode
+
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-hdfs-plugin
 vi install.properties
@@ -214,7 +216,8 @@ jdbc.url= jdbc:hive2://sandbox:10000/default;principal=hive/sandbox.hortonworks.
 Click Test and Add
 
 - install Hive plugin
-
+Note: if this were a multi-node cluster, you would run these steps on the host running Hive
+```
 cd /usr/hdp/2.2.0.0-2041/ranger-hive-plugin
 vi install.properties
 
@@ -228,8 +231,12 @@ XAAUDIT.DB.HOSTNAME=localhost
 XAAUDIT.DB.DATABASE_NAME=ranger_audit
 XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
-
+```
+- Enable Hive plugin
+```
 ./enable-hive-plugin.sh
+```
+
 - restart Hive in Ambari
 
 - As an LDAP user, perform some Hive activity
@@ -359,7 +366,8 @@ zookeeper.znode.parent=/hbase-secure
 
 - Click Test and Add
 
-- Install Hbase plugin
+- Install HBase plugin
+Note: if this were a multi-node cluster, you would run these steps on the host running HBase
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-hbase-plugin
 vi install.properties
@@ -396,6 +404,24 @@ list 'default'
 create 't1', 'f1'
 #ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 ```
+
 ---------------------
+
+#####  Setup Knox repo in Ranger
+
+Note: if this were a multi-node cluster, you would run these steps on the host running Knox
+
+*TODO:* add steps
+---------------------
+
+#####  Setup Storm repo in Ranger
+
+Note: if this were a multi-node cluster, you would run these steps on the host running Storm
+
+*TODO:* add steps
+
+---------------------
+
+
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
