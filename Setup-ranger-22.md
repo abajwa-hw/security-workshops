@@ -118,6 +118,7 @@ mysql -u rangerlogger -phortonworks -h localhost
 ```
 
 - Setup Ranger HDFS plugin
+
 **Note: if this were a multi-node cluster, you would run these steps on the host running NameNode**
 
 ```
