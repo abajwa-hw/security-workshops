@@ -16,7 +16,7 @@
   - [Configure IPA services are automatically started on boot](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#configure-ipa-services-are-automatically-started-on-boot)
 
 - Video:
-  - <a href="http://www.youtube.com/watch?feature=player_embedded&v=qlUWe75Shno" target="_blank"><img src="http://img.youtube.com/vi/qlUWe75Shno/0.jpg" alt="Setup IPA" width="240" height="180" border="10" /></a>
+  - <a href="http://www.youtube.com/watch?feature=player_embedded&v=qlUWe75Shno&t=0m0s" target="_blank"><img src="http://img.youtube.com/vi/qlUWe75Shno/0.jpg" alt="Setup IPA" width="240" height="180" border="10" /></a>
 
 ------------------------
   
