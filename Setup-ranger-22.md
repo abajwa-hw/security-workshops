@@ -24,9 +24,11 @@
 
 #####  Install Ranger and its User/Group sync agent
 
-- Verify you can su as rangeradmin and set the password to hortonworks
+- Verify you can kinit as rangeradmin and set the password to hortonworks
 ```
 su rangeradmin
+kinit
+#hortonworks
 ```
 
 - Download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)
