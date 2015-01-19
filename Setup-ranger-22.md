@@ -311,6 +311,7 @@ col name: code description
 user: ali and check “select”
 Add
 ```
+![Image](../master/screenshots/ranger-hive-sample07-partial.png?raw=true)
 
 ```
 db name: default
@@ -319,6 +320,8 @@ col name: *
 user: ali and check "select"
 Add
 ```
+![Image](../master/screenshots/ranger-hive-sample08-full.png?raw=true)
+
 - Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
 
 - these will not work as user does not have access to all columns of sample_07
@@ -344,16 +347,13 @@ col name: code description
 group: legal and check “select”
 Add
 ```
+![Image](../master/screenshots/ranger-hive-sample08-partial.png?raw=true)
 
-- Save and wait 30s
+- Save and wait 30s. You can review the policy summary in Analytics tab
+![Image](../master/screenshots/ranger-hive-analytics.png?raw=true)
 
-- create user dir for legal1
-```
-su hdfs -c "hdfs dfs -mkdir /user/legal1"
-su hdfs -c "hdfs dfs -chown legal1 /user/legal1"
-```
 
-- This time lets try running the queries via Beeline interface
+- Connect to beeline as legal1
 ```
 su legal1
 klist
@@ -375,6 +375,7 @@ select code,description from sample_08 limit 5;
 ```
 
 - Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
+![Image](../master/screenshots/ranger-hive-audit.png?raw=true)
 
 ---------------------
 
