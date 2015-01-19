@@ -93,7 +93,7 @@ ipa-server-install --setup-dns
 
 - configure the components to startup automatically on reboot **(TODO: Not Needed?)**
 ```
-for i in ipa krb5kdc ntpd named httpd dirsrv; do chkconfig $i on; done
+chkconfig ipa on
 ```
 
 - Sync time with ntp server to ensure time is upto date 
@@ -192,7 +192,7 @@ vi /root/gen_hosts.sh
 echo "# Do not remove the following line, or various programs" > /etc/hosts
 echo "# that require network functionality will fail." >> /etc/hosts
 echo "127.0.0.1         localhost.localdomain localhost" >> /etc/hosts
-echo "IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')" >> /etc/hosts
+IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 echo "$IP  ldap.hortonworks.com  ldap" >> /etc/hosts
 ```
 
@@ -200,7 +200,6 @@ echo "$IP  ldap.hortonworks.com  ldap" >> /etc/hosts
 ```
 chmod 755 /root/gen_hosts.sh
 echo "/root/gen_hosts.sh" >> /etc/rc.local
-echo "service ipa start" >> /etc/rc.local
 ```
 
 - Note: moving forward before starting the HDP VM, you need to ensure IPA services are up. If not, they need to be started: 
