@@ -197,7 +197,7 @@ kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HOR
 ```
 
 - Click Apply in Ambari to enable security and restart all the components (may take 10-15 min)
-If the wizard errors out towards the end due to a component not starting up, its not a problem: you should be able to start it up manually via Ambari
+If the wizard errors out towards the end due to a component not starting up, its not a problem: you should be able to Retry or start it up manually via Ambari
 
 - Verify that we have kerberos enabled on our cluster and that LDAP users can successfully kinit and run HDFS commands
 
