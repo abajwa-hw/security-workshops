@@ -322,7 +322,7 @@ Add
 ```
 ![Image](../master/screenshots/ranger-hive-sample08-full.png?raw=true)
 
-- Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
+- Save and wait 30s.
 
 - these will not work as user does not have access to all columns of sample_07
 ```
@@ -349,7 +349,7 @@ Add
 ```
 ![Image](../master/screenshots/ranger-hive-sample08-partial.png?raw=true)
 
-- Save and wait 30s. You can review the policy summary in Analytics tab
+- Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
 ![Image](../master/screenshots/ranger-hive-analytics.png?raw=true)
 
 
