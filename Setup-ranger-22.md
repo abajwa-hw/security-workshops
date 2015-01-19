@@ -407,7 +407,7 @@ hbase.zookeeper.property.clientPort=2181
 hbase.zookeeper.quorum=sandbox.hortonworks.com
 zookeeper.znode.parent=/hbase-secure
 ```
-
+![Image](../master/screenshots/ranger-hbase-setup.png?raw=true)
 - Click Test and Add
 
 - Install HBase plugin
@@ -434,22 +434,51 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-hbase-plugin.sh
 ```
 
-- Make the below changes in ambari and restart Hbase
+- **Make the below changes in Ambari and then restart Hbase**
 ```
 hbase.security.authorization=true
 hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 hbase.coprocessor.region.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
 ```
+- Notice that the HBase agent shows up in the list of agents
+![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
 
 #####  HBase audit exercises in Ranger
+- Login as to beeswax user ali and try to create HBase table 
 ```
 su ali
 klist
 hbase shell
 list 'default'
 create 't1', 'f1'
-#ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 ```
+- You should see the below error
+```
+ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
+```
+- In the Ranger Audit, you should see this denial
+![Image](../master/screenshots/ranger-hbase-audit-denied.png?raw=true)
+
+- Setup a policy that gives ali user authority to create t1 table
+```
+Table name: t1
+Column family: *
+Column name: *
+User permissions: Add ali and give admin access
+```
+![Image](../master/screenshots/ranger-hbase-policy.png?raw=true)
+
+- Review the analytics page while waiting for 30s
+![Image](../master/screenshots/ranger-hbase-analytics.png?raw=true)
+
+- Retry the create table. This time it should succeed.
+```
+create 't1', 'f1'
+exit
+```
+
+- Now look at the audit reports for the above and notice that audit reports for these queries show up in Ranger 
+![Image](../master/screenshots/ranger-hbase-audit-allowed.png?raw=true)
 
 ---------------------
 
