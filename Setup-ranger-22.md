@@ -279,7 +279,7 @@ CREATE TABLE `sample_07` (
   `description` string ,  
   `total_emp` int ,  
   `salary` int )
-  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile
+  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
   
   
   CREATE TABLE `sample_08` (
@@ -287,8 +287,9 @@ CREATE TABLE `sample_07` (
   `description` string ,  
   `total_emp` int ,  
   `salary` int )
-  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile
+  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
   
+!q
 ```
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
 
