@@ -97,7 +97,6 @@ tail -f /var/log/ranger/usersync/usersync.log
 
 - Open WebUI and login as admin/admin. 
 http://sandbox.hortonworks.com:6080
-
 ![Image](../master/screenshots/ranger-start.png?raw=true)
 
 - Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
@@ -163,7 +162,7 @@ su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 ```
 
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Big Data tab you can see audit trail of what user accessed HDFS at what time with what result
-
+![Image](../master/screenshots/ranger-hdfs-agent.png?raw=true)
 
 ##### HDFS Audit Exercises in Ranger:
 ```
