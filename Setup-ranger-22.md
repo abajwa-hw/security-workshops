@@ -301,7 +301,7 @@ service hue restart
 #####  Hive Audit Exercises in Ranger
 
 
-- Create hive policies in Ranger for user ali
+- Create hive policies in Ranger for user ali so he has read access to all columns in sample_08 but to only 2 cols in sample_07
 ```
 db name: default
 table: sample_07
@@ -349,7 +349,7 @@ exit
 - Now look at the audit reports for the above and notice that audit reports for the queries show up in Ranger 
 
 
-- Create hive policies in Ranger for group legal
+- Create hive policy in Ranger for group legal so members have read access to all columns of sample_08
 ```
 db name: default
 table: sample_08
