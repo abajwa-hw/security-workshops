@@ -172,11 +172,11 @@ hdfs dfs -ls /rangerdemo
 ```
 - Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 
-- Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy
-Resource path: /rangerdemo
-Recursive: True
-User: ali and give read, write, execute
-Save > OK and wait 30s
+- Add policy in Ranger PolicyManager > hdfs_sandbox > Add new policy
+  - Resource path: /rangerdemo
+  - Recursive: True
+  - User: ali and give read, write, execute
+  - Save > OK and wait 30s
 
 - now this should succeed
 ```
@@ -196,10 +196,10 @@ hdfs dfs -ls /rangerdemo
 #this should fail with "Permission denied". View the audit page for the new activity
 ```
 
-- Add hr group to existing policy in Ranger
-Under Policy Manager tab, click "/rangerdemo" link
-under group add "hr" and give read, write, execute
-Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
+- Add hr group to existing policy in Ranger:
+  - Under Policy Manager tab, click "/rangerdemo" link
+  - under group add "hr" and give read, write, execute
+  - Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
 
 - this should pass now. View the audit page for the new activity
 ```
