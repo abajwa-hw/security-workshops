@@ -43,7 +43,7 @@ vi /usr/lib/hue/tools/start_scripts/gen_hosts.sh
 echo "192.168.191.211 ldap.hortonworks.com  ldap" >> /etc/hosts
 ```
 
-- Alternatively, if you prefer to instead be prompted for the IP address of your IPA server on each reboot, add below to bottom of gen_hosts.sh
+- Alternatively, if you prefer to instead be prompted for the IP address of your IPA server on each reboot, add below to bottom of /usr/lib/hue/tools/start_scripts/gen_hosts.sh
 ```
 loop=1
 while [ $loop -eq 1 ]
