@@ -485,9 +485,77 @@ exit
 
 #####  Setup Knox repo in Ranger
 
+###### Pre-requisite steps
+
 **Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
 
-**TODO:** add steps
+- Start Knox using Ambari
+
+- Export certificate to ~/knox.crt
+```
+cd /var/lib/knox/data/security/keystores
+keytool -exportcert -alias gateway-identity -keystore gateway.jks -file ~/knox.crt
+#hit enter
+```
+
+- Import ~/knox.crt
+```
+cd ~
+. /etc/ranger/admin/conf/java_home.sh
+
+cp $JAVA_HOME/jre/lib/security/cacerts cacerts.withknox
+keytool -import -trustcacerts -file knox.crt   -alias knox  -keystore cacerts.withknox
+#Enter changeit as password
+#Type yes
+```
+- Copy cacerts.withknox to ranger conf dir
+```
+cp cacerts.withknox /etc/ranger/admin/conf
+```
+
+- vi /etc/ranger/admin/conf/ranger-admin-env-knox_cert.sh
+```
+#!/bin/bash                                                                                    
+certs_with_knox=/etc/ranger/admin/conf/cacerts.withknox
+export JAVA_OPTS="$JAVA_OPTS -Djavax.net.ssl.trustStore=${certs_with_knox}"
+```
+
+- Restart service 
+```
+chmod +x /etc/ranger/admin/conf/ranger-admin-env-knox_cert.sh
+service ranger-admin stop
+service ranger-admin start
+```
+
+- verify that javax.net.ssl.trustStore property was applied
+```
+ps -ef | grep proc_rangeradmin
+```
+###### Setup Knox repo
+
+- In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
+
+```
+Repository Name: knox_sandbox
+username: admin
+password: admin-password
+knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
+```
+![Image](../master/screenshots/ranger-knox-setup.png?raw=true)
+
+- Click Test and Add
+
+```
+	<provider>
+		<role>authorization</role>
+         	<name>XASecurePDPKnox</name>
+         	<enabled>true</enabled>
+	</provider>
+
+su -l knox /usr/hdp/current/knox-server/bin/gateway.sh stop
+su -l knox /usr/hdp/current/knox-server/bin/gateway.sh start
+curl -iv -k -u guest:guest-password https://ip-172-31-41-138.ec2.internal:8443/gateway/sandbox/webhdfs/v1/?op=LISTSTATUS
+```
 
 ---------------------
 
