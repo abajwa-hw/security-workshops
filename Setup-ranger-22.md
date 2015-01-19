@@ -19,7 +19,8 @@
   - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#hive-audit-exercises-in-ranger)
   - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-hbase-repo-in-ranger)
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#hbase-audit-exercises-in-ranger)
-  
+  - [Setup Knox repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-knox-repo-in-ranger)  
+  - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-22.md#setup-storm-repo-in-ranger)  
 
 
 #####  Install Ranger and its User/Group sync agent
