@@ -533,6 +533,11 @@ ps -ef | grep proc_rangeradmin
 ```
 ###### Setup Knox repo
 
+- Add the below to HDFS config via Ambari and restart HDFS:
+```
+hadoop.proxyuser.knox.groups = * 
+hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
+```	
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
 
 ```
@@ -545,16 +550,23 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 
 - Click Test and Add
 
+- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway>
 ```
 	<provider>
 		<role>authorization</role>
          	<name>XASecurePDPKnox</name>
          	<enabled>true</enabled>
 	</provider>
-
+```
+- Restart Gateway
+```
 su -l knox /usr/hdp/current/knox-server/bin/gateway.sh stop
 su -l knox /usr/hdp/current/knox-server/bin/gateway.sh start
-curl -iv -k -u guest:guest-password https://ip-172-31-41-138.ec2.internal:8443/gateway/sandbox/webhdfs/v1/?op=LISTSTATUS
+```
+
+- Submit a WebHDFS request using curl: 
+```
+curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/sandbox/webhdfs/v1/?op=LISTSTATUS
 ```
 
 ---------------------
