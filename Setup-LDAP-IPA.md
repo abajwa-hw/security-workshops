@@ -33,7 +33,9 @@
   - Then select "Write changes to disk" and this should install CentOS. Click Reboot once done
 
 - After the reboot, login as root/hadoop and find the IP address
+```
 ip a
+```
  
 - Now you can open a terminal window to run the remaining commands against this VM from there
 
