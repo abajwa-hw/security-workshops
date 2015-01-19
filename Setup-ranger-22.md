@@ -301,8 +301,6 @@ service hue restart
 #####  Hive Audit Exercises in Ranger
 
 
-- Run the below queries using beeline
-
 - Create hive policies in Ranger for user ali
 ```
 db name: default
@@ -324,6 +322,15 @@ Add
 
 - Save and wait 30s.
 
+- As user ali, connect to beeline
+```
+su ali
+klist
+kinit
+beeline
+!connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
+#Hit enter twice when it prompts for password
+```
 - these will not work as user does not have access to all columns of sample_07
 ```
 desc sample_07;
@@ -334,9 +341,12 @@ select * from sample_07 limit 1;
 select code,description from sample_07 limit 1;
 desc sample_08;
 select * from sample_08 limit 1;  
+!q
+exit
+
 ```
 
-- Now look at the audit reports for the above and notice that audit reports for Beeswax queries show up in Ranger 
+- Now look at the audit reports for the above and notice that audit reports for the queries show up in Ranger 
 
 
 - Create hive policies in Ranger for group legal
