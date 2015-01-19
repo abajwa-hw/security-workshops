@@ -95,10 +95,13 @@ ps -ef|grep proc_ranger
 tail -f /var/log/ranger/usersync/usersync.log
 ```
 
-- Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
+- Open WebUI and login as admin/admin. 
 http://sandbox.hortonworks.com:6080
 
 ![Image](../master/screenshots/ranger-start.png?raw=true)
+
+- Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
+![Image](../master/screenshots/ranger-ldap-users.png?raw=true)
 
 ---------------------
 
