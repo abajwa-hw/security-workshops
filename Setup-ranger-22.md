@@ -554,8 +554,8 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 ```
 	<provider>
 		<role>authorization</role>
-         	<name>XASecurePDPKnox</name>
-         	<enabled>true</enabled>
+        <name>XASecurePDPKnox</name>
+        <enabled>true</enabled>
 	</provider>
 ```
 - Restart Gateway
