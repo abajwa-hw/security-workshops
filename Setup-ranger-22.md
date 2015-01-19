@@ -188,7 +188,6 @@ hdfs dfs -ls /rangerdemo
 hdfs dfs -ls /rangerdemo
 ```
 - Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
-
 ![Image](../master/screenshots/ranger-hdfs-audit.png?raw=true)
 
 - Attempt to access dir before/after adding group level Ranger HDFS policy
@@ -235,6 +234,7 @@ jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
 jdbc.url= jdbc:hive2://sandbox:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 Click Test and Add
 ```
+![Image](../master/screenshots/ranger-hive-setup.png?raw=true)
 
 - install Hive plugin
 
@@ -262,18 +262,33 @@ XAAUDIT.DB.PASSWORD=hortonworks
 
 - restart Hive in Ambari
 
-- As an LDAP user, perform some Hive activity
+- Create a policy for admin user granting admin access to default database
+![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
+
+- As admin user, create Hive tables
 ```
-su ali
-kinit
-#kinit: Client not found in Kerberos database while getting initial credentials
-kinit ali
+kinit admin
 #hortonworks
 
 beeline
 !connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
-#hit enter twice
+#hit enter twice to pass in empty user/pass
 use default;
+CREATE TABLE `sample_07` (
+  `code` string ,
+  `description` string ,  
+  `total_emp` int ,  
+  `salary` int )
+  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile
+  
+  
+  CREATE TABLE `sample_08` (
+  `code` string ,
+  `description` string ,  
+  `total_emp` int ,  
+  `salary` int )
+  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile
+  
 ```
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
 
@@ -285,15 +300,7 @@ service hue restart
 #####  Hive Audit Exercises in Ranger
 
 
-- create user dir for ali
-```
-su  hdfs -c "hdfs dfs -mkdir /user/ali"
-su hdfs -c "hdfs dfs -chown ali /user/ali"
-```
-
-- Sign out of Hue and sign back in as ali/hortonworks
-
-- Run the below queries using the Beeswax Hue interface or beeline
+- Run the below queries using beeline
 
 - Create hive policies in Ranger for user ali
 ```
