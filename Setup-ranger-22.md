@@ -106,7 +106,7 @@ http://sandbox.hortonworks.com:6080
 ```
 Repository name: hdfs_sandbox
 Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
-Password: rangeradmin
+Password: hortonworks
 fs.default.name: hdfs://sandbox.hortonworks.com:8020
 hadoop.security.authorization: true
 hadoop.security.authentication: kerberos
