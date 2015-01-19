@@ -98,6 +98,8 @@ tail -f /var/log/ranger/usersync/usersync.log
 - Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
 http://sandbox.hortonworks.com:6080
 
+![Image](../master/screenshots/ranger-start.png?raw=true)
+
 ---------------------
 
 #####  Setup HDFS repo in Ranger
@@ -117,6 +119,7 @@ dfs.secondary.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 hadoop.rpc.protection : (blank)
 Common Name For Certificate: (blank)
 ```
+![Image](../master/screenshots/ranger-hdfs-setup.png?raw=true)
 
 - Make sure mysql connection works before setting up HDFS plugin
 ```
@@ -184,6 +187,8 @@ hdfs dfs -ls /rangerdemo
 ```
 - Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 
+![Image](../master/screenshots/ranger-hdfs-audit.png?raw=true)
+
 - Attempt to access dir before/after adding group level Ranger HDFS policy
 ```
 su hr1
@@ -199,7 +204,10 @@ hdfs dfs -ls /rangerdemo
 - Add hr group to existing policy in Ranger:
   - Under Policy Manager tab, click "/rangerdemo" link
   - under group add "hr" and give read, write, execute
+  - ![Image](../master/screenshots/ranger-hdfs-rangerdemo.png?raw=true)
   - Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
+
+![Image](../master/screenshots/ranger-hdfs-analytics.png?raw=true)
 
 - this should pass now. View the audit page for the new activity
 ```
@@ -213,7 +221,7 @@ hdfs dfs -ls /rangerdemo
 #####  Setup Hive repo in Ranger
 
 - In Ambari, add admins group and restart HDFS
-hadoop.proxyuser.hive.groups: users, hr, admins
+hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
