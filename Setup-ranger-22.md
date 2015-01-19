@@ -161,7 +161,7 @@ su hdfs -c "hdfs dfs -mkdir /rangerdemo"
 su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 ```
 
-- Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Big Data tab you can see audit trail of what user accessed HDFS at what time with what result
+- Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Access tab you can see audit trail of what user accessed HDFS at what time with what result
 ![Image](../master/screenshots/ranger-hdfs-agent.png?raw=true)
 
 ##### HDFS Audit Exercises in Ranger:
