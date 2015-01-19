@@ -219,8 +219,8 @@ hadoop.proxyuser.hive.groups: users, hr, admins
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
 ```
 Repository name= hive_sandbox
-Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
-Password: rangeradmin
+Username: rangeradmin@HORTONWORKS.COM
+Password: hortonworks
 jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
 jdbc.url= jdbc:hive2://sandbox:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 Click Test and Add
