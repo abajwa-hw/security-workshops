@@ -199,23 +199,7 @@ kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HOR
 - Click Apply in Ambari to enable security and restart all the components (may take 10-15 min)
 If the wizard errors out towards the end due to a component not starting up, its not a problem: you should be able to start it up manually via Ambari
 
-- Verify that we have kerberos enablement on our cluster and that hue user can kinit successfully using Hue keytab
-
-```
-su - hue
-#Attempt to read HDFS: this should fail as hue user does not have kerberos ticket yet
-hadoop fs -ls
-#Confirm that the use does not have ticket
-klist
-#Create a kerberos ticket for the user
-kinit -kt /etc/security/keytabs/hue.service.keytab hue/sandbox.hortonworks.com@HORTONWORKS.COM
-#verify that hue user can now get ticket and can access HDFS
-klist
-hadoop fs -ls /user
-exit
-```
-
-- Verify that LDAP users can successfully kinit and run HDFS commands
+- Verify that we have kerberos enabled on our cluster and that LDAP users can successfully kinit and run HDFS commands
 
 ```
 su - paul

@@ -19,7 +19,7 @@ Under Ambari > HDFS > Configs > hadoop.security.auth_to_local, add hue entry bel
 
 - allow hive to impersonate users from whichever LDAP groups you choose
 ```
-hadoop.proxyuser.hive.groups = users, hr 
+hadoop.proxyuser.hive.groups = users, sales 
 ```
 - restart HDFS via Ambari
 
@@ -67,4 +67,5 @@ service hue restart
 ```
 
 - You should now be able to login to Hue on kerborized cluster using an LDAP-defined user:
-  - login to Hue as ali/ali or hr1/hr1 and notice that FileBrowser, HCat, Hive now work
+  - login to Hue as ali/hortonworks or sales1/hortonworks and notice that FileBrowser, HCat, Hive now work
+  - also note that logging in as hr1/hortonworks, you can not access the Hive/HCat views in Hue (consistent with the proxyuser setting above)
