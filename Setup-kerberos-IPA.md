@@ -183,13 +183,18 @@ chmod +x gen_keytabs.sh
 ```
 
 - Verify keytabs and principals got created (should return at least 17)
+```
 ls -la /etc/security/keytabs/*.keytab | wc -l
-
+```
 - Check that keytab info can be ccessed by klist
+```
 klist -ekt /etc/security/keytabs/nn.service.keytab
+```
 
 - Verify you can kinit as hadoop components. This should not return any errors
+```
 kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HORTONWORKS.COM
+```
 
 - Click Apply in Ambari to enable security and restart all the components (may take 10-15 min)
 If the wizard errors out towards the end due to a component not starting up, its not a problem: you should be able to start it up manually via Ambari
