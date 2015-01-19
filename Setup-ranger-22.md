@@ -75,7 +75,9 @@ SYNC_LDAP_BIND_PASSWORD = hortonworks
 SYNC_LDAP_USER_SEARCH_BASE = cn=users,cn=accounts,dc=hortonworks,dc=com
 SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 logdir=/var/log/ranger/usersync
-
+```
+- Run setup
+```
 ./setup.sh
 ```
 - Start the service
