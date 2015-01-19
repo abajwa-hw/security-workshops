@@ -398,8 +398,8 @@ exit
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
 ```
 Repository name= hbase_sandbox
-Username: rangeradmin/sandbox.hortonworks.com@HORTONWORKS.COM
-Password: rangeradmin
+Username: rangeradmin@HORTONWORKS.COM
+Password: hortonworks
 hadoop.security.authentication=kerberos
 hbase.master.kerberos.principal=hbase/_HOST@HORTONWORKS.COM
 hbase.security.authentication=kerberos
