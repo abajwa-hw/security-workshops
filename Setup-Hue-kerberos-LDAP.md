@@ -38,7 +38,9 @@ hadoop.proxyuser.hive.groups = users, hr
 	```
 	
 - restart hue
+```
 service hue restart
+```
 
 - confirm Hue works. 
 http://sandbox.hortonworks.com:8000     
