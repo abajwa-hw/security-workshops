@@ -382,6 +382,8 @@ select * from sample_08;
 - these should work  
 ```
 select code,description from sample_08 limit 5;
+!q
+exit
 ```
 
 - Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
