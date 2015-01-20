@@ -52,8 +52,18 @@ ssh root@ldap.hortonworks.com
 ```
 
 --------------------------
-
 ##### Install and setup FreeIPA on VM
+
+###### Option 1: Install via script
+
+```
+cd
+yum install -y git
+git clone https://github.com/abajwa-hw/security-workshops.git
+
+```
+
+###### Option 2: Install manually
 
 - Apply OS updates
 ```
