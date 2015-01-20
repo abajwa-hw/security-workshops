@@ -1,3 +1,4 @@
+set -e
 
 yum -y update
 yum install -y "*ipa-server" bind bind-dyndb-ldap
@@ -61,4 +62,4 @@ echo "service ntpd start" >> /root/updateclock.sh
 chmod 755 /root/updateclock.sh
 echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
 
-
+echo "Complete!"
