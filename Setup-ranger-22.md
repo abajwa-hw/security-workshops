@@ -683,7 +683,7 @@ desc sample_07;
   - Policy name: knox_hive
   - Topology name: default
   - Service name: HIVE
-  - Group permissions: sales and check Allow
+  - User permissions: ali and check Allow
   - Click Add
   - ![Image](../master/screenshots/ranger-knox-hive-policy.png?raw=true)  
   
