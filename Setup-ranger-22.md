@@ -616,13 +616,19 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
   - Policy name: test
   - Topology name: default
   - Service name: WEBHDFS
-  - Group permissions: Sales and check Allow
+  - Group permissions: sales and check Allow
+  - User permissions: ali and check Allow
   - Save > OK 
   - ![Image](../master/screenshots/ranger-knox-policy.png?raw=true)
   
 - While waiting 30s for the policy to be activated, review the Analytics tab
 ![Image](../master/screenshots/ranger-knox-analytics.png?raw=true)
 
+- Re-run the WebHDFS request and notice this time it succeeds
+```
+curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+```
+![Image](../master/screenshots/ranger-knox-allowed.png?raw=true)
 
 ---------------------
 
