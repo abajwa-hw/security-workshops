@@ -550,7 +550,29 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 
 - Click Test and Add
 
-- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway>
+- Install Knox plugin
+
+```
+cd /usr/hdp/2.2.0.0-2041/ranger-knox-plugin
+vi install.properties
+
+POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
+REPOSITORY_NAME=knox_sandbox
+
+XAAUDIT.DB.IS_ENABLED=true
+XAAUDIT.DB.FLAVOUR=MYSQL
+XAAUDIT.DB.HOSTNAME=localhost
+XAAUDIT.DB.DATABASE_NAME=ranger_audit
+XAAUDIT.DB.USER_NAME=rangerlogger
+XAAUDIT.DB.PASSWORD=hortonworks
+```
+
+- Enable Ranger HBase plugin
+```
+./enable-knox-plugin.sh
+```
+
+- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway> and restart Knox
 ```
 	<provider>
 		<role>authorization</role>
@@ -558,15 +580,14 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
         <enabled>true</enabled>
 	</provider>
 ```
-- Restart Gateway
+- Find out your topology name e.g. default
 ```
-su -l knox /usr/hdp/current/knox-server/bin/gateway.sh stop
-su -l knox /usr/hdp/current/knox-server/bin/gateway.sh start
+ls /etc/knox/conf/topologies/*.xml
 ```
 
-- Submit a WebHDFS request using curl: 
+- Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/sandbox/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password curl -i -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 ---------------------
