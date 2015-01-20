@@ -542,8 +542,8 @@ hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com
 
 ```
 Repository Name: knox_sandbox
-username: admin
-password: admin-password
+Username: rangeradmin@HORTONWORKS.COM
+Password: hortonworks
 knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 ```
 ![Image](../master/screenshots/ranger-knox-setup.png?raw=true)
@@ -572,7 +572,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-knox-plugin.sh
 ```
 
-- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway> and restart Knox
+- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway>
 ```
 	<provider>
 		<role>authorization</role>
@@ -580,6 +580,24 @@ XAAUDIT.DB.PASSWORD=hortonworks
         <enabled>true</enabled>
 	</provider>
 ```
+- Also, in the same place, point Knox to our LDAP by changing the values for main.ldapRealm.userDnTemplate and  main.ldapRealm.contextFactory.url
+```
+                    <param>
+                        <name>main.ldapRealm.userDnTemplate</name>
+                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
+                        <!-- <value>uid={0},ou=people,dc=hadoop,dc=apache,dc=org</value> -->
+                    </param>
+                    <param>
+                        <name>main.ldapRealm.contextFactory.url</name>
+                       <value>ldap://ldap.hortonworks.com:389</value> 
+                        <!--   <value>ldap://{{knox_host_name}}:33389</value> -->
+                    </param>
+```
+- Now redeploy
+```
+/usr/hdp/2.2.0.0-2041/knox/bin/knoxcli.sh redeploy
+```
+
 - Find out your topology name e.g. default
 ```
 ls /etc/knox/conf/topologies/*.xml
@@ -587,8 +605,13 @@ ls /etc/knox/conf/topologies/*.xml
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
+![Image](../master/screenshots/ranger-knox-denied.png?raw=true)
+
+-These should result in HTTP 403 error and should show up as Denied results in Ranger Audit
+
 
 ---------------------
 
