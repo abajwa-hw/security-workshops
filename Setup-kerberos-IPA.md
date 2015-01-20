@@ -83,7 +83,7 @@ echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
 /root/updateclock.sh
 ```
 
-- In the ntp.conf file, replace "server 127.127.1.0" with the below
+- In the ntp.conf file, above the line ```server 0.centos.pool.ntp.org iburst``` add the below
 ```
 vi /etc/ntp.conf
 server ldap.hortonworks.com
