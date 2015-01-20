@@ -56,12 +56,22 @@ ssh root@ldap.hortonworks.com
 
 ###### Option 1: Install via script
 
+- Run below scripts to setup FreeIPA (may run for 10min)
 ```
 cd
 yum install -y git
 git clone https://github.com/abajwa-hw/security-workshops.git
-
+~/security-workshops/scripts/run_setupFreeIPA.sh
+cp ~/security-workshops/scripts/gen_hosts.sh ~
+echo "/root/gen_hosts.sh" >> /etc/rc.local
 ```
+
+- Now you can browse the users/groups in the LDAP via JXplorer or running below
+```
+ipa  user-find
+```
+
+Note an Ambari stack for FreeIPA is also being worked on [here](https://github.com/abajwa-hw/vnc-stack)
 
 ###### Option 2: Install manually
 
