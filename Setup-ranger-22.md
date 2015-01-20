@@ -608,9 +608,20 @@ ls /etc/knox/conf/topologies/*.xml
 curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
-![Image](../master/screenshots/ranger-knox-denied.png?raw=true)
 
 -These should result in HTTP 403 error and should show up as Denied results in Ranger Audit
+![Image](../master/screenshots/ranger-knox-denied.png?raw=true)
+
+- Add policy in Ranger PolicyManager > hdfs_knox > Add new policy
+  - Policy name: test
+  - Topology name: default
+  - Service name: WEBHDFS
+  - Group permissions: Sales and check Allow
+  - Save > OK 
+  - ![Image](../master/screenshots/ranger-knox-policy.png?raw=true)
+  
+- While waiting 30s for the policy to be activated, review the Analytics tab
+![Image](../master/screenshots/ranger-knox-analytics.png?raw=true)
 
 
 ---------------------
