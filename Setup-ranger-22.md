@@ -485,7 +485,7 @@ exit
 
 #####  Setup Knox repo in Ranger
 
-Steps available [here]()
+Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md)
 
 ---------------------
 
