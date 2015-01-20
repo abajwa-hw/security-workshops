@@ -214,7 +214,7 @@ klist
 #Create a kerberos ticket for the user
 kinit 
 #enter hortonworks
-#verify that hue user can now get ticket and can access HDFS
+#verify that paul user can now get ticket and can access HDFS
 klist
 hadoop fs -ls /user
 exit
