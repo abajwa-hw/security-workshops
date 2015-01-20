@@ -33,6 +33,7 @@ hadoop.proxyuser.hive.groups = users, sales
 	kinit_path=/usr/bin/kinit
 	reinit_frequency=3600
 	ccache_path=/tmp/hue_krb5_ccache	
+	#These only need to be changed on HDP 2.1
 	beeswax_server_host=sandbox.hortonworks.com
 	beeswax_server_port=8002
 	```
