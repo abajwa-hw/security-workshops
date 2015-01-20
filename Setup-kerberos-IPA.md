@@ -73,11 +73,14 @@ echo "192.168.191.185 sandbox.hortonworks.com sandbox" >> /etc/hosts
 ```
 yum install ipa-client openldap-clients -y
 ```
-- Sync time with ntp server to ensure time is upto date 
+- Setup time to be updated on regular basis to avoid kerberos errors
 ```
-service ntpd stop
-ntpdate pool.ntp.org
-service ntpd start
+echo "service ntpd stop" > /root/updateclock.sh
+echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
+echo "service ntpd start" >> /root/updateclock.sh
+chmod 755 /root/updateclock.sh
+echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
+/root/updateclock.sh
 ```
 
 - In the ntp.conf file, replace "server 127.127.1.0" with the below
