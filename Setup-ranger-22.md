@@ -694,15 +694,15 @@ select count(*) from sample_08;
 ```
 
 - On windows machine, install Hive ODBC driver from http://hortonworks.com/hdp/addons and setup ODBC connection 
-name: securedsandbox
-host:<sandboxIP>
-port:8443
-database:default
-Hive server type: Hive Server 2
-Mechanism: HTTPS
-HTTP Path: gateway/default/hive
-Username: ali
-pass: hortonworks
+  - name: securedsandbox
+  - host:<sandboxIP>
+  - port:8443
+  - database:default
+  - Hive server type: Hive Server 2
+  - Mechanism: HTTPS
+  - HTTP Path: gateway/default/hive
+  - Username: ali
+  - pass: hortonworks
 
 - In Excel import data via Knox
 Data > From other Datasources > From dataconnection wizard > ODBC DSN > securedsandbox > enter password hortonworks and ok > choose sample_07 and Finish
