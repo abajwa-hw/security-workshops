@@ -1,4 +1,12 @@
-#####  Setup Knox with Ranger
+## Enable Perimeter Security: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point
+
+- Goals: 
+  - Configure KNOX to authenticate against FreeIPA
+  - Configure WebHDFS & Hiveserver2 to support HDFS & JDBC/ODBC access over HTTP
+  - Use Excel to securely access Hive via KNOX
+
+- Why? 
+  - Enables Perimeter Security so there is a single point of cluster access using Hadoop REST APIs, JDBC and ODBC calls 
 
 - Contents
   - [Pre-requisite steps](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#pre-requisite-steps)  
