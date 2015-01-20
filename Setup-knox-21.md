@@ -13,10 +13,11 @@
   - <a href="http://www.youtube.com/watch?feature=player_embedded&v=klAWTodCPZo" target="_blank"><img src="http://img.youtube.com/vi/klAWTodCPZo/0.jpg" alt="Perimeter Security" width="240" height="180" border="10" /></a>
 
 - Contents:
-  - [Setup WebHDFS for Knox on HDP 2.1 sandbox]()
-  - [Knox exercises to check WebHDFS setup]()
-  - [Setup Hive for Knox on HDP 2.1 sandbox]()
-  - [Knox exercises to check Hive setup]()
+  - [Setup WebHDFS for Knox on HDP 2.1 sandbox](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md#setup-webhdfs-for-knox-on-hdp-21-sandbox)
+  - [Knox exercises to check WebHDFS setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md#knox-exercises-to-check-webhdfs-setup)
+  - [Setup Hive for Knox on HDP 2.1 sandbox](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md#setup-hive-for-knox-on-hdp-21-sandbox)
+  - [Knox exercises to check Hive setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-21.md#knox-exercises-to-check-hive-setup)
+  
 ----------------------
 
 #### Setup WebHDFS for Knox on HDP 2.1 sandbox
