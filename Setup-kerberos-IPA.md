@@ -89,7 +89,7 @@ vi /etc/ntp.conf
 server ldap.hortonworks.com
 ```
 
-- Install client: When prompted enter: yes > yes > hortonworks
+- Install client: When prompted enter: yes > yes > hortonworks. This is setting up Kerberos client/SSSD/NTP.
 ```
 ipa-client-install --domain=hortonworks.com --server=ldap.hortonworks.com  --mkhomedir --ntp-server=north-america.pool.ntp.org -p admin@HORTONWORKS.COM -W
 ```
