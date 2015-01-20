@@ -568,12 +568,12 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-- Enable Ranger HBase plugin
+- Enable Ranger Knox plugin
 ```
 ./enable-knox-plugin.sh
 ```
 
-- In Ambari, under Knox > Configs > Advanced Topology, add the below under ```<gateway>```
+- To enable Ranger Knox plugin, in Ambari, under Knox > Configs > Advanced Topology, add the below under ```<gateway>```
 ```
 	<provider>
 		<role>authorization</role>
@@ -581,8 +581,8 @@ XAAUDIT.DB.PASSWORD=hortonworks
         <enabled>true</enabled>
 	</provider>
 ```
-- Also, in the same place, you can configure Knox to use IPA LDAP instead of the demo one. 
-  - First, modify the below entries (also under Advanced Topology):
+- If you want to configure Knox to use IPA LDAP instead of the demo one, in the same place: 
+  - First, modify the below ```<value>```entries (also under Advanced Topology):
   ```                      
                     <param>
                         <name>main.ldapRealm.userDnTemplate</name>
@@ -608,7 +608,9 @@ XAAUDIT.DB.PASSWORD=hortonworks
                         <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
                     </param> 
   ```
-- Now redeploy
+- Restart Knox via Ambari
+
+- Now redeploy (not needed in 2.2)
 ```
 /usr/hdp/2.2.0.0-2041/knox/bin/knoxcli.sh redeploy
 ```
