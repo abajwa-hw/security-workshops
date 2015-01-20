@@ -603,6 +603,8 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ls /etc/knox/conf/topologies/*.xml
 ```
 
+#####  Knox audit exercises in Ranger
+
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
 curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
