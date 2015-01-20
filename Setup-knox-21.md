@@ -12,9 +12,14 @@
 - Video:
   - <a href="http://www.youtube.com/watch?feature=player_embedded&v=klAWTodCPZo" target="_blank"><img src="http://img.youtube.com/vi/klAWTodCPZo/0.jpg" alt="Perimeter Security" width="240" height="180" border="10" /></a>
 
+- Contents:
+  - [Setup WebHDFS for Knox on HDP 2.1 sandbox]()
+  - [Knox exercises to check WebHDFS setup]()
+  - [Setup Hive for Knox on HDP 2.1 sandbox]()
+  - [Knox exercises to check Hive setup]()
 ----------------------
 
-#### Setup Knox on HDP 2.1 sandbox
+#### Setup WebHDFS for Knox on HDP 2.1 sandbox
 
 - Add the below to HDFS config via Ambari:
 ```
@@ -66,7 +71,7 @@ su -l knox -c "/usr/lib/knox/bin/gateway.sh start"
 ls -lh /var/lib/knox/data/deployments
 ```
 
-#### Knox exercises to check setup
+#### Knox exercises to check WebHDFS setup
 
 - Run webhdfs request via Knox
 ```
@@ -101,6 +106,8 @@ https://sandbox.hortonworks.com:8443/gateway/sandbox/webhdfs/v1/user/hue/jobsub/
 https://sandbox.hortonworks.com:8443/gateway/sandbox/webhdfs/v1/user/hue/jobsub/sample_data/sonnets.txt?op=OPEN
 
 
+#### Setup Hive for Knox on HDP 2.1 sandbox
+
 - Setup secure hive query via knox
 Add to Custom hive-site.xml under Hive > Configs in Ambari
 ```
@@ -123,6 +130,8 @@ chmod a+rx /var/lib/knox/data/security
 chmod a+rx /var/lib/knox/data/security/keystores
 chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
+
+#### Knox exercises to check Hive setup
 
 - run beehive query connecting through knox
 ```
