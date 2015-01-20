@@ -674,7 +674,7 @@ beeline
 !connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
 #!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=cliservice
 #!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/etc/ranger/admin/conf/cacerts.withknox;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
-
+```
 - This fails. On reviewing the attempt in Ranger Audit, we see that the request was denied
 
 - To fix this, we can add a Knox policy in Ranger:
