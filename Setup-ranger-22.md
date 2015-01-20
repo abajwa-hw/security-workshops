@@ -620,7 +620,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ls /etc/knox/conf/topologies/*.xml
 ```
 
-#####  Knox audit exercises in Ranger
+#####  Knox WebHDFS audit exercises in Ranger
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
@@ -649,6 +649,53 @@ curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/defa
 curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 ![Image](../master/screenshots/ranger-knox-allowed.png?raw=true)
+
+#####  Setup Hive to go over Knox 
+
+- In Ambari, under Hive > Configs > set the below and restart Hive component
+```
+hive.server2.transport.mode = http
+```
+- give users access to jks file. This is ok since it is only truststore - not keys!
+```
+chmod a+rx /var/lib/knox
+chmod a+rx /var/lib/knox/data
+chmod a+rx /var/lib/knox/data/security
+chmod a+rx /var/lib/knox/data/security/keystores
+chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
+```
+
+#### Knox exercises to check Hive setup
+
+- run beehive query connecting through knox
+```
+su ali
+beeline
+!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
+#Connect as ali/hortonworks
+
+show tables;
+desc sample_07;
+select count(*) from sample_07;
+!q
+```
+
+- On windows machine, install Hive ODBC driver from http://hortonworks.com/hdp/addons and setup ODBC connection 
+name: securedsandbox
+host:<sandboxIP>
+port:8443
+database:default
+Hive server type: Hive Server 2
+Mechanism: HTTPS
+HTTP Path: gateway/sandbox/hive
+Username: ali
+pass: hortonworks
+
+- In Excel import data via Knox
+Data > From other Datasources > From dataconnection wizard > ODBC DSN > securedsandbox > enter password hortonworks and ok > choose sample_07 and Finish
+Click Yes > Properties > Definition > you can change the query in the text box > OK > OK
+
+
 
 ---------------------
 
