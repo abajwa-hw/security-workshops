@@ -225,7 +225,7 @@ exit
 #### Configure Hue for LDAP/kerberos
 
 - Open Hue and notice it **no longer works** e.g. FileBrowser givers error
-http://sandbox.hortonworks.com:8000
+http://sandbox.hortonworks.com:8000 (login as hue/1111)
 
 - **Make the config changes needed to make Hue work on a LDAP enbled kerborized cluster using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Hue-kerberos-LDAP.md)**
 
