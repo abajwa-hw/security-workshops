@@ -587,7 +587,7 @@ ls /etc/knox/conf/topologies/*.xml
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
-curl -iv -k -u guest:guest-password curl -i -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 ---------------------
