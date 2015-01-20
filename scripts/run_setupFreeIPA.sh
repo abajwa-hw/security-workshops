@@ -1,19 +1,32 @@
 set -e
 
+#turn off firewall
+service iptables save
+service iptables stop
+chkconfig iptables off
+
+#install IPA bits
 yum -y update
 yum install -y "*ipa-server" bind bind-dyndb-ldap
+
+#setup /etc/hosts
 IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 echo $IP  ldap.hortonworks.com >> /etc/hosts
 
+#install IPA server
 ipa-server-install --hostname=ldap.hortonworks.com --domain=hortonworks.com --realm=HORTONWORKS.COM --ds-password=hortonworks --master-password=hortonworks --admin-password=hortonworks --setup-dns --forwarder=8.8.8.8 --unattended
 
 chkconfig ipa on
 
+#Fix time
 service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
+
+#Get kerberos ticket
 echo hortonworks | kinit admin
 
+#Setup LDAP groups
 ipa group-add marketing --desc marketing
 ipa group-add legal --desc legal
 ipa group-add hr --desc hr
@@ -56,6 +69,7 @@ ipa passwd xapolicymgr < tmp.txt
 ipa passwd rangeradmin < tmp.txt
 rm -f tmp.txt
 
+#Setup clock to be updated on regular basis to avoid kerberos errors
 echo "service ntpd stop" > /root/updateclock.sh
 echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
 echo "service ntpd start" >> /root/updateclock.sh
