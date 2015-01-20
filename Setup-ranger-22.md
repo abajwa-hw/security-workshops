@@ -573,7 +573,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-knox-plugin.sh
 ```
 
-- In Ambari, under Knox > Configs > Advanced Topology, add the below under  <gateway>
+- In Ambari, under Knox > Configs > Advanced Topology, add the below under ```<gateway>```
 ```
 	<provider>
 		<role>authorization</role>
@@ -582,7 +582,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 	</provider>
 ```
 - Also, in the same place, you can configure Knox to use IPA LDAP instead of the demo one. 
-  - First modify the below entries (also under Advanced Topology):
+  - First, modify the below entries (also under Advanced Topology):
   ```                      
                     <param>
                         <name>main.ldapRealm.userDnTemplate</name>
