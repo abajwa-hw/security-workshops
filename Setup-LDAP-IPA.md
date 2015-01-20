@@ -56,7 +56,7 @@ ssh root@ldap.hortonworks.com
 
 ###### Option 1: Install via script
 
-- Run below scripts to setup FreeIPA (may run for 10min)
+- Run below scripts to setup FreeIPA and setup users (may run for 10min)
 ```
 cd
 yum install -y git
@@ -71,7 +71,7 @@ echo "/root/gen_hosts.sh" >> /etc/rc.local
 ipa  user-find
 ```
 
-Note an Ambari stack for FreeIPA is also being worked on [here](https://github.com/abajwa-hw/freeipa-stack)
+Note an Ambari stack for FreeIPA server is also being worked on [here](https://github.com/abajwa-hw/freeipa-stack)
 
 ###### Option 2: Install manually
 
