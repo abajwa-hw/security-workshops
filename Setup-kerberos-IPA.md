@@ -134,9 +134,10 @@ chkconfig sssd on
  
 #### Generate keytabs and run Ambari security wizard
 
-- start Ambari and run the security wizard
+- If not already started, start Ambari and run the security wizard
 ```
-./start_ambari.sh
+service ambari-server start
+service ambari-agent start
 ```
 
 - In Ambari follow the below steps:
