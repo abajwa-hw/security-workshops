@@ -29,7 +29,8 @@
 ```
 su rangeradmin
 kinit
-#hortonworks
+#Enter hortonworks twice
+exit
 ```
 
 - Download Ranger policymgr (security webUI portal) and ugsync (User and Group Agent to sync users from LDAP to webUI)

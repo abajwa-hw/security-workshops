@@ -250,6 +250,6 @@ To automate this, change startup script to start data node as root:
 ```
 vi /usr/lib/hue/tools/start_scripts/start_deps.mf
 
-#find the line containing 'conf start datanode' and replace with below
+#find the line containing 'conf start datanode' and replace with below so that data node is started as root instead
 export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec && /usr/lib/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop/conf start datanode,\
 ```
