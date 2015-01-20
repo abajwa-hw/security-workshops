@@ -71,7 +71,7 @@ echo "/root/gen_hosts.sh" >> /etc/rc.local
 ipa  user-find
 ```
 
-Note an Ambari stack for FreeIPA is also being worked on [here](https://github.com/abajwa-hw/vnc-stack)
+Note an Ambari stack for FreeIPA is also being worked on [here](https://github.com/abajwa-hw/freeipa-stack)
 
 ###### Option 2: Install manually
 
