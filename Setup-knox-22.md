@@ -123,7 +123,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
                        <value>ldap://ldap.hortonworks.com:389</value> 
                     </param>                     
   ```
-  - Then, add these params directly under the above params (before the </provider> tag) (also under Advanced Topology):
+  - Then, add these params directly under the above params (before the ```</provider>``` tag) (also under Advanced Topology):
   ```                    
                     <param>
                         <name>main.ldapRealm.authorizationEnabled</name>
