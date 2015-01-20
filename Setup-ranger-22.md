@@ -652,7 +652,7 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
 
 #####  Setup Hive to go over Knox 
 
-- In Ambari, under Hive > Configs > set the below and restart Hive component
+- In Ambari, under Hive > Configs > set the below and restart Hive component. Note that in this mode you will not be able to run queries through Hue
 ```
 hive.server2.transport.mode = http
 ```
@@ -671,12 +671,25 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 su ali
 beeline
-!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
-#Connect as ali/hortonworks
+!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
+#!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=cliservice
+#!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/etc/ranger/admin/conf/cacerts.withknox;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
 
+- This fails. On reviewing the attempt in Ranger Audit, we see that the request was denied
+
+- To fix this, we can add a Knox policy in Ranger:
+  - Policy name: knox_hive
+  - Topology name: default
+  - Service name: HIVE
+  - Group permissions: sales and check Allow
+  - Click Add
+  
+- Review the Analytics tab while waiting 30s for the policy to take effect.  
+- Now re-run the connect command above and run some queries:
+```
 show tables;
-desc sample_07;
-select count(*) from sample_07;
+desc sample_08;
+select count(*) from sample_08;
 !q
 ```
 
@@ -687,7 +700,7 @@ port:8443
 database:default
 Hive server type: Hive Server 2
 Mechanism: HTTPS
-HTTP Path: gateway/sandbox/hive
+HTTP Path: gateway/default/hive
 Username: ali
 pass: hortonworks
 
