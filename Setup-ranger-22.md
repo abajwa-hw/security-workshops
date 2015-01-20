@@ -671,11 +671,13 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 su ali
 beeline
-!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
-#!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=cliservice
-#!connect jdbc:hive2://sandbox:8443/;ssl=true;sslTrustStore=/etc/ranger/admin/conf/cacerts.withknox;trustStorePassword=changeit?hive.server2.transport.mode=http;hive.server2.thrift.http.path=gateway/default/hive
+!connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
+desc sample_08;
+desc sample_07;
+!q
 ```
-- This fails. On reviewing the attempt in Ranger Audit, we see that the request was denied
+- This fails with HTTP 403. On reviewing the attempt in Ranger Audit, we see that the request was denied
+![Image](../master/screenshots/ranger-knox-hive-denied.png?raw=true)
 
 - To fix this, we can add a Knox policy in Ranger:
   - Policy name: knox_hive
@@ -683,13 +685,22 @@ beeline
   - Service name: HIVE
   - Group permissions: sales and check Allow
   - Click Add
+  - ![Image](../master/screenshots/ranger-knox-hive-policy.png?raw=true)  
   
 - Review the Analytics tab while waiting 30s for the policy to take effect.  
+![Image](../master/screenshots/ranger-knox-hive-analytics.png?raw=true)  
+
 - Now re-run the connect command above and run some queries:
 ```
+su ali
+beeline
+!connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
 show tables;
 desc sample_08;
-select count(*) from sample_08;
+select * from sample_08;
+desc sample_07;
+select * from sample_07;
+select code, description from sample_07;
 !q
 ```
 
@@ -703,12 +714,16 @@ select count(*) from sample_08;
   - HTTP Path: gateway/default/hive
   - Username: ali
   - pass: hortonworks
-
+  - ![Image](../master/screenshots/ODBC-knox-hive.png?raw=true) 
+  
 - In Excel import data via Knox
 Data > From other Datasources > From dataconnection wizard > ODBC DSN > securedsandbox > enter password hortonworks and ok > choose sample_07 and Finish
 Click Yes > Properties > Definition > you can change the query in the text box > OK > OK
 
+- Notice in the Knox repository Ranger Audit shows the HIVE access was allowed  
+![Image](../master/screenshots/ranger-knox-hive-allowed.png?raw=true)  
 
+- With this we have shown how HiveServer2 can transport data over HTTPS using Knox. Also authorization and audit of such transactions can be done via Ranger
 
 ---------------------
 
