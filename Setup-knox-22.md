@@ -1,11 +1,13 @@
 #####  Setup Knox with Ranger
 
+- Contents
   - [Pre-requisite steps](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#pre-requisite-steps)  
   - [Setup Knox repo](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#setup-knox-repo)
   - [Knox WebHDFS audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#knox-webhdfs-audit-exercises-in-ranger)
   - [Setup Hive to go over Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#setup-hive-to-go-over-knox)
   - [Knox exercises to check Hive setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#knox-exercises-to-check-hive-setup)
   - [Download data over HTTPS via Knox/Hive](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#download-data-over-https-via-knoxhive)
+
 **Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
 
 ###### Pre-requisite steps
