@@ -581,18 +581,140 @@ XAAUDIT.DB.PASSWORD=hortonworks
         <enabled>true</enabled>
 	</provider>
 ```
-- Also, in the same place, point Knox to our LDAP by changing the values for main.ldapRealm.userDnTemplate and  main.ldapRealm.contextFactory.url
+- Also, in the same place, you can point Knox to our LDAP. To this copy and paste below the below into Knox > Configs > Advanced Topology and restart Knox
 ```
+
+        <topology>
+
+            <gateway>
+
+                <provider>
+                    <role>authentication</role>
+                    <name>ShiroProvider</name>
+                    <enabled>true</enabled>
                     <param>
-                        <name>main.ldapRealm.userDnTemplate</name>
-                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
-                        <!-- <value>uid={0},ou=people,dc=hadoop,dc=apache,dc=org</value> -->
+                        <name>sessionTimeout</name>
+                        <value>30</value>
                     </param>
+                    <param>
+                        <name>main.ldapRealm</name>
+                        <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm</value>
+                    </param>
+        <param>
+          <name>main.ldapGroupContextFactory</name>
+          <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapContextFactory</value>
+        </param>
+        <!-- <param>
+          <name>main.ldapRealm.contextFactory</name>
+          <value>$ldapGroupContextFactory</value>
+        </param> -->     
+                    <param>
+                        <name>main.ldapRealm.contextFactory.authenticationMechanism</name>
+                        <value>simple</value>
+                    </param>              
                     <param>
                         <name>main.ldapRealm.contextFactory.url</name>
                        <value>ldap://ldap.hortonworks.com:389</value> 
-                        <!--   <value>ldap://{{knox_host_name}}:33389</value> -->
+                    </param>                        
+                    <param>
+                        <name>main.ldapRealm.userDnTemplate</name>
+                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
                     </param>
+        <param>
+          <name>main.ldapRealm.authorizationEnabled</name>
+          <!-- defaults to: false -->
+          <value>true</value>
+        </param>
+        <param>
+          <name>main.ldapRealm.searchBase</name>
+          <value>cn=groups,cn=accounts,dc=hortonworks,dc=com</value>
+        </param>    
+        <param>
+          <name>main.ldapRealm.groupObjectClass</name>
+          <value>groupOfNames</value>
+        </param> 
+        <param>
+          <name>main.ldapRealm.memberAttribute</name>
+          <value>member</value>
+        </param>        
+        <param>
+          <name>main.ldapRealm.groupIdAttribute</name>
+          <value>cn</value>
+        </param>
+        <param>
+          <name>main.ldapRealm.memberAttributeValueTemplate</name>
+          <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
+        </param>                           
+        <param>
+          <name>main.ldapRealm.contextFactory.systemUsername</name>
+          <value>uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com</value>
+        </param>
+        <param>
+          <name>main.ldapRealm.contextFactory.systemPassword</name>
+          <value>hortonworks</value>
+        </param>
+                    <param>
+                        <name>urls./**</name>
+                        <value>authcBasic</value>
+                    </param>
+
+
+                </provider>
+
+                <provider>
+                    <role>identity-assertion</role>
+                    <name>Default</name>
+                    <enabled>true</enabled>
+                </provider>
+
+	        <provider>
+		       <role>authorization</role>
+         	       <name>XASecurePDPKnox</name>
+         	       <enabled>true</enabled>
+	         </provider>
+
+            </gateway>
+
+            <service>
+                <role>NAMENODE</role>
+                <url>hdfs://{{namenode_host}}:{{namenode_rpc_port}}</url>
+            </service>
+
+            <service>
+                <role>JOBTRACKER</role>
+                <url>rpc://{{rm_host}}:{{jt_rpc_port}}</url>
+            </service>
+
+            <service>
+                <role>WEBHDFS</role>
+                <url>http://{{namenode_host}}:{{namenode_http_port}}/webhdfs</url>
+            </service>
+
+            <service>
+                <role>WEBHCAT</role>
+                <url>http://{{webhcat_server_host}}:{{templeton_port}}/templeton</url>
+            </service>
+
+            <service>
+                <role>OOZIE</role>
+                <url>http://{{oozie_server_host}}:{{oozie_server_port}}/oozie</url>
+            </service>
+
+            <service>
+                <role>WEBHBASE</role>
+                <url>http://{{hbase_master_host}}:{{hbase_master_port}}</url>
+            </service>
+
+            <service>
+                <role>HIVE</role>
+                <url>http://{{hive_server_host}}:{{hive_http_port}}/{{hive_http_path}}</url>
+            </service>
+
+            <service>
+                <role>RESOURCEMANAGER</role>
+                <url>http://{{rm_host}}:{{rm_port}}/ws</url>
+            </service>
+        </topology>
 ```
 - Now redeploy
 ```
