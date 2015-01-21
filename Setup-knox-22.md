@@ -245,12 +245,17 @@ beeline
 su ali
 beeline
 !connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
-show tables;
+#enter ali/hortonworks
+
+#these should pass
 desc sample_08;
 select * from sample_08;
+select code, description from sample_07;
+
+#these should fail
 desc sample_07;
 select * from sample_07;
-select code, description from sample_07;
+
 !q
 ```
 
