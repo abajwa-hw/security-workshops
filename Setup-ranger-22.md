@@ -318,6 +318,8 @@ beeline
 desc sample_07;
 select * from sample_07 limit 1;  
 ```
+![Image](../master/screenshots/ranger-hive-user-rejected.png?raw=true)
+
 - these should work  
 ```
 select code,description from sample_07 limit 1;
@@ -325,8 +327,8 @@ desc sample_08;
 select * from sample_08 limit 1;  
 !q
 exit
-
 ```
+![Image](../master/screenshots/ranger-hive-user-allowed.png?raw=true)
 
 - Now look at the audit reports for the above and notice that audit reports for the queries show up in Ranger 
 
