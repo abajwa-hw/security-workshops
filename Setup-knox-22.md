@@ -18,7 +18,7 @@
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
 
-###### Pre-requisite steps
+###### Configure Knox to use IPA
 
 - In Ambari under HDFS > Config set hadoop.proxyuser.knox.groups=* and restart HDFS
 
@@ -31,6 +31,38 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
+
+- To configure Knox to use IPA LDAP instead of the demo one, in Ambari, under Knox > Configs > Advanced Topology: 
+  - First, modify the below ```<value>```entries (also under Advanced Topology):
+  ```                      
+                    <param>
+                        <name>main.ldapRealm.userDnTemplate</name>
+                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
+                    </param>
+                     <param>
+                        <name>main.ldapRealm.contextFactory.url</name>
+                       <value>ldap://ldap.hortonworks.com:389</value> 
+                    </param>                     
+  ```
+  - Then, add these params directly under the above params (before the ```</provider>``` tag) (also under Advanced Topology):
+  ```                    
+                    <param>
+                        <name>main.ldapRealm.authorizationEnabled</name>
+                        <value>true</value>
+                    </param> 
+                    <param>
+                        <name>main.ldapRealm.searchBase</name>
+                        <value>cn=groups,cn=accounts,dc=hortonworks,dc=com</value>
+                    </param>         
+                    <param>
+                        <name>main.ldapRealm.memberAttributeValueTemplate</name>
+                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
+                    </param> 
+  ```
+- Restart Knox via Ambari
+
+
+###### Pre-requisite steps
 
 - Export certificate to ~/knox.crt
 ```
@@ -121,33 +153,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
         <enabled>true</enabled>
 	</provider>
 ```
-- If you want to configure Knox to use IPA LDAP instead of the demo one, in the same place: 
-  - First, modify the below ```<value>```entries (also under Advanced Topology):
-  ```                      
-                    <param>
-                        <name>main.ldapRealm.userDnTemplate</name>
-                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
-                    </param>
-                     <param>
-                        <name>main.ldapRealm.contextFactory.url</name>
-                       <value>ldap://ldap.hortonworks.com:389</value> 
-                    </param>                     
-  ```
-  - Then, add these params directly under the above params (before the ```</provider>``` tag) (also under Advanced Topology):
-  ```                    
-                    <param>
-                        <name>main.ldapRealm.authorizationEnabled</name>
-                        <value>true</value>
-                    </param> 
-                    <param>
-                        <name>main.ldapRealm.searchBase</name>
-                        <value>cn=groups,cn=accounts,dc=hortonworks,dc=com</value>
-                    </param>         
-                    <param>
-                        <name>main.ldapRealm.memberAttributeValueTemplate</name>
-                        <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
-                    </param> 
-  ```
+
 - Restart Knox via Ambari
 
 - Now redeploy (not needed in 2.2)
