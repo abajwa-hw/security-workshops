@@ -24,7 +24,14 @@
 
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2)
 
-- 
+- Try out a WebHDFS request. The guest user is defined in the demo LDAP that Knox comes with which is why this works.
+```
+curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+```
+
+- Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
+![Image](../master/screenshots/knox-default-ldap.png?raw=true)
+
 - Export certificate to ~/knox.crt
 ```
 cd /var/lib/knox/data/security/keystores
