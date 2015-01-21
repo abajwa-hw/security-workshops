@@ -17,7 +17,7 @@ hadoop.proxyuser.hive.groups = users, sales, legal, admins
 ```
 - restart HDFS via Ambari
 
-- Use the orig version of hue.ini as starting point (workaround for bug in VM)
+- Use the orig version of hue.ini as starting point for edits (this is a workaround for a bug in the prebuilt 2.2 VM)
 ```
 mv /etc/hue/conf/hue.ini /etc/hue/conf/hue.ini.bad
 mv /etc/hue/conf/hue.ini.org /etc/hue/conf/hue.ini
