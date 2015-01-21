@@ -1,6 +1,9 @@
 #### Other useful security resources/scripts
 
-##### Volume encryption using LUKS 
+##### Encryption at rest: Transparent Data at Rest Encryption 
+Coming soon
+
+##### Encryption at rest: Volume encryption using LUKS 
 
 - Sample script to setup volume encryption using LUKS 
 ```
