@@ -444,6 +444,7 @@ ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient perm
 
 - Setup a policy that gives ali user authority to create t1 table
 ```
+Policy name: t1
 Table name: t1
 Column family: *
 Column name: *
