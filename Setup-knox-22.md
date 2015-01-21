@@ -223,8 +223,7 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 su ali
 beeline
 !connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
-desc sample_08;
-desc sample_07;
+#enter ali/hortonworks
 !q
 ```
 - This fails with HTTP 403. On reviewing the attempt in Ranger Audit, we see that the request was denied
