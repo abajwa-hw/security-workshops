@@ -271,6 +271,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
 
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
+![Image](../master/screenshots/ranger-hive-agent.png?raw=true)
 
 - Restart hue to make it aware of Ranger changes
 ```
