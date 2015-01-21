@@ -131,7 +131,7 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 ```
 ![Image](../master/screenshots/ranger-knox-setup.png?raw=true)
 
-- Click Test and Add
+- Click Test (its ok if it gives an error). Then add the repository.
 
 - Install Knox plugin
 
@@ -165,11 +165,6 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
 - Restart Knox via Ambari
-
-- Now redeploy (not needed in 2.2)
-```
-/usr/hdp/2.2.0.0-2041/knox/bin/knoxcli.sh redeploy
-```
 
 - Find out your topology name e.g. default
 ```
