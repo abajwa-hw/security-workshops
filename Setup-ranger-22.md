@@ -233,7 +233,7 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
 ```
-Repository name= hive_sandbox
+Repository name: hive_sandbox
 Username: rangeradmin@HORTONWORKS.COM
 Password: hortonworks
 jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
@@ -381,7 +381,7 @@ exit
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
 ```
-Repository name= hbase_sandbox
+Repository name: hbase_sandbox
 Username: rangeradmin@HORTONWORKS.COM
 Password: hortonworks
 hadoop.security.authentication=kerberos
@@ -475,13 +475,11 @@ Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/mast
 
 #####  Setup Storm repo in Ranger
 
-**Note: if this were a multi-node cluster, you would run these steps on the host running Storm**
-
-- Make sure Storm is running
+- Make sure Storm is running using Ambari
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Storm and enter below to create a Storm repo:
 ```
-Repository name= storm_sandbox
+Repository name: storm_sandbox
 Username: rangeradmin@HORTONWORKS.COM
 Password: hortonworks
 Nimbus: http://sandbox.hortonworks.com:8744
@@ -490,16 +488,16 @@ Nimbus: http://sandbox.hortonworks.com:8744
 ![Image](../master/screenshots/ranger-storm-setup.png?raw=true)
 - Click Test and Add
 
-- Install HBase plugin
+- Install Storm plugin
 
-**Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+**Note: if this were a multi-node cluster, you would run these steps on the host running Storm**
 
 ```
-cd /usr/hdp/2.2.0.0-2041/ranger-hbase-plugin
+cd /usr/hdp/2.2.0.0-2041/ranger-storm-plugin
 vi install.properties
 
 POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
-REPOSITORY_NAME=hbase_sandbox
+REPOSITORY_NAME=storm_sandbox
 
 XAAUDIT.DB.IS_ENABLED=true
 XAAUDIT.DB.FLAVOUR=MYSQL
@@ -509,12 +507,17 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-- Enable Ranger HBase plugin
+- Enable Ranger Storm plugin
 ```
-./enable-hbase-plugin.sh
+./enable-storm-plugin.sh
 ```
 
 - Restart Storm
+
+- Submit test topology
+```
+storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
+```
 
 ---------------------
 
