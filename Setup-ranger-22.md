@@ -54,6 +54,7 @@ authServicePort=5151
 - Start Ranger Admin
 ```
 export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
+echo "export JAVA_HOME=/usr/jdk64/jdk1.7.0_67" >> ~/.bashrc
 ./setup.sh
 #enter hortonworks for the passwords
 service ranger-admin start
