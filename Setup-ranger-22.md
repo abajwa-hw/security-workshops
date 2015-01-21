@@ -333,6 +333,7 @@ exit
 
 - Create hive policy in Ranger for group legal so members have read access to all columns of sample_08
 ```
+policy name: sample08-partial
 db name: default
 table: sample_08
 col name: code description
