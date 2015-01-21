@@ -270,32 +270,6 @@ XAAUDIT.DB.PASSWORD=hortonworks
 - Create a policy for admin user granting admin access to default database
 ![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
 
-- As admin user, create Hive tables
-```
-kinit admin
-#hortonworks
-
-beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
-#hit enter twice to pass in empty user/pass
-use default;
-CREATE TABLE `sample_07` (
-  `code` string ,
-  `description` string ,  
-  `total_emp` int ,  
-  `salary` int )
-  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
-  
-  
-  CREATE TABLE `sample_08` (
-  `code` string ,
-  `description` string ,  
-  `total_emp` int ,  
-  `salary` int )
-  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
-  
-!q
-```
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
 
 - Restart hue to make it aware of Ranger changes
