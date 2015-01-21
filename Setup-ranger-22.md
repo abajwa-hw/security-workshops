@@ -211,8 +211,7 @@ hdfs dfs -ls /rangerdemo
   - under group add "hr" and give read, write, execute
   - ![Image](../master/screenshots/ranger-hdfs-rangerdemo.png?raw=true)
   - Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
-
-![Image](../master/screenshots/ranger-hdfs-analytics.png?raw=true)
+  ![Image](../master/screenshots/ranger-hdfs-analytics.png?raw=true)
 
 - This HDFS access as hr1 user should pass now. 
 ```

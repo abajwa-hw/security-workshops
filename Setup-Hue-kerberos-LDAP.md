@@ -63,4 +63,5 @@ service hue restart
 
 - You should now be able to login to Hue on kerborized cluster using an LDAP-defined user:
   - login to Hue as paul/hortonworks or sales1/hortonworks and notice that FileBrowser, HCat, Hive now work
+  - ![Image](../master/screenshots/Hue-loginas-LDAP.png?raw=true)
   - also note that logging in as hr1/hortonworks, you can not access the Hive/HCat views in Hue (consistent with the proxyuser setting above)
