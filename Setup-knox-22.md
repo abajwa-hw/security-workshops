@@ -20,7 +20,11 @@
 
 ###### Configure Knox to use IPA
 
-- In Ambari under HDFS > Config set hadoop.proxyuser.knox.groups=* and restart HDFS
+- Add the below to HDFS config via Ambari and restart HDFS:
+```
+hadoop.proxyuser.knox.groups = * 
+hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
+```	
 
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2)
 
@@ -116,11 +120,7 @@ ps -ef | grep proc_rangeradmin
 ```
 ###### Setup Knox repo
 
-- Add the below to HDFS config via Ambari and restart HDFS:
-```
-hadoop.proxyuser.knox.groups = * 
-hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
-```	
+
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
 
 ```
