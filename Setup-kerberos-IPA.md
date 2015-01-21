@@ -16,7 +16,7 @@
   - [Configure Hue for LDAP/kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#configure-hue-for-ldapkerberos)
   - [Extra config](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md#extra-config)
   
-- Video:
+- Video (note this was created for HDP 2.1 and there have been changes for HDP 2.2):
   - <a href="http://www.youtube.com/watch?feature=player_embedded&v=qlUWe75Shno&t=9m20s" target="_blank"><img src="http://img.youtube.com/vi/qlUWe75Shno/0.jpg" alt="Setup IPA" width="240" height="180" border="10" /></a>
   
 -----------------------
