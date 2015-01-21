@@ -267,3 +267,5 @@ select code, description from sample_07;
 ![Image](../master/screenshots/ranger-knox-hive-allowed.png?raw=true)  
 
 - With this we have shown how HiveServer2 can transport data over HTTPS using Knox. Also authorization and audit of such transactions can be done via Ranger
+
+- For more info on Knox you can refer to the doc: http://knox.apache.org/books/knox-0-5-0/knox-0-5-0.html
