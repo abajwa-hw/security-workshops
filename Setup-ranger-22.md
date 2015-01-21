@@ -477,7 +477,44 @@ Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/mast
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running Storm**
 
-**TODO:** add steps
+- Make sure Storm is running
+
+- In the Ranger UI, under PolicyManager tab, click the + sign next to Storm and enter below to create a Storm repo:
+```
+Repository name= storm_sandbox
+Username: rangeradmin@HORTONWORKS.COM
+Password: hortonworks
+Nimbus: http://sandbox.hortonworks.com:8744
+
+```
+![Image](../master/screenshots/ranger-storm-setup.png?raw=true)
+- Click Test and Add
+
+- Install HBase plugin
+
+**Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+
+```
+cd /usr/hdp/2.2.0.0-2041/ranger-hbase-plugin
+vi install.properties
+
+POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
+REPOSITORY_NAME=hbase_sandbox
+
+XAAUDIT.DB.IS_ENABLED=true
+XAAUDIT.DB.FLAVOUR=MYSQL
+XAAUDIT.DB.HOSTNAME=localhost
+XAAUDIT.DB.DATABASE_NAME=ranger_audit
+XAAUDIT.DB.USER_NAME=rangerlogger
+XAAUDIT.DB.PASSWORD=hortonworks
+```
+
+- Enable Ranger HBase plugin
+```
+./enable-hbase-plugin.sh
+```
+
+- Restart Storm
 
 ---------------------
 
