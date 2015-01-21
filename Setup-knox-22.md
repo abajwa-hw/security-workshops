@@ -61,6 +61,16 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
   ```
 - Restart Knox via Ambari
 
+- Re-try the WebHDFS request. After the above change we can pass in user credentials from IPA.
+```
+curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+```
+
+- Notice the guest user no longer works because we did not create it in IPA
+```
+curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+```
+- Next lets setup Ranger plugin for Knox
 
 ###### Pre-requisite steps
 
