@@ -17,6 +17,12 @@ hadoop.proxyuser.hive.groups = users, sales, legal, admins
 ```
 - restart HDFS via Ambari
 
+- Use the orig version of hue.ini as starting point (workaround for bug in VM)
+```
+mv /etc/hue/conf/hue.ini /etc/hue/conf/hue.ini.bad
+mv /etc/hue/conf/hue.ini.org /etc/hue/conf/hue.ini
+```
+
 - Edit /etc/hue/conf/hue.ini by uncommenting/changing properties to make it kerberos aware
 	- Change all instances of "security_enabled" to true
 	- Change all instances of "localhost" to "sandbox.hortonworks.com" 
