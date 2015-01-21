@@ -6,8 +6,7 @@
   
 - Pre-requisites: 
   - Install VM software like VMWare or VirtualBox on your laptop
-  - Download CentOS 6.5 ISO image onto your laptop e.g. from
-  - http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso
+  - Download CentOS 6.5 ISO image onto your laptop e.g. from [here](http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso)
 
 - Contents:
   - [Setup Centos 6.5 on VM](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md#setup-centos-65-on-vm)
