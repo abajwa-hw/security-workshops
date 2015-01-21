@@ -283,6 +283,7 @@ service hue restart
 
 - Create hive policies in Ranger for user ali so he has read access to all columns in sample_08 but to only 2 cols in sample_07
 ```
+policy name: sample_07-partial
 db name: default
 table: sample_07
 col name: code description
@@ -292,6 +293,7 @@ Add
 ![Image](../master/screenshots/ranger-hive-sample07-partial.png?raw=true)
 
 ```
+policy name: sample_08-full
 db name: default
 table: sample_08
 col name: *
