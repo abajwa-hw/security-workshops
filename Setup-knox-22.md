@@ -37,7 +37,7 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
 - To configure Knox to use IPA LDAP instead of the demo one, in Ambari, under Knox > Configs > Advanced Topology: 
-  - First, modify the below ```<value>```entries (also under Advanced Topology):
+  - First, modify the below ```<value>```entries:
   ```                      
                     <param>
                         <name>main.ldapRealm.userDnTemplate</name>
@@ -48,7 +48,7 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
                        <value>ldap://ldap.hortonworks.com:389</value> 
                     </param>                     
   ```
-  - Then, add these params directly under the above params (before the ```</provider>``` tag) (also under Advanced Topology):
+  - Then, add these params directly under the above params (before the ```</provider>``` tag):
   ```                    
                     <param>
                         <name>main.ldapRealm.authorizationEnabled</name>
