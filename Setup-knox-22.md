@@ -20,8 +20,11 @@
 
 ###### Pre-requisite steps
 
-- Start Knox using Ambari
+- In Ambari under HDFS > Config set hadoop.proxyuser.knox.groups=* and restart HDFS
 
+- Start Knox using Ambari (it comes pre-installed with HDP 2.2)
+
+- 
 - Export certificate to ~/knox.crt
 ```
 cd /var/lib/knox/data/security/keystores
