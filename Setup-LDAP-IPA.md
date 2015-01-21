@@ -122,7 +122,10 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 ```
-
+- Set password policy
+```
+ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
+```
 --------------------------
 
 ##### Import business users into LDAP

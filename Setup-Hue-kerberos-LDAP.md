@@ -13,7 +13,7 @@ Under Ambari > HDFS > Configs > hadoop.security.auth_to_local, add hue entry bel
 
 - allow hive to impersonate users from whichever LDAP groups you choose
 ```
-hadoop.proxyuser.hive.groups = users, sales, legal 
+hadoop.proxyuser.hive.groups = users, sales, legal, admins
 ```
 - restart HDFS via Ambari
 
@@ -66,20 +66,11 @@ service hue restart
   - ![Image](../master/screenshots/Hue-loginas-LDAP.png?raw=true)
   - also note that logging in as hr1/hortonworks, you can not access the Hive/HCat views in Hue (consistent with the proxyuser setting above)
 
-- On the kerborized cluster, create some tables and import data (to be used in Ranger exercises)
-  - Create sample_07 using Hue
-  ```
-  CREATE TABLE `sample_07` (
-  `code` string ,
-  `description` string ,  
-  `total_emp` int ,  
-  `salary` int )
-  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
-  ```
-  ![Image](../master/screenshots/Hue-createtable.png?raw=true)
-  - Create sample_08 using beeline (note the connect string to login now that the cluster is kerborized):
+- On the kerborized cluster, create some tables and import data (to be used in Ranger exercises). Note the connect string to login now that the cluster is kerborized is different than before:
   
   ```
+  hadoop fs -put ~/security-workshops/data/sample_08.csv /tmp
+   
   kinit admin
   #hortonworks
 
@@ -87,8 +78,7 @@ service hue restart
   !connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
   #hit enter twice to pass in empty user/pass
   use default;
-  
-  
+
   CREATE TABLE `sample_08` (
   `code` string ,
   `description` string ,  
@@ -96,6 +86,9 @@ service hue restart
   `salary` int )
   ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
   
+  load data inpath '/tmp/sample_08.csv' into table sample_08;
+  
+  select * from sample_08;
   !q
-  ```
+  ```  
   

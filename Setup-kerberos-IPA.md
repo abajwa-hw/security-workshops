@@ -69,6 +69,35 @@ echo "192.168.191.185 sandbox.hortonworks.com sandbox" >> /etc/hosts
 
 - Now both VMs and your laptop should have an entry for sandbox and ipa
 
+- Pull the latest scripts to sandbox
+  ```
+  cd ~
+  git clone https://github.com/abajwa-hw/security-workshops.git
+  ```
+  
+- Before enabling security, create a table via beeline to be used later. Note the connect string as it will change as we enable kerberos and later Knox.
+  ```
+  hadoop fs -put ~/security-workshops/data/sample_07.csv /tmp
+   
+  beeline
+  !connect jdbc:hive2://sandbox.hortonworks.com:10000/default
+  #hit enter twice to pass in empty user/pass
+  use default;
+  
+  CREATE TABLE `sample_07` (
+  `code` string ,
+  `description` string ,  
+  `total_emp` int ,  
+  `salary` int )
+  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
+
+  load data inpath '/tmp/sample_07.csv' into table sample_07;
+  
+  select * from sample_07;
+  
+  !q
+  ```
+  
 - install IPA client
 ```
 yum install ipa-client openldap-clients -y

@@ -197,7 +197,7 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 
 #### Knox exercises to check Hive setup
 
-- run beehive query connecting through knox
+- Run beehive query connecting through Knox. Note that the beeline connect string is different for connecting via Knox
 ```
 su ali
 beeline

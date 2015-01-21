@@ -23,6 +23,9 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 
+#password policy
+ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
+
 #Get kerberos ticket
 echo hortonworks | kinit admin
 
