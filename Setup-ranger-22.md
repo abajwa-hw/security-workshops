@@ -328,10 +328,8 @@ select * from sample_08 limit 1;
 !q
 exit
 ```
-![Image](../master/screenshots/ranger-hive-user-allowed.png?raw=true)
-
 - Now look at the audit reports for the above and notice that audit reports for the queries show up in Ranger 
-
+![Image](../master/screenshots/ranger-hive-user-allowed.png?raw=true)
 
 - Create hive policy in Ranger for group legal so members have read access to all columns of sample_08
 ```
