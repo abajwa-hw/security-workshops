@@ -61,8 +61,8 @@ service ranger-admin start
 
 - Install user/groups sync agent (ugsync) 
 ```
-yum install ranger-usersync
-#to uninstall: yum remove ranger_2_2_0_0_2041-usersync ranger-usersync
+yum install -y ranger-usersync
+#In case you need to uninstall: yum remove ranger_2_2_0_0_2041-usersync ranger-usersync
 ```
 - Configure ugsync to pull users from LDAP 
 ```
@@ -178,14 +178,16 @@ hdfs dfs -ls /rangerdemo
 #this should fail with "Permission denied"
 ```
 - Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
+![Image](../master/screenshots/ranger-hdfs-audit-userdenied.png?raw=true)
 
 - Add policy in Ranger PolicyManager > hdfs_sandbox > Add new policy
   - Resource path: /rangerdemo
   - Recursive: True
   - User: ali and give read, write, execute
   - Save > OK and wait 30s
-
-- now this should succeed
+  - ![Image](../master/screenshots/ranger-hdfs-setup-user.png?raw=true)
+  
+- Now the HDFS access should succeed
 ```
 hdfs dfs -ls /rangerdemo
 ```
@@ -212,10 +214,12 @@ hdfs dfs -ls /rangerdemo
 
 ![Image](../master/screenshots/ranger-hdfs-analytics.png?raw=true)
 
-- this should pass now. View the audit page for the new activity
+- This HDFS access as hr1 user should pass now. 
 ```
 hdfs dfs -ls /rangerdemo
 ```
+- View the audit page for the new activity
+![Image](../master/screenshots/ranger-hdfs-audit-groupallowed.png?raw=true)
 
 - Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
