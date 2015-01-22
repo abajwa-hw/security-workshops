@@ -532,18 +532,19 @@ echo "Done"
 
 - Open Storm webui using kerborized browser
 
-- Close all Safari Windows on your local Mac
-- FTP /etc/krb5.conf and /etc/security/keytabs/storm.service.keytab to ~/Downloads on your local mac 
-- On you local mac run:
-```
-sudo mv ~/Downloads/krb5.conf /etc
-kinit -Vkt ~/Downloads/storm.service.keytab --kdc-hostname=ldap.hortonworks.com storm@HORTONWORKS.COM
-```
-- Launch Safari from the same terminal when you ran kinit
-```
-/Applications/Safari.app/Contents/MacOS/Safari
-```
-- Open Storm Webui and notice it complains
+  - Close all Safari Windows on your local Mac
+  - FTP /etc/krb5.conf and /etc/security/keytabs/storm.service.keytab to ~/Downloads on your local mac 
+  - On you local mac run:
+  ```
+  sudo mv ~/Downloads/krb5.conf /etc
+  kinit -Vkt ~/Downloads/storm.service.keytab --kdc-hostname=ldap.hortonworks.com storm@HORTONWORKS.COM
+  ```
+  - Launch Safari from the same terminal when you ran kinit
+  ```
+  /Applications/Safari.app/Contents/MacOS/Safari
+  ```
+  
+- Open Storm Webui and notice it complains: http://sandbox.hortonworks.com:8744/index.html
 
 - Try sumbiting a test topology and notice the AuthorizationException
 ```
