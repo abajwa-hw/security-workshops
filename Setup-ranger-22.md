@@ -528,6 +528,9 @@ sleep 10
 storm supervisor > /var/log/storm/supervisor.out 2>&1 &
 sleep 10
 echo "Done"
+
+#check the jobs you started
+jobs
 ```
   - Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm: ```cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer``` 
 
