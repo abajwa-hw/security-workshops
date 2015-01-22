@@ -529,7 +529,7 @@ storm supervisor > /var/log/storm/supervisor.out 2>&1 &
 sleep 10
 echo "Done"
 ```
-  - Basically, starting Storm via Ambari overwrites this entry which prevents Ranger from tracking Storm: ```cat /etc/storm/conf/storm.yaml | grep XaSecureStormAuthorizer``` 
+  - Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm: ```cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer``` 
 
 - Open kerborized browser
 
