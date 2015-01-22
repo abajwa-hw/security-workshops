@@ -67,12 +67,12 @@ hdfs crypto -listZones
 
 Since HDFS file encryption/decryption is transparent to its client, user can read/write files to/from encryption zone as long they have the permission to access it.
 
-- Change permissions of encryption zone
+- As hdfs user, change permissions of encryption zone
 ```
 hdfs dfs -chmod 700 /enczone1
 ```
 
-- Create a file and push it to encrypted zone
+- As hdfs user, create a file and push it to encrypted zone
 ```
 echo "Hello TDE" >> myfile.txt
 hdfs dfs -put myfile.txt /enczone1
@@ -84,7 +84,7 @@ hdfs dfs -put myfile.txt /enczone1
   - Group permissions: sales and select Read/Write/Execute
   - ![Image](../master/screenshots/ranger-tde-setup.png?raw=true)
 
-- Access the file as ali. This should succeed
+- Access the file as ali. This should succeed as he is part of Sales group.
 ```
 su ali
 kinit
@@ -92,7 +92,7 @@ kinit
 hadoop fs -cat /enczone1/myfile.txt
 ```
 
-- Access the file as hr1. This should be denied
+- Access the file as hr1. This should be denied as he is not part of Sales group.
 ```
 su hr1
 kinit
