@@ -555,7 +555,7 @@ storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topolo
   Caused by: AuthorizationException(msg:getClusterInfo is not authorized)
   ```
 
-- The Storm agent should now show up under Audit->Agents
+- In Ranger, the Storm agent should now show up under Audit->Agents
 ![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
 
 - Review Ranger audit for Storm and notice it was denied
