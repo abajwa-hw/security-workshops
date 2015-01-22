@@ -546,14 +546,14 @@ echo "Done"
   
 - Open Storm Webui and notice it complains: http://sandbox.hortonworks.com:8744/index.html
 
-- Try sumbiting a test topology and notice the AuthorizationException
+- Try sumbiting a test topology using below
 ```
 storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
 ```
-
-```
-Caused by: AuthorizationException(msg:getClusterInfo is not authorized)
-```
+  -  Notice that you get a AuthorizationException
+  ```
+  Caused by: AuthorizationException(msg:getClusterInfo is not authorized)
+  ```
 
 - The Storm agent should now show up under Audit->Agents
 ![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
