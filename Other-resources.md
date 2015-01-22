@@ -1,5 +1,11 @@
 #### Other useful security resources/scripts
 
+- Contents
+  - [Transparent Data at Rest Encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-transparent-data-at-rest-encryption-in-hdp-22)
+  - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
+  - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
+  - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
+  
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
 - Blog coming soon on this topic
 
