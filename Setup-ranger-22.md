@@ -515,6 +515,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
 - Start Storm manually (there seems to be an Ambari bug that undoes the changes made when Ranger plugin is installed)
+  - Basically, starting Storm via Ambari overwrites this entry ```cat /etc/storm/conf/storm.yaml | grep XaSecureStormAuthorizer``` which prevents Ranger from tracking Storm
 ```
 export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
 export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
