@@ -507,18 +507,82 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
+- Stop Storm using Ambari
+
 - Enable Ranger Storm plugin
 ```
 ./enable-storm-plugin.sh
 ```
 
-- Restart Storm
+- Start Storm manually (there seems to be an Ambari bug that undoes the changes made when Ranger plugin is installed)
+```
+export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
+export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
+
+storm drpc > /var/log/storm/drpc.out 2>&1 &
+sleep 10
+storm nimbus > /var/log/storm/nimbus.out 2>&1 &
+sleep 10
+storm ui > /var/log/storm/ui.out 2>&1 &
+sleep 10
+storm supervisor > /var/log/storm/supervisor.out 2>&1 &
+sleep 10
+echo "Done"
+```
+
+- Open Storm webui using kerborized browser
+
+- Close all Safari Windows on your local Mac
+- FTP /etc/krb5.conf and /etc/security/keytabs/storm.service.keytab to ~/Downloads on your local mac 
+- On you local mac run:
+```
+sudo mv ~/Downloads/krb5.conf /etc
+kinit -Vkt ~/Downloads/storm.service.keytab --kdc-hostname=ldap.hortonworks.com storm@HORTONWORKS.COM
+```
+- Launch Safari from the same terminal when you ran kinit
+```
+/Applications/Safari.app/Contents/MacOS/Safari
+```
+- Open Storm Webui and notice it complains
+
+- Try sumbiting a test topology and notice the AuthorizationException
+```
+storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
+```
+
+```
+Caused by: AuthorizationException(msg:getClusterInfo is not authorized)
+```
+
+- The Storm agent should now show up under Audit->Agents
+![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
+
+- Review Ranger audit for Storm and notice it was denied
+![Image](../master/screenshots/ranger-storm-audit-denied.png?raw=true)
+
+- Update the Storm Ranger policy to give full access to Storm user
+  - Topology name: *
+  - User: Storm
+  - Actions: select all
+  - Admin: true
+  - Save
+  - ![Image](../master/screenshots/ranger-storm-policy.png?raw=true)
+
+- Now the Storm UI should come up
+![Image](../master/screenshots/ranger-stormui-working.png?raw=true)
 
 - Submit test topology
 ```
 storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
 ```
 
+- Review Ranger audit
+![Image](../master/screenshots/ranger-storm-audit-works.png?raw=true)
+
+- Kill Storm topology
+```
+storm kill WordCountTopology
+```
 ---------------------
 
 
