@@ -103,7 +103,7 @@ hadoop fs -cat /enczone1/myfile.txt
 - Review audit in Ranger
 ![Image](../master/screenshots/ranger-tde-audit.png?raw=true)
 
-- View contents of raw file in encrypted zone as hdfs super user
+- View contents of raw file in encrypted zone as hdfs super user. This should show some encrypted chacaters
 ```
 hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
 ```
