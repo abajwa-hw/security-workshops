@@ -572,12 +572,12 @@ storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topolo
 - Now the Storm UI should come up
 ![Image](../master/screenshots/ranger-stormui-working.png?raw=true)
 
-- Submit test topology
+- Submit test topology. This time is should get submitted. You can review the topology in the Storm UI
 ```
 storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
 ```
 
-- Review Ranger audit
+- Review Ranger audit and notice the requests from storm user were allowed
 ![Image](../master/screenshots/ranger-storm-audit-works.png?raw=true)
 
 - Kill Storm topology
