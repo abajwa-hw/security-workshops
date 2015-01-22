@@ -530,16 +530,16 @@ sleep 10
 echo "Done"
 ```
 
-- Open Storm webui using kerborized browser
+- Open kerborized browser
 
   - Close all Safari Windows on your local Mac
   - FTP /etc/krb5.conf and /etc/security/keytabs/storm.service.keytab to ~/Downloads on your local mac 
-  - On you local mac run:
+  - On you local mac run below to kinit as storm:
   ```
   sudo mv ~/Downloads/krb5.conf /etc
   kinit -Vkt ~/Downloads/storm.service.keytab --kdc-hostname=ldap.hortonworks.com storm@HORTONWORKS.COM
   ```
-  - Launch Safari from the same terminal when you ran kinit
+  - Launch Safari from the same terminal when you ran kinit to bring up kerborized browser
   ```
   /Applications/Safari.app/Contents/MacOS/Safari
   ```
