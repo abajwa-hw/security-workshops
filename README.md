@@ -2,7 +2,7 @@
 
 These workshops is part of a 'Securing the Data Lake' webinar.
 
-The webinar recording and slides are available at http://hortonworks.com/partners/learn
+The full list of available workshops is available at http://hortonworks.com/partners/learn
 
 #### Goals 
 To demonstrate: 
