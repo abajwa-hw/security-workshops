@@ -7,7 +7,7 @@
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
-- Blog coming soon on this topic
+- Blog link coming soon for more details on this topic
 
 - Set up a Key Management Service backed by Java KeyStore
 ```
