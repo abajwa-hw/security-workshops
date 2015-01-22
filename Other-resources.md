@@ -113,11 +113,12 @@ hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
 ```
 hadoop fs -setfattr -n security.hdfs.unreadable.by.superuser /enczone1/myfile.txt
 ```
-- Now try to read its contents as hdfs super user
+- Now as hdfs super user, try to read the files or the contents of the raw file
 ```
 hdfs dfs -cat /enczone1/myfile.txt
+hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
 ```
-- You should get an error similar to below
+- You should get an error similar to below in both cases
 ```
 Access is denied for hdfs since the superuser is not allowed to perform this operation.
 ```
