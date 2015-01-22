@@ -21,6 +21,8 @@ Enable Knox to work with kerberos enabled cluster to enable perimeter security o
 
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
-  - Volume encryption
+  - Encryption at Rest
+    - HDFS TDE
+    - LUKS volume encryption
   - Audit logs in HDFS
   - Wire encryption

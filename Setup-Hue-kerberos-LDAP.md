@@ -6,9 +6,15 @@
 - Now that kerberos has been enabled on the sandbox VM and LDAP has also been setup, we can configure Hue to for this configuration
    
 -  Edit the kerberos principal to hadoop user mapping to add Hue
-Under Ambari > HDFS > Configs > hadoop.security.auth_to_local, add hue entry below above ```DEFAULT```:
+Under Ambari > HDFS > Configs > hadoop.security.auth_to_local, add hue entry below above ```DEFAULT```. If the other entries are missing, add them too:
 ```
+        RULE:[2:$1@$0]([rn]m@.*)s/.*/yarn/
+        RULE:[2:$1@$0](jhs@.*)s/.*/mapred/
+        RULE:[2:$1@$0]([nd]n@.*)s/.*/hdfs/
+        RULE:[2:$1@$0](hm@.*)s/.*/hbase/
+        RULE:[2:$1@$0](rs@.*)s/.*/hbase/
         RULE:[2:$1@$0](hue/sandbox.hortonworks.com@.*HORTONWORKS.COM)s/.*/hue/        
+        DEFAULT        
 ```
 
 - allow hive to impersonate users from whichever LDAP groups you choose

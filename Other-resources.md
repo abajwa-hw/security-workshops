@@ -1,7 +1,124 @@
 #### Other useful security resources/scripts
 
-##### Encryption at rest: Transparent Data at Rest Encryption 
-Coming soon
+##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
+- Blog coming soon on this topic
+
+- Set up a Key Management Service backed by Java KeyStore
+```
+cd /usr/hdp/current/hadoop-client
+tar xvf  mapreduce.tar.gz
+```
+- Configure HDFS to access KMS to manage encryption zone key and encryption zone for transparent data encryption/decryption
+  - Ambari > HDFS > Configs 
+    - Custom hdfs-site:
+      - dfs.encryption.key.provider.uri = kms://http@sandbox.hortonworks.com:16000/kms
+    - Custom core-site:
+      - hadoop.security.key.provider.path = kms://http@sandbox.hortonworks.com:16000/kms
+
+- Restart HDFS via Ambari
+
+- Configure KMS for kerberos by making below changes to /usr/hdp/current/hadoop-client/hadoop/etc/hadoop/kms-site.xml
+```
+  <property>
+    <name>hadoop.kms.authentication.type</name>
+    <value>kerberos</value>
+  </property>
+
+  <property>
+    <name>hadoop.kms.authentication.kerberos.keytab</name>
+    <value>/etc/security/keytabs/spnego.service.keytab</value>
+  </property>
+
+  <property>
+    <name>hadoop.kms.authentication.kerberos.principal</name>
+    <value>HTTP/sandbox.hortonworks.com@HORTONWORKS.COM</value>
+  </property>
+```
+
+- Start KMS
+```
+/usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh stop
+/usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh run
+```
+- Check that the KMS is running by opening in browser: http://sandbox.hortonworks.com:16000
+![Image](../master/screenshots/KMS.png?raw=true)
+
+- Create key called key1 of length 256 and show result
+```
+su hdfs
+cd
+kinit -Vkt /etc/security/keytabs/hdfs.headless.keytab  hdfs@HORTONWORKS.COM
+hadoop key create key1  -size 256
+hadoop key list -metadata
+```
+
+- Create an encryption zone under /zone1 with zone key named key1 and show the results
+```
+hdfs dfs -mkdir /enczone1
+hdfs crypto -createZone -keyName key1 -path /enczone1
+hdfs crypto -listZones 
+```
+
+Since HDFS file encryption/decryption is transparent to its client, user can read/write files to/from encryption zone as long they have the permission to access it.
+
+- Change permissions of encryption zone
+```
+hdfs dfs -chmod 700 /enczone1
+```
+
+- Create a file and push it to encrypted zone
+```
+echo "Hello TDE" >> myfile.txt
+hdfs dfs -put myfile.txt /enczone1
+```
+- Setup policy in Ranger for only sales group to have access to /enczone1 dir
+  - Resource path: /enczone1
+  - Recursive: Yes
+  - Audit logging: Yes
+  - Group permissions: sales and select Read/Write/Execute
+  - ![Image](../master/screenshots/ranger-tde-setup.png?raw=true)
+
+- Access the file as ali. This should succeed
+```
+su ali
+kinit
+#hortonworks
+hadoop fs -cat /enczone1/myfile.txt
+```
+
+- Access the file as hr1. This should be denied
+```
+su hr1
+kinit
+#hortonworks
+hadoop fs -cat /enczone1/myfile.txt
+```
+
+- Review audit in Ranger
+![Image](../master/screenshots/ranger-tde-audit.png?raw=true)
+
+- View contents of raw file in encrypted zone as hdfs super user
+```
+hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
+```
+
+
+- Prevent user hdfs from reading the file by setting security.hdfs.unreadable.by.superuser attribute. Note that this attribute can only be set on files and can never be removed.
+```
+hadoop fs -setfattr -n security.hdfs.unreadable.by.superuser /enczone1/myfile.txt
+```
+- Now try to read its contents as hdfs super user
+```
+hdfs dfs -cat /enczone1/myfile.txt
+```
+- You should get an error similar to below
+```
+Access is denied for hdfs since the superuser is not allowed to perform this operation.
+```
+
+- You have successfully setup Transparent Data Encryption
+
+---------------------
 
 ##### Encryption at rest: Volume encryption using LUKS 
 
