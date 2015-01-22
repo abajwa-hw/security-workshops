@@ -18,7 +18,7 @@ Why integrate security with LDAP?
 - [Recording](https://hortonworks.webex.com/hortonworks/lsr.php?RCID=ba69eaa5bbf49d3c9d4df7f94e0201f6) of presentation
 
 
-#### Workshop Instructions
+#### Workshop Materials
 
 1. Enable security on **HDP 2.1** sandbox using **FreeIPA** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP%202_1-seperateIPA.md)
