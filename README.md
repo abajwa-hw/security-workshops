@@ -13,9 +13,9 @@ To demonstrate:
 Why integrate security with LDAP? 
  - To show how Hadoop plugins into the enterprises existing Identity Management system
 
-#### Materials
-- [Slides](http://www.slideshare.net/hortonworks/hdp-security-overview)
-- [Recording](https://hortonworks.webex.com/hortonworks/lsr.php?RCID=ba69eaa5bbf49d3c9d4df7f94e0201f6)
+#### Presentation Materials
+- [Slides](http://www.slideshare.net/hortonworks/hdp-security-overview) of presentation
+- [Recording](https://hortonworks.webex.com/hortonworks/lsr.php?RCID=ba69eaa5bbf49d3c9d4df7f94e0201f6) of presentation
 
 
 #### Workshop Instructions
