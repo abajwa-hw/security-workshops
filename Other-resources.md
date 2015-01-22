@@ -49,6 +49,7 @@ In case you need to stop it, you can run below
 ```
 /usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh stop
 ```
+
 - Check that the KMS is running by opening in browser: http://sandbox.hortonworks.com:16000
 ![Image](../master/screenshots/KMS.png?raw=true)
 
@@ -61,7 +62,7 @@ hadoop key create key1  -size 256
 hadoop key list -metadata
 ```
 
-- Create an encryption zone under /zone1 with zone key named key1 and show the results
+- Create an encryption zone under /enczone1 with zone key named key1 and show the results
 ```
 hdfs dfs -mkdir /enczone1
 hdfs crypto -createZone -keyName key1 -path /enczone1
