@@ -11,7 +11,7 @@ To demonstrate:
 - Enable Perimeter Security: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point
 
 Why integrate security with LDAP? 
- - To show how Hadoop plugins into the enterprises existing Identity Management system
+ - To show how Hadoop plugs in to the enterprise's existing Identity Management system
 
 #### Presentation Materials
 - [Slides](http://www.slideshare.net/hortonworks/hdp-security-overview) of presentation
