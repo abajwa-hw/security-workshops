@@ -43,8 +43,11 @@ tar xvf  mapreduce.tar.gz
 
 - Start KMS
 ```
-/usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh stop
 /usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh run
+```
+In case you need to stop it, you can run below
+```
+/usr/hdp/current/hadoop-client/hadoop/sbin/kms.sh stop
 ```
 - Check that the KMS is running by opening in browser: http://sandbox.hortonworks.com:16000
 ![Image](../master/screenshots/KMS.png?raw=true)
