@@ -205,7 +205,7 @@ echo "service ntpd stop" > /root/updateclock.sh
 echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
 echo "service ntpd start" >> /root/updateclock.sh
 chmod 755 /root/updateclock.sh
-echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
+echo "*/2  *  *  *  * root /root/updateclock.sh > /dev/null 2>&1" >> /etc/crontab
 ```
 
 - Create script to generate /etc/hosts entry on startup
