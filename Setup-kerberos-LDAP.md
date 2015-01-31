@@ -33,10 +33,7 @@ cp /var/lib/ambari-server/resources/scripts/krb5.conf /etc
 ```
 kdb5_util create -s
 ```
-- Create admin principal
-```
-kadmin.local -q "addprinc admin/admin"
-```
+
 - Start kerberos
 ```
 /etc/rc.d/init.d/krb5kdc start
@@ -45,7 +42,10 @@ kadmin.local -q "addprinc admin/admin"
 chkconfig krb5kdc on
 chkconfig kadmin on
 ```
-
+- Create admin principal
+```
+kadmin.local -q "addprinc admin/admin"
+```
 - Login to Ambari (if server is not started, execute /root/start_ambari.sh) by opening http://sandbox.hortonworks.com:8080 and then
   - Admin -> Security-> click “Enable Security”
   - On "get started” page, click Next
