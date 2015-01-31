@@ -5,6 +5,14 @@
   - Testing automated principal/keytab feature in Ambari 2.0 
   
 -----------------------
+- Contents:
+  - [Setup Centos on VM](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-centos-65-on-vm)
+  - [Install Ambari 2.0](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#install-ambari-20)
+  - [Install sandbox scripts](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#install-sandbox-scripts)
+  - [Setup kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-kerberos)
+
+
+------------------------
 
 ##### Setup Centos 6.5 on VM
 - Start a CentOS VM using above ISO
@@ -103,10 +111,13 @@ ambari-server start
   - http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
   - http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6/
 
-- Install options
+- Install options and click Next and install cluster
   - host: sandbox.hortonworks.com
   - Paste contents of /root/.ssh/id_rsa
 
+---------------------------------------
+
+##### Install sandbox scripts
 
 - Make VM look like sandbox by copying over /usr/lib/hue/tools/start_scripts
 ```
@@ -191,8 +202,11 @@ shutdown now
 ```
 /Applications/VMware\ Fusion.app/Contents/Library/VMware\ OVF\ Tool/ovftool --acceptAllEulas ~/Documents/Virtual\ Machines.localized/Hortonworks_Sandbox_2.1_<yourVM>.vmwarevm/Hortonworks_Sandbox_2.1_<yourVM>.vmx /Users/abajwa/Downloads/Hortonworks_Sandbox_2.1_<yourVM>.ova
 ```
+--------------------
 
-- create KDC using steps from https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-LDAP.md
+##### Setup kerberos
+
+- Start a VM using newly created ova and create KDC using steps from https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-LDAP.md
 
 - Use Admin > Kerberos to start security wizard
 
