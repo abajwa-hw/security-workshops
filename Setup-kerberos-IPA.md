@@ -97,7 +97,13 @@ echo "192.168.191.185 sandbox.hortonworks.com sandbox" >> /etc/hosts
   
   !q
   ```
-  
+  - If you wanted to read the file from local filesystem instead:
+  ```
+  #Copy the file to where hive user can access it
+  cp ~/security-workshops/data/sample_07.csv /tmp
+  #load with local option instead
+  load data local inpath '/tmp/sample_07.csv' into table sample_07;
+  ```
 - install IPA client
 ```
 yum install ipa-client openldap-clients -y

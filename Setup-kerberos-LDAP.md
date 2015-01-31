@@ -33,7 +33,10 @@ cp /var/lib/ambari-server/resources/scripts/krb5.conf /etc
 ```
 kdb5_util create -s
 ```
-
+- Create admin principal
+```
+kadmin.local -q "addprinc admin/admin"
+```
 - Start kerberos
 ```
 /etc/rc.d/init.d/krb5kdc start
