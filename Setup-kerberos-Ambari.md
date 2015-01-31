@@ -208,7 +208,7 @@ shutdown now
 
 - Start a VM using newly created ova and create KDC using steps from https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-LDAP.md
 
-- Use Admin > Kerberos to start security wizard
+- Launch Ambari and navigate to Admin > Kerberos to start security wizard
 
 - Configure as below
 
