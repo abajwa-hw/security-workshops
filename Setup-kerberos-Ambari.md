@@ -277,8 +277,9 @@ vi /var/kerberos/krb5kdc/kadm5.acl
 ![Image](../master/screenshots/Ambari-start-services.png?raw=true)
 ![Image](../master/screenshots/Ambari-wizard-completed.png?raw=true)
 
-######
+###### Setup Hue for kerberos
 
+- Create principal/keytab for Hue
 ```
 kadmin.local
 addprinc -randkey hue/sandbox.hortonworks.com@HORTONWORKS.COM
@@ -286,3 +287,26 @@ xst -norandkey -k /etc/security/keytabs/hue.service.keytab hue/sandbox.hortonwor
 chown hue:hue /etc/security/keytabs/hue.service.keytab
 chmod 400 /etc/security/keytabs/hue.service.keytab
 ```
+
+- Edit /etc/hue/conf/hue.ini by uncommenting/changing properties to make it kerberos aware
+	- Change all instances of "security_enabled" to true
+	- Change all instances of "localhost" to "sandbox.hortonworks.com" 
+	- Make below edits to the file:
+	```	
+	hue_keytab=/etc/security/keytabs/hue.service.keytab
+	hue_principal=hue/sandbox.hortonworks.com@HORTONWORKS.COM
+	kinit_path=/usr/bin/kinit
+	reinit_frequency=3600
+	ccache_path=/tmp/hue_krb5_ccache	
+	#These only need to be changed on HDP 2.1
+	beeswax_server_host=sandbox.hortonworks.com
+	beeswax_server_port=8002
+	```
+	
+- restart hue
+```
+service hue restart
+```
+
+- confirm Hue now works by opening FileBrowser
+http://sandbox.hortonworks.com:8000  
