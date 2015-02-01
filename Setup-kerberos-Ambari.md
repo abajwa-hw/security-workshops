@@ -123,6 +123,8 @@ ambari-server start
   - host: sandbox.hortonworks.com
   - Paste contents of /root/.ssh/id_rsa
 
+- Once completed you should have HDP 2.2 installed on your VM
+
 ---------------------------------------
 
 ##### Install sandbox scripts
