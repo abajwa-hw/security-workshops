@@ -140,8 +140,23 @@ python /usr/lib/hue/tools/start_scripts/splash.py
 ```
 
 
-- Configure cluster for Hue
-http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.0/HDP_Man_Install_v22/index.html#Item1.14.3
+- Configure cluster for Hue using [doc](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.0/HDP_Man_Install_v22/index.html#Item1.14.3):
+  - hdfs-site:
+    - dfs.webhdfs.enabled = true
+  - core-site:
+    - hadoop.proxyuser.hue.hosts = *
+    - hadoop.proxyuser.hue.groups = *
+    - hadoop.proxyuser.hcat.groups = *
+    - hadoop.proxyuser.hcat.hosts = *
+  - webhcat-site:
+    - webhcat.proxyuser.hue.hosts = *
+    - webhcat.proxyuser.hue.groups = *
+  - oozie-site:
+    - oozie.service.ProxyUserService.proxyuser.hue.hosts = *
+    - oozie.service.ProxyUserService.proxyuser.hue.groups = *
+  - hive-site:
+    - hive.server2.enable.impersonation = true    
+
 
 - Install Hue
 ```
