@@ -166,7 +166,9 @@ vi /etc/hue/conf/hue.ini
 #replace localhost by sandbox.hortonworks.com
 
 service hue  start
-
+```
+- Import sample tables
+```
 #Import sample tables
 cd /tmp
 wget https://raw.githubusercontent.com/abajwa-hw/security-workshops/master/data/sample_07.csv
