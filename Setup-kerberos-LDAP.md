@@ -46,6 +46,18 @@ chkconfig kadmin on
 ```
 kadmin.local -q "addprinc admin/admin"
 ```
+
+- Update kadm5.acl to make admin an administrator
+```
+vi /var/kerberos/krb5kdc/kadm5.acl
+*/admin@HORTONWORKS.COM *
+```
+- Restart kerberos services
+```
+/etc/rc.d/init.d/krb5kdc restart
+/etc/rc.d/init.d/kadmin restart
+```
+
 - Login to Ambari (if server is not started, execute /root/start_ambari.sh) by opening http://sandbox.hortonworks.com:8080 and then
   - Admin -> Security-> click “Enable Security”
   - On "get started” page, click Next

@@ -170,6 +170,7 @@ CREATE TABLE `sample_07` (
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
 
 load data local inpath '/tmp/sample_07.csv' into table sample_07;
+grant SELECT on table sample_07 to user hue;
 
 CREATE TABLE `sample_08` (
 `code` string ,
@@ -178,7 +179,8 @@ CREATE TABLE `sample_08` (
 `salary` int )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TextFile;
 
-load data local inpath '/tmp/sample_08.csv' into table sample_07;
+load data local inpath '/tmp/sample_08.csv' into table sample_08;
+grant SELECT on table sample_08 to user hue;
 ```
 
 - Prepare VM to export .ova image
@@ -206,11 +208,81 @@ shutdown now
 
 ##### Setup kerberos
 
-- Start a VM using newly created ova and create KDC using steps from https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-LDAP.md
+- Install kerberos (usually needed on each node but sandbox only has one)
+```
+yum -y install krb5-server krb5-libs krb5-auth-dialog krb5-workstation
+```
+
+- Configure kerberos
+```
+vi /var/lib/ambari-server/resources/scripts/krb5.conf
+#edit default realm and realm info as below
+default_realm = HORTONWORKS.COM
+
+[realms]
+ HORTONWORKS.COM = {
+  kdc = sandbox.hortonworks.com
+  admin_server = sandbox.hortonworks.com
+ }
+
+[domain_realm]
+ .hortonworks.com = HORTONWORKS.COM
+ hortonworks.com = HORTONWORKS.COM
+```
+
+- Copy conf file to /etc
+```
+cp /var/lib/ambari-server/resources/scripts/krb5.conf /etc
+```
+
+- Create kerberos db: when asked, enter hortonworks as the key
+```
+kdb5_util create -s
+```
+
+- Start kerberos
+```
+/etc/rc.d/init.d/krb5kdc start
+/etc/rc.d/init.d/kadmin start
+
+chkconfig krb5kdc on
+chkconfig kadmin on
+```
+- Create admin principal
+```
+kadmin.local -q "addprinc admin/admin"
+```
+
+- Update kadm5.acl to make admin an administrator
+```
+vi /var/kerberos/krb5kdc/kadm5.acl
+*/admin@HORTONWORKS.COM *
+```
+- Restart kerberos services
+```
+/etc/rc.d/init.d/krb5kdc restart
+/etc/rc.d/init.d/kadmin restart
+```
+
+##### Run Ambari Security wizard
 
 - Launch Ambari and navigate to Admin > Kerberos to start security wizard
 
-- Configure as below
+- Configure as below and click Next to accept defaults on remaining screens
 
-![Image](../master/screenshots/Ambari-kerberos-wizard.png?raw=true)
+![Image](../master/screenshots/Ambari-configure-kerberos.png?raw=true)
+![Image](../master/screenshots/Ambari-install-client.png?raw=true)
+![Image](../master/screenshots/Ambari-stop-services.png?raw=true)
+![Image](../master/screenshots/Ambari-kerborize-cluster.png?raw=true)
+![Image](../master/screenshots/Ambari-start-services.png?raw=true)
 
+
+######
+
+```
+kadmin.local
+addprinc -randkey hue/sandbox.hortonworks.com@HORTONWORKS.COM
+xst -norandkey -k /etc/security/keytabs/hue.service.keytab hue/sandbox.hortonworks.com@HORTONWORKS.COM
+chown hue:hue /etc/security/keytabs/hue.service.keytab
+chmod 400 /etc/security/keytabs/hue.service.keytab
+```
