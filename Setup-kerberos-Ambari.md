@@ -15,7 +15,7 @@
 ------------------------
 
 ##### Setup Centos 6.5 on VM
-- Start a CentOS VM using above ISO
+- Start a CentOS VM using [CentOS-6.5-x86_64-minimal.iso](http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso)
   - Open VMWare Fusion and click File > New > Install from disc/image > Use another disk 
   - Select the iso file >  Deselect easy install > Customize settings > name: CentOSx64-IPAserver
   - Under memory, set to 2048MB > Press Play to start VM
