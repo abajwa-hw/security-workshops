@@ -9,8 +9,8 @@
   - [Setup Centos on VM](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-centos-65-on-vm)
   - [Install Ambari 2.0](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#install-ambari-20)
   - [Install sandbox scripts](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#install-sandbox-scripts)
-  - [Setup kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-kerberos)
-
+  - [Run Ambari Security wizard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#run-ambari-security-wizard)
+  - [Setup Hue for kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-hue-for-kerberos)
 
 ------------------------
 
