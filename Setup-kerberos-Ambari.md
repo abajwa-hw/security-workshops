@@ -286,7 +286,8 @@ vi /var/kerberos/krb5kdc/kadm5.acl
 kadmin.local
 addprinc -randkey hue/sandbox.hortonworks.com@HORTONWORKS.COM
 xst -norandkey -k /etc/security/keytabs/hue.service.keytab hue/sandbox.hortonworks.com@HORTONWORKS.COM
-chown hue:hue /etc/security/keytabs/hue.service.keytab
+exit
+chown hue:hadoop /etc/security/keytabs/hue.service.keytab
 chmod 400 /etc/security/keytabs/hue.service.keytab
 ```
 
@@ -300,9 +301,6 @@ chmod 400 /etc/security/keytabs/hue.service.keytab
 	kinit_path=/usr/bin/kinit
 	reinit_frequency=3600
 	ccache_path=/tmp/hue_krb5_ccache	
-	#These only need to be changed on HDP 2.1
-	beeswax_server_host=sandbox.hortonworks.com
-	beeswax_server_port=8002
 	```
 	
 - restart hue
@@ -312,3 +310,20 @@ service hue restart
 
 - confirm Hue now works by opening FileBrowser
 http://sandbox.hortonworks.com:8000  
+
+
+- Verify that we have kerberos enabled on our cluster by checking that users can only run HDFS commands after successfully obtaining kerberos ticket 
+
+```
+su - hue
+#Attempt to read HDFS: this should fail as hue user does not have kerberos ticket yet
+hadoop fs -ls
+#Confirm that the use does not have ticket
+klist
+#Create a kerberos ticket for the user
+kinit -kt /etc/security/keytabs/hue.service.keytab hue/sandbox.hortonworks.com@HORTONWORKS.COM 
+#verify that hue user can now get ticket and can access HDFS
+klist
+hadoop fs -ls /user
+exit
+```
