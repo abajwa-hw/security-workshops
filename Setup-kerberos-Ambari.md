@@ -275,6 +275,8 @@ vi /var/kerberos/krb5kdc/kadm5.acl
 ![Image](../master/screenshots/Ambari-stop-services.png?raw=true)
 ![Image](../master/screenshots/Ambari-kerborize-cluster.png?raw=true)
 ![Image](../master/screenshots/Ambari-start-services.png?raw=true)
+
+- Once completed, kerberos is enabled
 ![Image](../master/screenshots/Ambari-wizard-completed.png?raw=true)
 
 ###### Setup Hue for kerberos
