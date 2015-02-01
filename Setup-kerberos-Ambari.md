@@ -49,6 +49,7 @@ ssh root@ldap.hortonworks.com
 
 ##### Install Ambari 2.0
 
+- Pre-req setup
 ```
 yum install -y java-1.7.0-openjdk ntp wget openssl unzip
 chkconfig ntpd on
@@ -80,8 +81,20 @@ umask 022
 
 hostname -f
 
-reboot
+```
 
+- Setup password-less SSH 
+```
+ssh-keygen 
+ssh-copy-id root@sandbox.hortonworks.com
+chmod 644 .ssh/authorized_keys
+chmod 755 .ssh
+#test password-less SSH by connecting
+ssh root@sandbox.hortonworks.com
+```
+
+- Setup Ambari 2.0 repo
+```
 vi /etc/yum.repos.d/ambari.repo
 [AMBARI-2.0.0]
 name=Ambari 1.x
@@ -92,13 +105,6 @@ enabled=1
 priority=1
 
 
-ssh-keygen 
-ssh-copy-id root@sandbox.hortonworks.com
-chmod 644 .ssh/authorized_keys
-chmod 755 .ssh
-#test by connecting
-ssh root@sandbox.hortonworks.com
-#download id_rsa file 
 
 yum repolist
 yum install -y ambari-server
@@ -106,6 +112,8 @@ ambari-server setup
 unzip -o -j -q /var/lib/ambari-server/resources/UnlimitedJCEPolicyJDK7.zip -d /usr/jdk64/jdk1.7.0_67/jre/lib/security/
 ambari-server start
 ```
+
+- Open Ambari http://sandbox.hortonworks.com:8080 and start install wizard
 
 - During Select Stack, expand Advanced Repository Options and enter the Base URL for the public GA of 2.2 
   - http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
