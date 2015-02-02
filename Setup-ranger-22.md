@@ -507,32 +507,16 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-- Stop Storm using Ambari
+- Stop Storm using Ambari and under Storm > Config add below property to Custom storm-site section. This is needed due this [bug](https://hortonworks.jira.com/browse/BUG-30996)
+  - nimbus.authorizer = com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer
 
 - Enable Ranger Storm plugin
 ```
 ./enable-storm-plugin.sh
 ```
 
-- Start Storm manually (there seems to be an Ambari bug that undoes the changes made when Ranger plugin is installed)
-```
-export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
-export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
-
-storm drpc > /var/log/storm/drpc.out 2>&1 &
-sleep 10
-storm nimbus > /var/log/storm/nimbus.out 2>&1 &
-sleep 10
-storm ui > /var/log/storm/ui.out 2>&1 &
-sleep 10
-storm supervisor > /var/log/storm/supervisor.out 2>&1 &
-sleep 10
-echo "Done"
-
-#check the jobs you started
-jobs
-```
-  - Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm: ```cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer``` 
+- Start Storm via Ambari and notice in Ranger, the Storm agent now shows up under Audit->Agents
+![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
 
 - Open kerborized browser
 
@@ -559,8 +543,6 @@ storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topolo
   Caused by: AuthorizationException(msg:getClusterInfo is not authorized)
   ```
 
-- In Ranger, the Storm agent should now show up under Audit->Agents
-![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
 
 - Review Ranger audit for Storm and notice it was denied
 ![Image](../master/screenshots/ranger-storm-audit-denied.png?raw=true)

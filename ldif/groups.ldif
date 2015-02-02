@@ -42,3 +42,10 @@ memberuid: sales1
 memberuid: sales2
 memberuid: sales3
 memberuid: ali
+
+dn: cn=admins,ou=Groups,dc=hortonworks,dc=com
+cn: admins
+objectclass: posixgroup
+gidNumber: 75000006
+memberuid: rangeradmin
+memberuid: xapolicymgr

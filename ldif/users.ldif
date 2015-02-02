@@ -10,7 +10,7 @@ uid: ali
 homedirectory:/home/ali
 uidNumber: 75000010
 gidNumber: 75000005
-userPassword:ali
+userPassword:hortonworks
 
 dn: uid=mktg1,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -24,7 +24,7 @@ uid: mktg1
 homedirectory:/home/mktg1
 uidNumber: 75000011
 gidNumber: 75000001
-userPassword:mktg1
+userPassword:hortonworks
 
 dn: uid=mktg2,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -38,7 +38,7 @@ uid: mktg2
 homedirectory:/home/mktg2
 uidNumber: 75000012
 gidNumber: 75000001
-userPassword:mktg2
+userPassword:hortonworks
 
 dn: uid=mktg3,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -52,7 +52,7 @@ uid: mktg3
 homedirectory:/home/mktg3
 uidNumber: 75000013
 gidNumber: 75000001
-userPassword:mktg3
+userPassword:hortonworks
 
 dn: uid=hr1,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -66,7 +66,7 @@ uid: hr1
 homedirectory:/home/hr1
 uidNumber: 75000014
 gidNumber: 75000002
-userPassword:hr1
+userPassword:hortonworks
 
 dn: uid=hr2,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -80,7 +80,7 @@ uid: hr2
 homedirectory:/home/hr2
 uidNumber: 75000015
 gidNumber: 75000002
-userPassword:hr2
+userPassword:hortonworks
 
 dn: uid=hr3,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -94,7 +94,7 @@ uid: hr3
 homedirectory:/home/hr3
 uidNumber: 75000016
 gidNumber: 75000002
-userPassword:hr3
+userPassword:hortonworks
 
 dn: uid=legal1,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -108,7 +108,7 @@ uid: legal1
 homedirectory:/home/legal1
 uidNumber: 75000017
 gidNumber: 75000003
-userPassword:legal1
+userPassword:hortonworks
 
 dn: uid=legal2,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -122,7 +122,7 @@ uid: legal2
 homedirectory:/home/legal2
 uidNumber: 75000018
 gidNumber: 75000003
-userPassword:legal2
+userPassword:hortonworks
 
 dn: uid=legal3,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -136,7 +136,7 @@ uid: legal3
 homedirectory:/home/legal3
 uidNumber: 75000019
 gidNumber: 75000003
-userPassword:legal3
+userPassword:hortonworks
 
 dn: uid=finance1,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -150,7 +150,7 @@ sn: Smith
 homedirectory:/home/finance1
 uidNumber: 75000020
 gidNumber: 75000004
-userPassword:finance1
+userPassword:hortonworks
 
 dn: uid=finance2,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -164,7 +164,7 @@ uid: finance2
 homedirectory:/home/finance2
 uidNumber: 75000021
 gidNumber: 75000004
-userPassword:finance2
+userPassword:hortonworks
 
 dn: uid=finance3,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -178,7 +178,7 @@ uid: finance3
 homedirectory:/home/finance3
 uidNumber: 75000022
 gidNumber: 75000004
-userPassword:finance3
+userPassword:hortonworks
 
 dn: uid=sales1,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -192,7 +192,7 @@ uid: sales1
 homedirectory:/home/sales1
 uidNumber: 75000023
 gidNumber: 75000005
-userPassword:sales1
+userPassword:hortonworks
 
 dn: uid=sales2,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -206,7 +206,7 @@ uid: sales2
 homedirectory:/home/sales2
 uidNumber: 75000024
 gidNumber: 75000005
-userPassword:sales2
+userPassword:hortonworks
 
 dn: uid=sales3,ou=Users,dc=hortonworks,dc=com
 objectclass:top
@@ -220,5 +220,41 @@ uid: sales3
 homedirectory:/home/sales3
 uidNumber: 75000025
 gidNumber: 75000005
-userPassword:sales3
+userPassword:hortonworks
+
+irangeradmin
+75000006
+
+xapolicymgr
+
+
+dn: uid=rangeradmin,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: Ranger
+sn: Admin
+uid: rangeradmin
+homedirectory:/home/rangeradmin
+uidNumber: 75000026
+gidNumber: 75000006
+userPassword:hortonworks
+
+
+dn: uid=xapolicymgr,ou=Users,dc=hortonworks,dc=com
+objectclass:top
+objectclass:person
+objectclass:organizationalPerson
+objectclass:inetOrgPerson
+objectclass:posixaccount
+cn: XAPolicy
+sn: Manager
+uid: xapolicymgr
+homedirectory:/home/xapolicymgr
+uidNumber: 75000027
+gidNumber: 75000006
+userPassword:hortonworks
+
 
