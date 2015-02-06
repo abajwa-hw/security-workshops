@@ -26,9 +26,14 @@ hadoop.proxyuser.knox.groups = *
 hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
 ```	
 
+- Try out a WebHDFS request without Knox and notice it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
+```
+http://sandbox.hortonworks.com:50070/webhdfs/v1/user/?op=LISTSTATUS
+```
+
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2)
 
-- Try out a WebHDFS request. The guest user is defined in the demo LDAP that Knox comes with which is why this works.
+- Try out a WebHDFS request. The guest user is defined in the demo LDAP that Knox comes with which is why this works. notice it goes over HTTPS (not HTTP) on port 8443 and credentials are needed
 ```
 curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
