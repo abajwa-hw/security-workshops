@@ -129,7 +129,7 @@ ambari-server start
 
 ##### Install sandbox scripts
 
-- Make VM look like sandbox by copying over /usr/lib/hue/tools/start_scripts
+- Make VM look like sandbox by copying over /usr/lib/hue/tools/start_scripts form [here](https://github.com/abajwa-hw/security-workshops/raw/master/scripts/startup.zip)
 ```
 unzip startup.zip -d /
 ln -s /usr/lib/hue/tools/start_scripts/startup_script /etc/init.d/startup_script
