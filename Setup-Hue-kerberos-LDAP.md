@@ -31,7 +31,7 @@ mv /etc/hue/conf/hue.ini.org /etc/hue/conf/hue.ini
 
 - Edit /etc/hue/conf/hue.ini by uncommenting/changing properties to make it kerberos aware
 	- Change all instances of "security_enabled" to true
-	- Change all instances of "localhost" to "sandbox.hortonworks.com" 
+	- Change all instances of "localhost" to "sandbox.hortonworks.com" (only needed on 2.2)
 	- Make below edits to the file:
 	```	
 	hue_keytab=/etc/security/keytabs/hue.service.keytab
