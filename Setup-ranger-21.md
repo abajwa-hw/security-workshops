@@ -126,6 +126,7 @@ dfs.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 dfs.secondary.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 Common Name For Certificate: (leave this empty)
 ```
+![Image](../master/screenshots/ranger21-hdfs-repo.png?raw=true)
 
 - Make sure mysql connection works before setting up HDFS plugin
 ```
@@ -196,17 +197,20 @@ hdfs dfs -ls /rangerdemo
 - Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 
 - Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy:
-```
-Resource path: /rangerdemo
-Recursive: True
-User: ali and give read, write, execute
-Save > OK and wait 30s
-```
+  - Resource path: /rangerdemo
+  - Recursive: True
+  - User: ali and give read, write, execute
+  - Save > OK and wait 30s
+
+![Image](../master/screenshots/ranger21-hdfs-policy.png?raw=true)
+
 - now this should succeed
 ```
 hdfs dfs -ls /rangerdemo
 ```
 - Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
+
+![Image](../master/screenshots/ranger21-hdfs-audit-user.png?raw=true)
 
 - Attempt to access dir *before* adding group level Ranger HDFS policy
 ```
@@ -229,6 +233,8 @@ Save > OK and wait 30s. While you wait you can review the summary of policies un
 ```
 hdfs dfs -ls /rangerdemo
 ```
+
+![Image](../master/screenshots/ranger21-hdfs-audit-group.png?raw=true)
 
 - Even though we did not directly grant access to hr1 user, since it is part of hr group it inherited the access.
 
@@ -253,7 +259,7 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 ```
 Repository name= hive_sandbox
-username= xapolicymgr
+username= admin
 password= hortonworks
 jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
 jdbc.url= jdbc:hive2://sandbox:10000/
