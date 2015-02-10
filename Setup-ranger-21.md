@@ -83,15 +83,16 @@ SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 ```
 ./start.sh
 ```
-- confirm Agent/Ranger started
-```
-ps -ef | grep UnixAuthenticationService
-ps -ef|grep proc_ranger
-```
 
 - Open log file to confirm agent was able to import users/groups from LDAP
 ```
 tail -f /var/log/uxugsync/unix-auth-sync.log
+```
+
+- confirm Agent/Ranger started
+```
+ps -ef | grep UnixAuthenticationService
+ps -ef|grep policymgr
 ```
 
 - Open WebUI and login as admin/admin. Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
