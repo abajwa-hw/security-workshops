@@ -106,12 +106,6 @@ http://sandbox.hortonworks.com:6080
 
 #####  Setup HDFS repo in Ranger
 
-- Reset xapolicymgr password
-```
-su xapolicymgr
-kinit
-#enter hortonworks three times to reset to same
-```
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
 ```
@@ -196,7 +190,7 @@ kinit
 hdfs dfs -ls /rangerdemo
 #this should fail with "Permission denied"
 ```
-- Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
+- Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged in Ranger under Audit > Big Data
 
 - Add policy in Ranger and PolicyManager > hdfs_sandbox > Add new policy:
   - Resource path: /rangerdemo
@@ -210,7 +204,7 @@ hdfs dfs -ls /rangerdemo
 ```
 hdfs dfs -ls /rangerdemo
 ```
-- Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
+- Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see how the allowed request was logged in Ranger under Audit > Big Data
 
 ![Image](../master/screenshots/ranger21-hdfs-audit-user.png?raw=true)
 
@@ -417,7 +411,7 @@ desc sample_08;
 select * from sample_08 limit 1;  
 ```
 
-- Now look at the Hive audit reports for the above and notice that audit reports for the queries show up in Ranger 
+- Now look at the Hive audit reports for the above and notice that audit reports for the queries show up in Ranger under Audit > Big Data
 
 ![Image](../master/screenshots/ranger21-hive-audit-ali.png?raw=true)
 
@@ -462,7 +456,7 @@ select * from sample_08;
 select code,description from sample_08 limit 5;
 ```
 
-- Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
+- Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger under Audit > Big Data
 
 ![Image](../master/screenshots/ranger21-hive-audit-legal1.png?raw=true)
 
