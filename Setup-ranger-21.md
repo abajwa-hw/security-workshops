@@ -60,11 +60,6 @@ authServicePort=5151
 #You should see "XAPolicyManager has started successfully"
 ```
 
-- Install user/groups sync agent (ugsync) 
-```
-yum install ranger-usersync
-#to uninstall: yum remove ranger_2_2_0_0_2041-usersync ranger-usersync
-```
 - Configure ugsync to pull users from LDAP 
 ```
 cd /tmp/xasecure/xasecure-uxugsync-3.5.001-release
