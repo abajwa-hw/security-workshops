@@ -121,11 +121,9 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 ```
-- Set password policy
-```
-ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
-```
+
 --------------------------
+
 
 ##### Import business users into LDAP
 
@@ -133,6 +131,11 @@ ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
 ```
 kinit admin
 ```
+- Set password policy
+```
+ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
+```
+
 - Setup LDAP users, groups, passwords
 
 ```

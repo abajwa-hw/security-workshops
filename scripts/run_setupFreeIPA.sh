@@ -23,11 +23,12 @@ service ntpd stop
 ntpdate pool.ntp.org
 service ntpd start
 
+#Get kerberos ticket
+echo hortonworks | kinit admin
+
 #password policy
 ipa pwpolicy-mod --maxlife=0 --minlife=0 global_policy
 
-#Get kerberos ticket
-echo hortonworks | kinit admin
 
 #Setup LDAP groups
 ipa group-add marketing --desc marketing
