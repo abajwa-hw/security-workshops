@@ -480,7 +480,8 @@ select code,description from sample_08 limit 5;
 
 - Start HBase using Ambari
 
-- In the Ranger UI, under PolicyManager tab, click the + sign next to HBase and enter below (most values come from HDFS configs in Ambari):
+- In the Ranger UI, under PolicyManager tab, click the + sign next to HBase and enter below (most values come from HDFS configs in Ambari). 
+*This time, leave the auth_to_local field blank*:
 ```
 Repository name: hbase_sandbox
 Username: admin
