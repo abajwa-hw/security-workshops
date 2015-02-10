@@ -265,6 +265,8 @@ jdbc.driverClassName= org.apache.hive.jdbc.HiveDriver
 jdbc.url= jdbc:hive2://sandbox:10000/
 Click Add
 ```
+![Image](../master/screenshots/ranger21-hive-repo.png?raw=true)
+
 - install Hive plugin
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running Hive**
@@ -353,6 +355,8 @@ beeline
 use default;
 ```
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
+
+![Image](../master/screenshots/ranger21-hive-agent.png?raw=true)
 
 - Restart hue to make it aware of Ranger changes
 ```
