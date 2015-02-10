@@ -116,6 +116,7 @@ echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
 echo "service ntpd start" >> /root/updateclock.sh
 chmod 755 /root/updateclock.sh
 echo "*/2  *  *  *  * root /root/updateclock.sh > /dev/null 2>&1" >> /etc/crontab
+echo "/root/updateclock.sh" >>  /usr/lib/hue/tools/start_scripts/gen_hosts.sh
 /root/updateclock.sh
 ```
 
