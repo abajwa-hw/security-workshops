@@ -478,14 +478,12 @@ select code,description from sample_08 limit 5;
 
 #####  Setup HBase repo in Ranger
 
-- **TODO: complete HBase plugin config steps**
-
 - Start HBase using Ambari
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HBase and enter below (most values come from HDFS configs in Ambari):
 ```
 Repository name: hbase_sandbox
-Username: admin@HORTONWORKS.COM
+Username: admin
 Password: hortonworks
 fs.default.name: hdfs://sandbox.hortonworks.com:8020
 hadoop.security.authorization: true
@@ -503,6 +501,8 @@ hbase.zookeeper.quorum: sandbox.hortonworks.com
 zookeeper.znode.parent: /hbase-secure
 Common Name For Certificate: (leave this empty)
 ```
+
+![Image](../master/screenshots/ranger21-hbase-repo.png?raw=true)
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
 
@@ -537,15 +537,43 @@ XAAUDIT.DB.PASSWORD=hortonworks
 
 - Restart Hbase
 
+- The HBase agent should not show up in Ranger UI under Audit > Agents
+
+![Image](../master/screenshots/ranger21-hbase-agent.png?raw=true)
+
 #####  HBase audit exercises in Ranger
+
+- Login in to Hbase shell as business user and try to create HBase table
+
 ```
 su ali
 klist
 hbase shell
 list 'default'
 create 't1', 'f1'
-#ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali/sandbox.hortonworks.com@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 ```
+- Should see the authorization error below 
+```
+ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
+```
+- Look at the audit reports for the above and notice that the request denial showed up in Ranger 
+
+![Image](../master/screenshots/ranger21-hbase-audit-rejected.png?raw=true)
+
+- Create HBase policies for user ali in Ranger under Policy Manager > hbase_sandbox > Add New Policy
+  - table: t1
+  - col family: *
+  - col name: *
+  - user: ali and check read, write, create, admin
+  - Add
+![Image](../master/screenshots/ranger21-hbase-policy-user.png?raw=true)
+
+- Save and wait 30s. While waiting, review the Hbase policies section under Analytics tab:
+
+![Image](../master/screenshots/ranger21-hbase-audit-user.png?raw=true)
+
+
+
 ---------------------
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
