@@ -374,29 +374,27 @@ su hdfs -c "hdfs dfs -chown ali /user/ali"
 
 - Sign out of Hue and sign back in as ali/hortonworks
 
-- Run the below queries using the Beeswax Hue interface or beeline
+- Run the below query using the Beeswax Hue interface or beeline and notice it fails
 ```
 show tables;
-use default;
 ```
-- Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
+![Image](../master/screenshots/ranger21-hive-query-rejected.png?raw=true)
 
-- Create hive policies in Ranger for user ali
-```
-db name: default
-table: sample_07
-col name: code description
-user: ali and check "select"
-Add
-```
+- Create hive policy in Ranger for user ali giving access to only 2 columns in table sample_07
+  - db name: default
+  - table: sample_07
+  - col name: code description
+  - user: ali and check "select"
+  - Add
 
-```
-db name: default
-table: sample_08
-col name: *
-user: ali and check "select"
-Add
-```
+
+- Create hive policy in Ranger for user ali giving access to full table for sample_08
+  - db name: default
+  - table: sample_08
+  - col name: *
+  - user: ali and check "select"
+  - Add
+  
 - Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
 
 - these will not work as user does not have access to all columns of sample_07
