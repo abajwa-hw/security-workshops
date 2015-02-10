@@ -103,11 +103,14 @@ http://sandbox.hortonworks.com:6080
 
 
 
-
-
-
-
 #####  Setup HDFS repo in Ranger
+
+- Reset xapolicymgr password
+```
+su xapolicymgr
+kinit
+#enter hortonworks three times to reset to same
+```
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
 ```
