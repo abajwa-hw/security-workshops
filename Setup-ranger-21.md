@@ -586,4 +586,4 @@ create 't1', 'f1'
 
 ---------------------
 
-- Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location  |
+- Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location 
