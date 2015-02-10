@@ -538,7 +538,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 
 - Restart Hbase
 
-- The HBase agent should not show up in Ranger UI under Audit > Agents
+- The HBase agent should now show up in Ranger UI under Audit > Agents
 
 ![Image](../master/screenshots/ranger21-hbase-agent.png?raw=true)
 
