@@ -78,7 +78,8 @@ service hue restart
   - ![Image](../master/screenshots/Hue-loginas-LDAP.png?raw=true)
   - also note that logging in as hr1/hortonworks, you can not access the Hive/HCat views in Hue (consistent with the proxyuser setting above)
 
-- On the kerborized cluster, create another table and import data (to be used in Ranger exercises). Note the connect string to login now that the cluster is kerborized is different than before:
+- On the kerborized cluster, create another table and import data (to be used in Ranger exercises). Note the connect string to login now that the cluster is kerborized is different than before.
+Again, if running on vanilla sandbox this is not required as the table exists.
   
   ```
   hadoop fs -put ~/security-workshops/data/sample_08.csv /tmp
