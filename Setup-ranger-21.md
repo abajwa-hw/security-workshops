@@ -34,15 +34,16 @@
 ```
 mkdir /tmp/xasecure
 cd /tmp/xasecure
-wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-policymgr-3.5.001-release.tar
-wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-uxugsync-3.5.001-release.tar
-tar -xvf xasecure-uxugsync-3.5.001-release.tar
-tar -xvf xasecure-policymgr-3.5.001-release.tar
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-policymgr-3.5.003-release.tar
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-uxugsync-3.5.003-release.tar
+
+tar -xvf xasecure-uxugsync-3.5.003-release.tar
+tar -xvf xasecure-policymgr-3.5.003-release.tar
 ```
 
 - Configure/install policymgr
 ```
-cd /tmp/xasecure/xasecure-policymgr-3.5.001-release
+cd /tmp/xasecure/xasecure-policymgr-3.5.003-release
 vi install.properties
 ```
 - No changes needed: just confirm the below are set this way:
@@ -62,7 +63,7 @@ authServicePort=5151
 
 - Configure ugsync to pull users from LDAP 
 ```
-cd /tmp/xasecure/xasecure-uxugsync-3.5.001-release
+cd /tmp/xasecure/xasecure-uxugsync-3.5.003-release
 vi install.properties
 
 POLICY_MGR_URL = http://sandbox.hortonworks.com:6080
@@ -115,7 +116,7 @@ kinit
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
 ```
 Repository name: hdfs_sandbox
-Username: admin (or xapolicymgr)
+Username: admin
 Password: hortonworks
 fs.default.name: hdfs://sandbox.hortonworks.com:8020
 hadoop.security.authorization: true
@@ -140,9 +141,10 @@ mysql -u xalogger -phortonworks -h localhost xasecure
 
 ```
 cd /tmp/xasecure
-wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-hadoop-3.5.001-release.tar
-tar -xvf xasecure-hadoop-3.5.001-release.tar
-cd xasecure-hadoop-3.5.001-release
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-hadoop-3.5.003-release.tar
+
+tar -xvf xasecure-hadoop-3.5.003-release.tar
+cd xasecure-hadoop-3.5.003-release
 vi install.properties
 
 POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
@@ -273,9 +275,10 @@ Click Add
 
 ```
 cd /tmp/xasecure
-wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.001/xasecure-hive-3.5.001-release.tar
-tar -xvf xasecure-hive-3.5.001-release.tar
-cd xasecure-hive-3.5.001-release
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-hive-3.5.003-release.tar
+
+tar -xvf xasecure-hive-3.5.003-release.tar
+cd xasecure-hive-3.5.003-release
 vi install.properties
 
 POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
@@ -475,11 +478,51 @@ select code,description from sample_08 limit 5;
 
 #####  Setup HBase repo in Ranger
 
+- **TODO: complete HBase plugin config steps**
+
 - Start HBase using Ambari
+
+- In the Ranger UI, under PolicyManager tab, click the + sign next to HBase and enter below (most values come from HDFS configs in Ambari):
+```
+Repository name: hbase_sandbox
+Username: admin@HORTONWORKS.COM
+Password: hortonworks
+fs.default.name: hdfs://sandbox.hortonworks.com:8020
+hadoop.security.authorization: true
+hadoop.security.authentication: kerberos
+hadoop.security.auth_to_local: (copy from HDFS configs)
+dfs.datanode.kerberos.principal: dn/_HOST@HORTONWORKS.COM
+dfs.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
+dfs.secondary.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
+hbase.master.kerberos.principal: hbase/_HOST@HORTONWORKS.COM
+hbase.rpc.engine: org.apache.hadoop.hbase.ipc.SecureRpcEngine
+hbase.rpc.protection: PRIVACY
+hbase.security.authentication: kerberos
+hbase.zookeeper.property.clientPort: 2181
+hbase.zookeeper.quorum: sandbox.hortonworks.com
+zookeeper.znode.parent: /hbase-secure
+
+
+Common Name For Certificate: (leave this empty)
+```
+
+- Install Hbase plugin
+```
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-hbase-3.5.003-release.tar
+tar -xvf xasecure-hbase-3.5.003-release.tar
+cd xasecure-hbase-3.5.003-release
+vi install.properties
+
+POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
+REPOSITORY_NAME=hbase_sandbox
+XAAUDIT.DB.HOSTNAME=localhost
+XAAUDIT.DB.DATABASE_NAME=xasecure
+XAAUDIT.DB.USER_NAME=xalogger
+XAAUDIT.DB.PASSWORD=hortonworks
+```
 
 **Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
 
-- **TODO: add HBase plugin config steps**
 
 #####  HBase audit exercises in Ranger
 ```
