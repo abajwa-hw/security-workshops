@@ -557,7 +557,7 @@ create 't1', 'f1'
 ```
 ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user 'ali@HORTONWORKS.COM (auth:KERBEROS)' (global, action=CREATE)
 ```
-- Look at the audit reports for the above and notice that the request denial showed up in Ranger 
+- Look at the audit reports for the above and notice that the request denial showed up in Ranger under Audit > Big Data
 
 ![Image](../master/screenshots/ranger21-hbase-audit-rejected.png?raw=true)
 
@@ -572,6 +572,15 @@ ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient perm
 - Save and wait 30s. While waiting, review the Hbase policies section under Analytics tab:
 
 ![Image](../master/screenshots/ranger21-hbase-audit-user.png?raw=true)
+
+- Now retry the table creation and notice it succeeds
+```
+create 't1', 'f1'
+```
+
+- Look at the audit reports for the above and notice that the request denial showed up in Ranger under Audit > Big Data
+
+![Image](../master/screenshots/ranger21-hbase-audit-success.png?raw=true)
 
 
 
