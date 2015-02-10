@@ -490,7 +490,7 @@ Password: hortonworks
 fs.default.name: hdfs://sandbox.hortonworks.com:8020
 hadoop.security.authorization: true
 hadoop.security.authentication: kerberos
-hadoop.security.auth_to_local: (copy from HDFS configs)
+hadoop.security.auth_to_local: (leave empty)
 dfs.datanode.kerberos.principal: dn/_HOST@HORTONWORKS.COM
 dfs.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
 dfs.secondary.namenode.kerberos.principal: nn/_HOST@HORTONWORKS.COM
@@ -501,13 +501,14 @@ hbase.security.authentication: kerberos
 hbase.zookeeper.property.clientPort: 2181
 hbase.zookeeper.quorum: sandbox.hortonworks.com
 zookeeper.znode.parent: /hbase-secure
-
-
 Common Name For Certificate: (leave this empty)
 ```
 
+**Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+
 - Install Hbase plugin
 ```
+cd /tmp/xasecure
 wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/XA-Secure/3.5.003/xasecure-hbase-3.5.003-release.tar
 tar -xvf xasecure-hbase-3.5.003-release.tar
 cd xasecure-hbase-3.5.003-release
@@ -521,8 +522,20 @@ XAAUDIT.DB.USER_NAME=xalogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-**Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+- Start Hbase plugin
+```
+./install.sh
+```
 
+- Make changes in Ambari under Hbase > Config > Custom hbase-site.xml 
+  - hbase.coprocessor.master.classes=com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
+  - hbase.coprocessor.region.classes=org.apache.hadoop.hbase.security.token.TokenProvider,org.apache.hadoop.hbase.security.access.SecureBulkLoadEndpoint,com.xasecure.authorization.hbase.XaSecureAuthorizationCoprocessor
+  - hbase.rpc.engine=org.apache.hadoop.hbase.ipc.SecureRpcEngine
+  - hbase.rpc.protection=PRIVACY
+- Also confirm the below is set under Hbase > Config 
+  - hbase.security.authorization=true
+
+- Restart Hbase
 
 #####  HBase audit exercises in Ranger
 ```
