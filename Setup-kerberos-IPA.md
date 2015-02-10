@@ -76,6 +76,7 @@ echo "192.168.191.185 sandbox.hortonworks.com sandbox" >> /etc/hosts
   ```
   
 - Before enabling security, create a table via beeline to be used later. Note the connect string as it will change as we enable kerberos and later Knox.
+On vanilla sandbox, these tables already exist so this step can be skipped.
   ```
   hadoop fs -put ~/security-workshops/data/sample_07.csv /tmp
    
