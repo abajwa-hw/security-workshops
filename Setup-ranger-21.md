@@ -386,6 +386,7 @@ show tables;
   - col name: code description
   - user: ali and check "select"
   - Add
+![Image](../master/screenshots/ranger21-hive-policy-ali-sample07.png?raw=true)
 
 
 - Create hive policy in Ranger for user ali giving access to full table for sample_08
@@ -394,8 +395,10 @@ show tables;
   - col name: *
   - user: ali and check "select"
   - Add
+![Image](../master/screenshots/ranger21-hive-policy-ali-sample08.png?raw=true)
   
 - Save and wait 30s. You can review the hive policies in Ranger UI under Analytics tabs
+![Image](../master/screenshots/ranger21-hive-analysis-ali.png?raw=true)
 
 - these will not work as user does not have access to all columns of sample_07
 ```
@@ -410,6 +413,8 @@ select * from sample_08 limit 1;
 ```
 
 - Now look at the audit reports for the above and notice that audit reports for Beeswax queries show up in Ranger 
+
+![Image](../master/screenshots/ranger21-hive-audit-ali.png?raw=true)
 
 
 - Create hive policies in Ranger for group legal
