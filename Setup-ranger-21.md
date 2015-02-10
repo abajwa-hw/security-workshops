@@ -115,7 +115,7 @@ kinit
 - In the Ranger UI, under PolicyManager tab, click the + sign next to HDFS and enter below (most values come from HDFS configs in Ambari):
 ```
 Repository name: hdfs_sandbox
-Username: xapolicymgr (or admin)
+Username: admin (or xapolicymgr)
 Password: hortonworks
 fs.default.name: hdfs://sandbox.hortonworks.com:8020
 hadoop.security.authorization: true
