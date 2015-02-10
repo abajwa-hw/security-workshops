@@ -380,6 +380,8 @@ show tables;
 ```
 ![Image](../master/screenshots/ranger21-hive-query-rejected.png?raw=true)
 
+- At this point the audit trail in Ranger will not show any hive activity
+
 - Create hive policy in Ranger for user ali giving access to only 2 columns in table sample_07
   - db name: default
   - table: sample_07
@@ -412,23 +414,25 @@ desc sample_08;
 select * from sample_08 limit 1;  
 ```
 
-- Now look at the audit reports for the above and notice that audit reports for Beeswax queries show up in Ranger 
+- Now look at the Hive audit reports for the above and notice that audit reports for the queries show up in Ranger 
 
 ![Image](../master/screenshots/ranger21-hive-audit-ali.png?raw=true)
 
 
 - Create hive policies in Ranger for group legal
-```
-db name: default
-table: sample_08
-col name: code description
-group: legal and check “select”
-Add
-```
+  - db name: default
+  - table: sample_08
+  - col name: code description
+  - group: legal and check “select”
+  - Add
 
-- Save and wait 30s
+![Image](../master/screenshots/ranger21-hive-policy-legal1-sample08.png?raw=true)
 
-- create user dir for legal1
+- Save and wait 30s. While waiting, review the analysis tab:
+
+![Image](../master/screenshots/ranger21-hive-analysis-legal1.png?raw=true)
+
+- As root, create user dir for legal1
 ```
 su hdfs -c "hdfs dfs -mkdir /user/legal1"
 su hdfs -c "hdfs dfs -chown legal1 /user/legal1"
@@ -456,6 +460,8 @@ select code,description from sample_08 limit 5;
 ```
 
 - Now look at the audit reports for the above and notice that audit reports for beeline queries show up in Ranger 
+
+![Image](../master/screenshots/ranger21-hive-audit-legal1.png?raw=true)
 
 ---------------------
 
