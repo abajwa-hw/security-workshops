@@ -72,7 +72,7 @@ vi install.properties
 
 POLICY_MGR_URL = http://sandbox.hortonworks.com:6080
 SYNC_SOURCE = ldap
-SYNC_LDAP_URL = ldap://ipa.hortonworks.com:389
+SYNC_LDAP_URL = ldap://ldap.hortonworks.com:389
 SYNC_LDAP_BIND_DN = uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
 SYNC_LDAP_BIND_PASSWORD = hortonworks
 SYNC_LDAP_USER_SEARCH_BASE = cn=users,cn=accounts,dc=hortonworks,dc=com
