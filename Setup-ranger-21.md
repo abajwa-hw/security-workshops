@@ -245,8 +245,8 @@ hdfs dfs -ls /rangerdemo
 
 #####  Setup Hive repo in Ranger
 
-- In Ambari, add admins group and restart HDFS
-hadoop.proxyuser.hive.groups: users, hr, admins
+- In Ambari, add admins group to proxy users (if not already added) and restart HDFS
+hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 
 - In the Ranger UI, under PolicyManager tab, click the + sign next to Hive and enter below to create a Hive repo:
