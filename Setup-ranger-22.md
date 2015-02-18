@@ -507,7 +507,7 @@ XAAUDIT.DB.USER_NAME=rangerlogger
 XAAUDIT.DB.PASSWORD=hortonworks
 ```
 
-- Stop Storm using Ambari and under Storm > Config add below property to Custom storm-site section. This is needed due this [bug](https://hortonworks.jira.com/browse/BUG-30996)
+- Stop Storm using Ambari and under Storm > Config add below property to Custom storm-site section. 
   - nimbus.authorizer = com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer
 
 - Enable Ranger Storm plugin
@@ -526,7 +526,7 @@ nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAu
 #nimbus.authorizer: "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer"  
 ```
   
-- Start Storm manually (the above Ambari bug undoes the changes made when Ranger plugin is installed)
+- Start Storm manually. This is needed due to bug [BUG-31134](https://hortonworks.jira.com/browse/BUG-31134) and [BUG-30996](https://hortonworks.jira.com/browse/BUG-30996) which undoes the changes made when Ranger plugin is installed. 
 ```
 export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
 export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
