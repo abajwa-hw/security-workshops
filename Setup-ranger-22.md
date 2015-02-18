@@ -519,7 +519,7 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ```
 cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
 ``` 
-  - If you see an entry for ```nimbus.authorizer``` whose value is ```backtype.storm.security.auth.authorizer.SimpleACLAuthorizer```, edit this file and comment it out
+  - If you see an entry for ```nimbus.authorizer``` whose value is ```backtype.storm.security.auth.authorizer.SimpleACLAuthorizer```, edit this file and comment it out so the command returns below
 ```
 cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
 nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer'
