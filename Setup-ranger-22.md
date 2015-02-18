@@ -559,7 +559,7 @@ echo "Done"
   /Applications/Safari.app/Contents/MacOS/Safari
   ```
    - For other browsers:
-     - Firefox Goto about:config and search for network.negotiate-auth.trusted-uris double-click to add value "http://storm-ui-hostname:8080". storm-ui-hostname should be replaced by the hostname where UI running
+     - Firefox Goto about:config and search for network.negotiate-auth.trusted-uris double-click to add value "http://storm-ui-hostname:8744". storm-ui-hostname should be replaced by the hostname where UI running (e.g sandbox.hortonworks.com)
      - Google-chrome: start from command line with: google-chrome --auth-server-whitelist="storm-ui-hostname" --auth-negotiate-delegate-whitelist="storm-ui-hostname"
      - IE: Configure trusted websites to include "storm-ui-hostname" and allow negotiation for that website   
   
