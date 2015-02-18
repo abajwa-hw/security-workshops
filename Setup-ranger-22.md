@@ -521,9 +521,9 @@ cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
 ``` 
   - If you see an entry for ```nimbus.authorizer``` whose value is ```backtype.storm.security.auth.authorizer.SimpleACLAuthorizer```, edit this file and comment it out
 ```
-  cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
-  nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer'
-  #nimbus.authorizer: "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer"  
+cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
+nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer'
+#nimbus.authorizer: "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer"  
 ```
   
 - Start Storm manually (the above Ambari bug undoes the changes made when Ranger plugin is installed)
