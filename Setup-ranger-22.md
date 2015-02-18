@@ -515,7 +515,35 @@ XAAUDIT.DB.PASSWORD=hortonworks
 ./enable-storm-plugin.sh
 ```
 
-- Start Storm via Ambari and notice in Ranger, the Storm agent now shows up under Audit->Agents
+- Verify in storm.yaml there is only one entry for ```nimbus.authorizer``` whose value is ```com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer```
+```
+cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
+``` 
+  - If you see an entry for ```nimbus.authorizer``` whose value is ```backtype.storm.security.auth.authorizer.SimpleACLAuthorizer```, edit this file and comment it out
+  ```
+  cat /etc/storm/conf/storm.yaml | grep nimbus.authorizer
+  nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAuthorizer'
+  #nimbus.authorizer: "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer"  
+  ```
+  
+- Start Storm manually (the above Ambari bug undoes the changes made when Ranger plugin is installed)
+```
+export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
+export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
+
+storm drpc > /var/log/storm/drpc.out 2>&1 &
+sleep 10
+storm nimbus > /var/log/storm/nimbus.out 2>&1 &
+sleep 10
+storm ui > /var/log/storm/ui.out 2>&1 &
+sleep 10
+storm supervisor > /var/log/storm/supervisor.out 2>&1 &
+sleep 10
+echo "Done"
+```
+  - Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm
+  
+- The Storm agent now shows up under Audit->Agents
 ![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
 
 - Open kerborized browser
