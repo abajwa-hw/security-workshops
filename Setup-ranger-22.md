@@ -526,7 +526,7 @@ nimbus.authorizer : 'com.xasecure.authorization.storm.authorizer.XaSecureStormAu
 #nimbus.authorizer: "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer"  
 ```
   
-- Start Storm manually. This is needed due to bug [BUG-31134](https://hortonworks.jira.com/browse/BUG-31134) and [BUG-30996](https://hortonworks.jira.com/browse/BUG-30996) which undoes the changes made when Ranger plugin is installed. 
+- Start Storm manually. This is needed due to bug [BUG-31134](https://hortonworks.jira.com/browse/BUG-31134) and [BUG-30996](https://hortonworks.jira.com/browse/BUG-30996) which undoes the changes made when Ranger plugin is installed. Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm
 ```
 export JAVA_HOME=/usr/jdk64/jdk1.7.0_67
 export PATH=$PATH:/usr/jdk64/jdk1.7.0_67/bin
@@ -541,7 +541,6 @@ storm supervisor > /var/log/storm/supervisor.out 2>&1 &
 sleep 10
 echo "Done"
 ```
-  - Basically, starting Storm via Ambari adds an extra nimbus.authorizer entry to storm.yaml which prevents Ranger from tracking Storm
   
 - The Storm agent now shows up under Audit->Agents
 ![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
