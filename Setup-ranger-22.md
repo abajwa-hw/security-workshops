@@ -490,7 +490,7 @@ Nimbus: http://sandbox.hortonworks.com:8744
 
 - Install Storm plugin
 
-**Note: if this were a multi-node cluster, you would run these steps on the host running Storm**
+**Note: if this were a multi-node cluster, you would run these steps on the host running Storm Nimbus and UI server**
 
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-storm-plugin
