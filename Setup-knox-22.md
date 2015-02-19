@@ -16,7 +16,6 @@
   - [Knox exercises to check Hive setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#knox-exercises-to-check-hive-setup)
   - [Download data over HTTPS via Knox/Hive](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#download-data-over-https-via-knoxhive)
 
-**Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
 
 ###### Configure Knox to use IPA
 
@@ -139,6 +138,8 @@ knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
 - Click Test (its ok if it gives an error). Then add the repository.
 
 - Install Knox plugin
+**Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
+
 
 ```
 cd /usr/hdp/2.2.0.0-2041/ranger-knox-plugin
