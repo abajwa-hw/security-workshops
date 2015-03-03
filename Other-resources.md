@@ -5,6 +5,8 @@
   - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
+  - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-Ambari-services)
+  
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
 - Blog link coming soon for more details on this topic
@@ -209,3 +211,14 @@ XAAUDIT.HDFS.LOCAL_ARCHIVE_DIRECTORY=/var/log/hadoop/%app-type%/audit/archive
 ##### Wire encryption
 
 - See blog http://hortonworks.com/blog/end-end-wire-encryption-apache-knox/
+
+
+##### Security related Ambari services
+
+There are a number of security related services available [here](https://github.com/abajwa-hw/ambari-workshops#ambari-stacksservices):
+ - FreeIPA
+ - OpenLDAP
+ - Kerberos KDC
+ - NSLCD/SSSD
+  
+

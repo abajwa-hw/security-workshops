@@ -56,28 +56,29 @@ chkconfig ntpd on
 
 cd /tmp
 wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-yum install epel-release-6-8.noarch.rpm
+yum install -y epel-release-6-8.noarch.rpm
 #install pip for VM splashboard
-yum -y install python-pip
+yum install -y python-pip
 pip install sh
 
-vi /etc/sysctl.conf
-fs.file-max = 100000
-vi /etc/security/limits.conf
-* hard nofile 10240
-* hard nofile 10240 
 
-#Add hosts entry for sandbox
-echo "192.168.191.226 sandbox.hortonworks.com sandbox" >> /etc/hosts
+echo "fs.file-max = 100000" >> /etc/sysctl.conf
+
+
+echo "* hard nofile 10240" >> /etc/security/limits.conf
+echo "* hard nofile 10240" >> /etc/security/limits.conf
+
  
 chkconfig iptables off
 /etc/init.d/iptables stop
 
-vi /etc/selinux/config
-SELINUX=disabled
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 
-/etc/profile.d
 umask 022
+
+#Add hosts entry for sandbox
+IP=$(ifconfig eth0|awk '/inet addr/ {split ($2,A,":"); print A[2]}')
+echo "$IP sandbox.hortonworks.com sandbox" >> /etc/hosts
 
 hostname -f
 
@@ -85,10 +86,10 @@ hostname -f
 
 - Setup password-less SSH 
 ```
-ssh-keygen 
+ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
 ssh-copy-id root@sandbox.hortonworks.com
-chmod 644 .ssh/authorized_keys
-chmod 755 .ssh
+chmod 644 ~/.ssh/authorized_keys
+chmod 755 ~/.ssh
 #test password-less SSH by connecting
 ssh root@sandbox.hortonworks.com
 ```
@@ -96,15 +97,15 @@ ssh root@sandbox.hortonworks.com
 - Setup Ambari 2.0 repo
 ```
 vi /etc/yum.repos.d/ambari.repo
-[AMBARI-2.0.0]
-name=Ambari 1.x
-baseurl=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/1.x/BUILDS/trunk-401
-gpgcheck=0
+[AMBARI.2.0.0-dev-2.x]
+name=Ambari 2.x
+baseurl=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0.dev-1036/
+gpgcheck=1
 gpgkey=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1
 
-
+wget http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0.dev-1036/ambaribn.repo -O /etc/yum.repos.d/ambari.repo
 
 yum repolist
 yum install -y ambari-server
@@ -114,6 +115,8 @@ ambari-server start
 ```
 
 - Open Ambari http://sandbox.hortonworks.com:8080 and start install wizard
+
+- Name your cluster Sandbox
 
 - During Select Stack, expand Advanced Repository Options and enter the Base URL for the public GA of 2.2 
   - http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
@@ -131,6 +134,8 @@ ambari-server start
 
 - Make VM look like sandbox by copying over /usr/lib/hue/tools/start_scripts form [here](https://github.com/abajwa-hw/security-workshops/raw/master/scripts/startup.zip)
 ```
+cd
+wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/startup.zip
 unzip startup.zip -d /
 ln -s /usr/lib/hue/tools/start_scripts/startup_script /etc/init.d/startup_script
 
@@ -172,8 +177,10 @@ python /usr/lib/hue/tools/start_scripts/splash.py
 ```
 yum install -y hue
 
-vi /etc/hue/conf/hue.ini
+
+cp /etc/hue/conf/hue.ini /etc/hue/conf/hue.ini.orig
 #replace localhost by sandbox.hortonworks.com
+sed -i "s/localhost/sandbox.hortonworks.com/g" /etc/hue/conf/hue.ini
 
 service hue  start
 ```
