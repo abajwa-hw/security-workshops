@@ -5,7 +5,7 @@
   - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
-  - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-Ambari-services)
+  - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-ambari-services)
   
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
