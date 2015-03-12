@@ -1,8 +1,8 @@
 
-#### Testing automated principal/keytab feature in Ambari 2.0 
+#### Testing automated principal/keytab feature in Ambari 2.0
 
 - Goals: 
-  - Testing automated principal/keytab feature in Ambari 2.0 
+  - Testing automated principal/keytab feature in Ambari 2.0 TP using build 2.0.0.dev-1036
   
 -----------------------
 - Contents:
@@ -11,6 +11,7 @@
   - [Install sandbox scripts](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#install-sandbox-scripts)
   - [Run Ambari Security wizard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#run-ambari-security-wizard)
   - [Setup Hue for kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-hue-for-kerberos)
+  - [Setup new Ambari views](https://github.com/abajwa-hw/ambari-workshops/blob/master/contributed-views.md#setup-instructions-for-contributed-views)
 
 ------------------------
 
@@ -80,6 +81,8 @@ umask 022
 IP=$(ifconfig eth0|awk '/inet addr/ {split ($2,A,":"); print A[2]}')
 echo "$IP sandbox.hortonworks.com sandbox" >> /etc/hosts
 
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
 hostname -f
 
 ```
@@ -88,6 +91,7 @@ hostname -f
 ```
 ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""
 ssh-copy-id root@sandbox.hortonworks.com
+
 chmod 644 ~/.ssh/authorized_keys
 chmod 755 ~/.ssh
 #test password-less SSH by connecting
@@ -105,7 +109,11 @@ gpgkey=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RP
 enabled=1
 priority=1
 
-wget http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0.dev-1036/ambaribn.repo -O /etc/yum.repos.d/ambari.repo
+#or you can download from a repo form here - for Ambari 2.0
+wget http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/latest/trunk/ambaribn.repo
+
+#for HDP 2.2 / Ambari 1.7
+wget -nv http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
 yum repolist
 yum install -y ambari-server
@@ -143,14 +151,15 @@ echo "vmware" > /virtualization
 
 #boot in text only
 plymouth-set-default-theme text
-vi /boot/grub/grub.conf
 #remove rhgb
+sed -i "s/rhgb//g" /boot/grub/grub.conf
+
 
 #add startup_script and splash page to startup
-vi /etc/rc.local
-setterm -blank 0
-/etc/rc.d/init.d/startup_script start
-python /usr/lib/hue/tools/start_scripts/splash.py
+
+echo "setterm -blank 0" >> /etc/rc.local
+echo "/etc/rc.d/init.d/startup_script start" >> /etc/rc.local
+echo "python /usr/lib/hue/tools/start_scripts/splash.py" >> /etc/rc.local
 
 ```
 
@@ -158,19 +167,19 @@ python /usr/lib/hue/tools/start_scripts/splash.py
 - Configure cluster for Hue using [doc](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.0/HDP_Man_Install_v22/index.html#Item1.14.3):
   - hdfs-site:
     - dfs.webhdfs.enabled = true
-  - core-site:
+  - Custom core-site:
     - hadoop.proxyuser.hue.hosts = *
     - hadoop.proxyuser.hue.groups = *
     - hadoop.proxyuser.hcat.groups = *
     - hadoop.proxyuser.hcat.hosts = *
-  - webhcat-site:
+  - Custom hive-site:
+    - hive.server2.enable.impersonation = true    
+  - Custom webhcat-site:
     - webhcat.proxyuser.hue.hosts = *
     - webhcat.proxyuser.hue.groups = *
-  - oozie-site:
+  - Custom oozie-site:
     - oozie.service.ProxyUserService.proxyuser.hue.hosts = *
     - oozie.service.ProxyUserService.proxyuser.hue.groups = *
-  - hive-site:
-    - hive.server2.enable.impersonation = true    
 
 
 - Install Hue
