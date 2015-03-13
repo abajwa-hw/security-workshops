@@ -12,6 +12,7 @@
   - [Run Ambari Security wizard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#run-ambari-security-wizard)
   - [Setup Hue for kerberos](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md#setup-hue-for-kerberos)
   - [Setup new Ambari views](https://github.com/abajwa-hw/ambari-workshops/blob/master/contributed-views.md)
+
 ------------------------
 
 ##### Setup Centos 6.5 on VM
