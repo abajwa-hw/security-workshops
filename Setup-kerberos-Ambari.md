@@ -4,7 +4,7 @@
 - Goals: 
   - Testing automated principal/keytab feature in Ambari 2.0 TP using an early build
   
-Note: the official TP docs on this can be found on the Ambari 2.0 early access page [here](https://wiki.hortonworks.com/display/PM/Ambari+2.0+Early+Access)
+Note: the official TP docs on the new security wizard can be found on the Ambari 2.0 early access page [here](https://wiki.hortonworks.com/display/PM/Ambari+2.0+Early+Access)
   
 -----------------------
 - Contents:
