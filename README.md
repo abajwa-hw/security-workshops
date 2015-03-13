@@ -28,8 +28,7 @@ Why integrate security with LDAP?
 2. Enable security on **HDP 2.2** single node setup using **OpenLDAP** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP%202_2-openLDAP.md) - **WIP**
 
-##### Older releases
-
+##### Previous releases:
 1. Enable security on **HDP 2.1** sandbox using **FreeIPA** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP%202_1-seperateIPA.md)
   - Step by step video playlist available [here](https://www.youtube.com/playlist?list=PL2y_WpKCCNQc7S25MOWUB0kZJMrivatWj)
