@@ -119,9 +119,9 @@ http://sandbox.hortonworks.com:8000
 
 
 - At this point you can not kinit as LDAP users (e.g hr1), but you may not need this if your users will use Knox for webhdfs/ODBC access
-If you do need this functionality, you will need to configure OpenLDAP/KDC. 
+If you do need this functionality, you will need to configure OpenLDAP to talk to KDC. 
 
-TODO: add steps for this from https://help.ubuntu.com/10.04/serverguide/kerberos-ldap.html
+A rough guide for this can be found [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-OpenLDAP-KDC-integration.md) 
 
 - Extra:
 On rebooting the VM you may notice that datanode service does not come up on its own and you need to start it manually via Ambari
