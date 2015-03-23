@@ -26,7 +26,7 @@ ssh root@sandbox.hortonworks.com
 
 ```
 #Install OpenLdap
-yum install -y openldap-servers openldap-clients
+yum install -y openldap-servers openldap-clients krb5-server-ldap
 
 #enabled logging
 mkdir /var/log/slapd
