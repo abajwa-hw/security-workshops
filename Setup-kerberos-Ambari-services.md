@@ -351,6 +351,9 @@ service krb5kdc start; service kadmin start;
 - Once completed, kerberos is enabled
 ![Image](../master/screenshots/Ambari-wizard-completed.png?raw=true)
 
+- All services should now be up in secured mode
+![Image](../master/screenshots/custom-services-wizard-complete.png?raw=true)
+
 ###### Setup Hue for kerberos
 
 - Create principal/keytab for Hue
