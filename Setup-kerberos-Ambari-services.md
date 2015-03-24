@@ -262,6 +262,7 @@ git clone https://github.com/abajwa-hw/nslcd-stack.git
 git clone https://github.com/abajwa-hw/kdc-stack.git    
 service ambari-server restart
 ```
+- Now launch Ambari and add the services one by one
 
 ##### Setup OpenLDAP
 
