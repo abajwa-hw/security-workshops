@@ -341,7 +341,7 @@ kadmin -p admin/admin -w hortonworks -r HORTONWORKS.COM -q "get_principal admin/
 ![Image](../master/screenshots/Ambari-configure-kerberos.png?raw=true)
 ![Image](../master/screenshots/Ambari-install-client.png?raw=true)
 ![Image](../master/screenshots/Ambari-stop-services.png?raw=true)
-**At this stage you need to restart the KDC services before clicking next**
+**Before clicking next, you need to restart the KDC services as Ambari has stopped them**
 ```
 service krb5kdc start; service kadmin start;
 ```
