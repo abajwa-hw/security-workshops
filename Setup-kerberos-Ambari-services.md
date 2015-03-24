@@ -262,17 +262,36 @@ git clone https://github.com/abajwa-hw/nslcd-stack.git
 git clone https://github.com/abajwa-hw/kdc-stack.git    
 service ambari-server restart
 ```
-- Now launch Ambari and add the services one by one
+- Now launch Ambari and add the services one by one using below steps Add Service' from the 'Actions' dropdown menu in the bottom left of the Ambari dashboard:
+![Image](../master/screenshots/custom-security-services.png?raw=true)
+
+
+- Steps to deploy each service:
+	- Open Ambari 
+	- On bottom left click Actions
+	- Add service 
+	- check the service you wish 
+	- Next
+	- Next
+	- Configure service as needed 
+	- Next
+	- Deploy 
 
 ##### Setup OpenLDAP
 
+- Use above steps to deploy the service:
+
+![Image](../master/screenshots/openldap-service-select.png?raw=true)
+
+- Once complete you will see the service appear in Ambari as started:
+![Image](../master/screenshots/openldap-service-complete.png?raw=true)
 
 - Test LDAP was setup with some demo users
 ```
 ldapsearch -W -h localhost -D "cn=admin,dc=hortonworks,dc=com" -b "dc=hortonworks,dc=com"
 ```
 
-- Notice that the OS does not recognize the LDAP users
+- Notice that the OS does not recognize the LDAP users. Installing NSLCD will enable this.
 ```
 id ali
 groups ali
@@ -280,6 +299,11 @@ groups ali
 
 ##### Setup NSLCD
 
+- Use above steps to deploy the service:
+![Image](../master/screenshots/nslcd-service-select.png?raw=true)
+
+- Once complete you will see the service appear in Ambari as started:
+![Image](../master/screenshots/nslcd-service-complete.png?raw=true)
 
 - Notice that the OS now recognizes the LDAP users
 ```
@@ -293,10 +317,20 @@ ali : sales marketing hr legal finance
 
 ##### Setup kerberos
 
+- Use above steps to deploy the service. Make sure to change the kdc.host property to the FQDN of your host
+![Image](../master/screenshots/kdc-service-select.png?raw=true)
+
+- Once complete you will see the service appear in Ambari as started:
+![Image](../master/screenshots/kdc-service-complete.png?raw=true)
+
 - Check that KDC is up by querying the admin principal
 ```
 kadmin -p admin/admin -w hortonworks -r HORTONWORKS.COM -q "get_principal admin/admin"
 ```
+
+- Once all three custom services are started, you can proceed with Ambari security wizard
+![Image](../master/screenshots/custom-services-started.png?raw=true)
+
 
 ##### Run Ambari Security wizard
 
@@ -307,6 +341,10 @@ kadmin -p admin/admin -w hortonworks -r HORTONWORKS.COM -q "get_principal admin/
 ![Image](../master/screenshots/Ambari-configure-kerberos.png?raw=true)
 ![Image](../master/screenshots/Ambari-install-client.png?raw=true)
 ![Image](../master/screenshots/Ambari-stop-services.png?raw=true)
+**At this stage you need to restart the KDC services before clicking next**
+```
+service krb5kdc start; service kadmin start;
+```
 ![Image](../master/screenshots/Ambari-kerborize-cluster.png?raw=true)
 ![Image](../master/screenshots/Ambari-start-services.png?raw=true)
 
