@@ -301,6 +301,13 @@ id ali
 groups ali
 ```
 
+- You can access the OpenLDAP UI at http://sandbox.hortonworks.com/ldapadmin
+  - username: cn=admin,dc=hortonworks,dc=com
+  - password: hortonworks
+
+- Alternatively you can open it in Ambari using an [iFrame view](https://github.com/abajwa-hw/iframe-view)
+![Image](../master/screenshots/openldap-view.png?raw=true)
+
 ##### Setup NSLCD
 
 - Use above steps to deploy the service:
