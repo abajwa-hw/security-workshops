@@ -77,7 +77,8 @@ rootpw                  {SSHA}DzNam8oSUFQ1PmxeC3pwnexV6kv8QrNl
 
 
 vi /etc/sysconfig/ldap
-#set SLAPD_LDAPS=yes
+#uncomment SLAPD_LDAPS entry and set to yes
+SLAPD_LDAPS=yes
 
 vi /etc/openldap/ldap.conf
 #add to the bottom
@@ -123,7 +124,7 @@ vi  /etc/httpd/conf.d/phpldapadmin.conf
 - Set webUI to show login page
 ```
 vi /etc/phpldapadmin/config.php
-#comment out line 398
+//comment out line 398
 ```
 
 - Restart apache
