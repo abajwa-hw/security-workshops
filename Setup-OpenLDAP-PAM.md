@@ -246,5 +246,8 @@ exit
 service nslcd start
 chkconfig nslcd on
 ```
+- This shows that the OS now recognizes users and groups defined only in our LDAP 
+The end user is getting a combined view of the linux and LDAP worlds in single lookup
+**Note that on a multi-node setup, this requirement must be completed on all nodes of the cluster** to avoid jobs failing
 
 - At this point we have setup openLDAP, imported users and groups, setup NSCD/PAM to allow OS to recognize LDAP users
