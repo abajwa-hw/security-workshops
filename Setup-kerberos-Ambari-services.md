@@ -106,23 +106,15 @@ chmod 755 ~/.ssh
 ssh root@sandbox.hortonworks.com
 ```
 
-- Setup Ambari 2.0 repo
+- Setup Ambari  repo
 ```
-vi /etc/yum.repos.d/ambari.repo
-[AMBARI.2.0.0-2.x]
-name=Ambari 2.x
-baseurl= http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0-147/
-gpgcheck=1
-gpgkey= http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
-enabled=1
-priority=1
-
-#or you can download from a repo form here - for Ambari 2.0
-wget http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0-147/ambaribn.repo -O /etc/yum.repos.d/ambari.repo
+#for HDP 2.2.4/Ambari 2.0
+wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.0.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
 #for HDP 2.2 / Ambari 1.7
-wget -nv http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+wget http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
+#
 yum repolist
 yum install -y ambari-server
 ambari-server setup
@@ -134,9 +126,7 @@ ambari-server start
 
 - Name your cluster Sandbox
 
-- During Select Stack, expand Advanced Repository Options and enter the Base URL for the public GA of 2.2 
-  - http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
-  - http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6/
+- During Select Stack, expand Advanced Repository Options and review the Base URLs (not need to change anything)
 
 - Install options and click Next and install cluster
   - host: sandbox.hortonworks.com
