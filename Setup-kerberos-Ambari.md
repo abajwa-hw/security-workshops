@@ -83,7 +83,12 @@ umask 022
 IP=$(ifconfig eth0|awk '/inet addr/ {split ($2,A,":"); print A[2]}')
 echo "$IP sandbox.hortonworks.com sandbox" >> /etc/hosts
 
-echo never > /sys/kernel/mm/transparent_hugepage/enabled
+if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
+fi
+if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
+        echo never > /sys/kernel/mm/transparent_hugepage/defrag
+fi
 
 hostname -f
 
