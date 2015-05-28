@@ -4,7 +4,6 @@
 - Goals: 
   - Create end users and groups in OpenLDAP
   - Enable Kerberos for the HDP Cluster
-  - Integrate Hue with OpenLDAP
   - Configure Linux to use OpenLDAP as central store of posix data using nslcd
 
 - References:

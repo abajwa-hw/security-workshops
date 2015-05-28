@@ -9,7 +9,7 @@
   
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
-- Blog link coming soon for more details on this topic
+- see blog for more details on this topic: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
 
 - Set up a Key Management Service backed by Java KeyStore
 ```
