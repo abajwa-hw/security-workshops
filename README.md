@@ -13,10 +13,6 @@ To demonstrate:
 Why integrate security with LDAP? 
  - To show how Hadoop plugs in to the enterprise's existing Identity Management system
 
-#### Presentation Materials
-- [Slides](http://www.slideshare.net/hortonworks/hdp-security-overview) of presentation
-- [Recording](https://hortonworks.webex.com/hortonworks/lsr.php?RCID=ba69eaa5bbf49d3c9d4df7f94e0201f6) of presentation
-
 
 #### Workshop Materials
 
@@ -41,7 +37,10 @@ Note that FreeIPA will not work with Ambari 2.0 because the manual kerberos wiza
 **HDP 2.1**
 
 3. Enable security on **HDP 2.1** sandbox using **FreeIPA** as LDAP
+  - [Presentation Slides](http://www.slideshare.net/hortonworks/hdp-security-overview) of presentation
+  - [Presentation Recording](https://hortonworks.webex.com/hortonworks/lsr.php?RCID=ba69eaa5bbf49d3c9d4df7f94e0201f6) of presentation
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP%202_1-seperateIPA.md)
   - Step by step video playlist available [here](https://www.youtube.com/playlist?list=PL2y_WpKCCNQc7S25MOWUB0kZJMrivatWj)
   - Prebuilt secured sandbox VM available [here](https://www.dropbox.com/sh/zllryf6s2fvlv6b/AAD62NDmJZ7QFFiZ86Mkz_1Ia?dl=0)
-  
+
+
