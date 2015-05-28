@@ -2,9 +2,9 @@
 #### Testing automated principal/keytab feature in Ambari 2.0, using custom Ambari services
 
 - Goals: 
-  - Testing automated principal/keytab feature in Ambari 2.0 TP using an early build using custom Ambari services for OpenLDAP, KDC, NSLCD
+  - Testing automated principal/keytab feature in Ambari 2.0  using custom Ambari services for OpenLDAP, KDC, NSLCD
   
-Note: the official TP docs on the new security wizard can be found on the Ambari 2.0 early access page [here](https://wiki.hortonworks.com/display/PM/Ambari+2.0+Early+Access)
+Note: the official docs on the new security wizard can be found [here](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Ambari_Doc_Suite/Ambari_Security_v20.pdf)
   
 -----------------------
 - Contents:

@@ -1,10 +1,10 @@
 
-#### Testing automated principal/keytab feature in Ambari 2.0
+#### Demo automated principal/keytab feature in Ambari 2.0
 
 - Goals: 
-  - Testing automated principal/keytab feature in Ambari 2.0 TP using an early build
+  - Demo automated principal/keytab feature in Ambari 2.0
   
-Note: the official TP docs on the new security wizard can be found on the Ambari 2.0 early access page [here](https://wiki.hortonworks.com/display/PM/Ambari+2.0+Early+Access)
+Note: the official docs on the new security wizard can be found [here](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Ambari_Doc_Suite/Ambari_Security_v20.pdf)
   
 -----------------------
 - Contents:
@@ -63,22 +63,13 @@ yum install -y epel-release-6-8.noarch.rpm
 #install pip for VM splashboard
 yum install -y python-pip
 pip install sh
-
-
 echo "fs.file-max = 100000" >> /etc/sysctl.conf
-
-
 echo "* hard nofile 10240" >> /etc/security/limits.conf
 echo "* hard nofile 10240" >> /etc/security/limits.conf
-
- 
 chkconfig iptables off
 /etc/init.d/iptables stop
-
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
-
 umask 022
-
 #Add hosts entry for sandbox
 IP=$(ifconfig eth0|awk '/inet addr/ {split ($2,A,":"); print A[2]}')
 echo "$IP sandbox.hortonworks.com sandbox" >> /etc/hosts
@@ -91,7 +82,6 @@ if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
 fi
 
 hostname -f
-
 ```
 
 - Setup password-less SSH 
@@ -107,20 +97,8 @@ ssh root@sandbox.hortonworks.com
 
 - Setup Ambari 2.0 repo
 ```
-vi /etc/yum.repos.d/ambari.repo
-[AMBARI.2.0.0-dev-2.x]
-name=Ambari 2.x
-baseurl=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/BUILDS/2.0.0.dev-1036/
-gpgcheck=1
-gpgkey=http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
-enabled=1
-priority=1
-
-#or you can download from a repo form here - for Ambari 2.0
-wget http://s3.amazonaws.com/dev.hortonworks.com/ambari/centos6/2.x/latest/trunk/ambaribn.repo
-
-#for HDP 2.2 / Ambari 1.7
-wget -nv http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.7.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+#for HDP 2.2.4/Ambari 2.0
+wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.0.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
 yum repolist
 yum install -y ambari-server
@@ -133,15 +111,13 @@ ambari-server start
 
 - Name your cluster Sandbox
 
-- During Select Stack, expand Advanced Repository Options and enter the Base URL for the public GA of 2.2 
-  - http://public-repo-1.hortonworks.com/HDP/centos6/2.x/GA/2.2.0.0
-  - http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6/
+- During Select Stack, pick defaults 
 
 - Install options and click Next and install cluster
   - host: sandbox.hortonworks.com
   - Paste contents of /root/.ssh/id_rsa
 
-- Once completed you should have HDP 2.2 installed on your VM
+- Once completed you should have HDP 2.2.4.2 installed on your VM
 
 ---------------------------------------
 
@@ -250,7 +226,7 @@ shutdown now
 
 - Shutdown VM
 
-- Create ova file from Mac:
+- (Optional) Create ova file from Mac:
 ```
 /Applications/VMware\ Fusion.app/Contents/Library/VMware\ OVF\ Tool/ovftool --acceptAllEulas ~/Documents/Virtual\ Machines.localized/Hortonworks_Sandbox_2.1_<yourVM>.vmwarevm/Hortonworks_Sandbox_2.1_<yourVM>.vmx /Users/abajwa/Downloads/Hortonworks_Sandbox_2.1_<yourVM>.ova
 ```
