@@ -92,7 +92,7 @@ yum install -y "*ipa-server" bind bind-dyndb-ldap
 - add entry for ldap.hortonworks.com into the /etc/hosts file of the VM <br />
 Assuming your network adapter is eth0, run below and then confirm the entry was correctly added
 ```
-IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+IP=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 echo $IP  ldap.hortonworks.com >> /etc/hosts
 ```
 
