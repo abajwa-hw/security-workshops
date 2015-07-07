@@ -23,6 +23,12 @@ Why integrate security with LDAP?
 
 Note that FreeIPA will not work with Ambari 2.0 because the manual kerberos wizard option was removed. This will be added back in future release (by end of summer)
 
+##### Beta release:
+
+1. Enable security on **HDP 2.3/Ambari 2.1** single node setup using **FreeIPA** as LDAP
+  - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP 2_3-IPA.md) 
+
+
 ##### Previous releases:
 
 **HDP 2.2.0**
