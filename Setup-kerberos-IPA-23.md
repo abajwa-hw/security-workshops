@@ -10,7 +10,7 @@
 
 -----------------------
 
-
+Steps:
 
 - Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
