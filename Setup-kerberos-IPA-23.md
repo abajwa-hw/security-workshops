@@ -124,4 +124,6 @@ service ipa start
 ```
 ![Image](../master/screenshots/2.3-ipa-kerb-5.png?raw=true)
 ![Image](../master/screenshots/2.3-ipa-kerb-6.png?raw=true)
+
+- At this point the cluster is kerborized
 ![Image](../master/screenshots/2.3-ipa-kerb-7.png?raw=true)
