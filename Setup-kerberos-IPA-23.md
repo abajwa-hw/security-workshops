@@ -11,8 +11,8 @@
 -----------------------
 
 
-1. install HDP 2.3
-2. install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
+
+- Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
 yum install -y git
 cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services
@@ -21,7 +21,7 @@ sudo service ambari-server restart
 
 #now install FreeIPA using "Add service wizard" in Ambari
 ```
-3. Import users
+- Import users
 ```
 ipa group-add marketing --desc marketing
 ipa group-add legal --desc legal
@@ -66,7 +66,7 @@ ipa passwd rangeradmin < tmp.txt
 rm -f tmp.txt
 ```
 
-3. start security wizard and select "Manage Kerberos principals and key tabs manually" option
+- Start security wizard and select "Manage Kerberos principals and key tabs manually" option
 ![Image](../master/screenshots/2.3-ipa-kerb-1.png?raw=true)
 
 - Enter your realm
@@ -77,18 +77,18 @@ smoke user principal: ${cluster-env/smokeuser}@${realm}
 HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
 ![Image](../master/screenshots/2.3-ipa-kerb-3.png?raw=true)
 
-4. on next page download csv file
+- on next page download csv file
 ![Image](../master/screenshots/2.3-ipa-kerb-4.png?raw=true)
 
-5. paste contents to a file on the cluster. If you have any principal names that have upper case chars in them, lower case them (e.g. change ambari-qa-Sandbox to ambari-qa-sandbox and change hdfs-Sandbox to hdfs-sandbox)
+-  Paste contents to a file on the cluster. If you have any principal names that have upper case chars in them, lower case them (e.g. change ambari-qa-Sandbox to ambari-qa-sandbox and change hdfs-Sandbox to hdfs-sandbox)
 ```
 vi host-principal-keytab-list.csv
 ```
 
-6. create principals using csv file
+- Create principals using csv file
 for i in `awk -F"," '/service/ {print $3}' host-principal-keytab-list.csv` ; do ipa service-add $i ; done
 
-7. create the HDFS/ambariqa users
+- Create the HDFS/ambariqa users
 ```
 ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
 ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
@@ -97,7 +97,7 @@ ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-q
 #ipa user-add ambari-qa-sandbox  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
 ```
 
-8. create keytabs
+- Create keytabs
 ```
 kinit admin
 #hortonworks
@@ -109,15 +109,15 @@ chmod +x gen_keytabs.sh
 chmod ugo+r /etc/security/keytabs/*
 ```
 
-9. verify kinit works before proceeding (should not give errors)
+- Verify kinit works before proceeding (should not give errors)
 ```
 kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HORTONWORKS.COM
 kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
 kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
 ```
-10. Press next on security wizard and proceed to enable kerberos
+- Press next on security wizard and proceed to enable kerberos
 
-11. In the step of the wizard where services are brought down, FreeIPa service will also be brought down. You should bring it up via below before proceeding:
+- In the step of the wizard where services are brought down, FreeIPa service will also be brought down. You should bring it up via below before proceeding:
 ```
 service ipa start
 ```
