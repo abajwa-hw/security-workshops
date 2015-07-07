@@ -73,12 +73,12 @@ rm -f tmp.txt
 ![Image](../master/screenshots/2.3-ipa-kerb-2.png?raw=true)
 
 - Remove clustername from smoke/hdfs principals to look like below
-smoke user principal: ${cluster-env/smokeuser}@${realm}
-HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
+  - smoke user principal: ${cluster-env/smokeuser}@${realm}
+  - HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
 
 ![Image](../master/screenshots/2.3-ipa-kerb-3.png?raw=true)
 
-- on next page download csv file
+- On next page download csv file
 ![Image](../master/screenshots/2.3-ipa-kerb-4.png?raw=true)
 
 -  Paste contents to a file on the cluster. If you have any principal names that have upper case chars in them, lower case them (e.g. change ambari-qa-Sandbox to ambari-qa-sandbox and change hdfs-Sandbox to hdfs-sandbox)
