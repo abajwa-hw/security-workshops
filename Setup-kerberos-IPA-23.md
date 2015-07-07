@@ -72,9 +72,10 @@ rm -f tmp.txt
 - Enter your realm
 ![Image](../master/screenshots/2.3-ipa-kerb-2.png?raw=true)
 
-Remove clustername from smoke/hdfs principals
+- Remove clustername from smoke/hdfs principals to look like below
 smoke user principal: ${cluster-env/smokeuser}@${realm}
 HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
+
 ![Image](../master/screenshots/2.3-ipa-kerb-3.png?raw=true)
 
 - on next page download csv file
