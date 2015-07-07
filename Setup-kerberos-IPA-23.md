@@ -1,5 +1,18 @@
+####  Import HDP single node VM, install IPA and then secure it with KDC on IPA server  
+
+- Goals: 
+  - Setup FreeIPA to enable FreeIPA as central store of posix data using SSSD
+  - Create end users and groups in its directory 
+  - Enable Kerberos for the HDP Cluster using FreeIPA server KDC to store Hadoop principals
+  
+- Pre-requisites: 
+  - Have a started HDP 2.3 setup 
+
+-----------------------
+
+
 1. install HDP 2.3
-2. install freeipa ambari service
+2. install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
 yum install -y git
 cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services
