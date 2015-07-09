@@ -118,10 +118,10 @@ kinit -kt /etc/security/keytabs/nn.service.keytab nn/sandbox.hortonworks.com@HOR
 kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
 kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
 ```
-- Press next on security wizard and proceed to enable kerberos
+- Press next on security wizard and proceed to stop services
 ![Image](../master/screenshots/2.3-ipa-kerb-stop.png?raw=true)
 
-- In the step of the wizard where services are brought down, FreeIPa service will also be brought down. You should bring it up via below before proceeding:
+- In this step, FreeIPA service will also be brought down. You should bring it up via below before proceeding:
 ```
 service ipa start
 ```
