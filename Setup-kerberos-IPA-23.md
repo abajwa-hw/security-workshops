@@ -44,7 +44,6 @@ sudo ambari-server restart
 - Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
 sudo yum install -y git
-git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git
 sudo git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/ambari-freeipa-service
 sudo service ambari-server restart
 
