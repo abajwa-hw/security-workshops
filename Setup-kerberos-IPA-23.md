@@ -18,8 +18,8 @@ Steps:
 #on Centos 7
 ##############
 
-systemctl stop firewalld
-systemctl disable firewalld
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
 
 #you may need to replace eth0 below
 ip=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
@@ -36,16 +36,16 @@ sudo install_ambari_server=true ./ambari-bootstrap.sh
 grep -q client.api.port /etc/ambari-server/conf/ambari.properties || echo client.api.port=8081 | sudo tee -a /etc/ambari-server/conf/ambari.properties
 
 #restart ambari
-ambari-server restart
+sudo ambari-server restart
 
 #now open http://sandbox.hortonworks.com:8081 and run install wizard using the option to manually register ambari agents
 ```
 
 - Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
-yum install -y git
-cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services
-git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git   
+sudo yum install -y git
+git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git
+sudo git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git /var/lib/ambari-server/resources/stacks/HDP/2.3/services/ambari-freeipa-service
 sudo service ambari-server restart
 
 #now install FreeIPA using "Add service wizard" in Ambari
