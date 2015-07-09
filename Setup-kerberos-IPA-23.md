@@ -87,7 +87,9 @@ vi host-principal-keytab-list.csv
 ```
 
 - Create principals using csv file
+```
 for i in `awk -F"," '/service/ {print $3}' host-principal-keytab-list.csv` ; do ipa service-add $i ; done
+```
 
 - Create the HDFS/ambariqa users
 ```
