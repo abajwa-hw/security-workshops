@@ -33,7 +33,7 @@ cd ambari-bootstrap
 sudo install_ambari_server=true ./ambari-bootstrap.sh
 
 #Change Ambari port to 8081 so it doesn't clash with FreeIPA by adding below to /etc/ambari-server/conf/ambari.properties
-client.api.port=8081
+grep -q client.api.port /etc/ambari-server/conf/ambari.properties || echo client.api.port=8081 | sudo tee -a /etc/ambari-server/conf/ambari.properties
 
 #restart ambari
 ambari-server restart
