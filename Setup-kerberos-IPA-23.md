@@ -12,6 +12,35 @@
 
 Steps:
 
+- Install HDP 2.3
+```
+##############
+#on Centos 7
+##############
+
+systemctl stop firewalld
+systemctl disable firewalld
+
+#you may need to replace eth0 below
+ip=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+echo "${ip} $(hostname -f) $(hostname)" | sudo tee -a /etc/hosts
+
+sudo rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+
+sudo yum -y install git
+git clone -b centos-7 https://github.com/seanorama/ambari-bootstrap
+cd ambari-bootstrap
+sudo install_ambari_server=true ./ambari-bootstrap.sh
+
+#Change Ambari port to 8081 so it doesn't clash with FreeIPA by adding below to /etc/ambari-server/conf/ambari.properties
+client.api.port=8081
+
+#restart ambari
+ambari-server restart
+
+#now open http://sandbox.hortonworks.com:8081 and run install wizard using the option to manually register ambari agents
+```
+
 - Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
 ```
 yum install -y git
