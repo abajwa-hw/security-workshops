@@ -1,27 +1,38 @@
 set -e
+#eth=eth0
+eth=eno16777736
 
 #turn off firewall
-service iptables save
-service iptables stop
-chkconfig iptables off
+if grep -q -i "release 7" /etc/redhat-release
+then
+	systemctl stop firewalld
+	systemctl disable firewalld
+else
+	service iptables save
+	service iptables stop
+	chkconfig iptables off		
+fi
 
 #install IPA bits
 yum -y update
-yum install -y "*ipa-server" bind bind-dyndb-ldap
+yum install -y "*ipa-server" bind bind-dyndb-ldap ntp
 
-#setup /etc/hosts
-IP=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-echo $IP  ldap.hortonworks.com >> /etc/hosts
+#setup /etc/hosts - you may need to replace eth0 below
+ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
+echo "${ip} ldap.hortonworks.com" | sudo tee -a /etc/hosts
 
 #install IPA server
 ipa-server-install --hostname=ldap.hortonworks.com --domain=hortonworks.com --realm=HORTONWORKS.COM --ds-password=hortonworks --master-password=hortonworks --admin-password=hortonworks --setup-dns --forwarder=8.8.8.8 --unattended
 
 chkconfig ipa on
 
-#Fix time
-service ntpd stop
-ntpdate pool.ntp.org
-service ntpd start
+#Setup clock to be updated on regular basis to avoid kerberos errors
+echo "service ntpd stop" > /root/updateclock.sh
+echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
+echo "service ntpd start" >> /root/updateclock.sh
+chmod 755 /root/updateclock.sh
+echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
+/root/updateclock.sh
 
 #Get kerberos ticket
 echo hortonworks | kinit admin
@@ -73,11 +84,7 @@ ipa passwd xapolicymgr < tmp.txt
 ipa passwd rangeradmin < tmp.txt
 rm -f tmp.txt
 
-#Setup clock to be updated on regular basis to avoid kerberos errors
-echo "service ntpd stop" > /root/updateclock.sh
-echo "ntpdate pool.ntp.org" >> /root/updateclock.sh
-echo "service ntpd start" >> /root/updateclock.sh
-chmod 755 /root/updateclock.sh
-echo "*/2  *  *  *  * root /root/updateclock.sh" >> /etc/crontab
+
+
 
 echo "Complete!"
