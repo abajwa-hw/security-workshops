@@ -135,18 +135,10 @@ vi kerberos.csv
 
 - Create principals using csv file
 ```
-awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv > add-spn.sh
-sh add-spn.sh
-```
-
-- Create the HDFS/ambariqa users
-```
-ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
-ipa user-add hbase  --first=HDFS --last=HADOOP --homedir=/home/hbase --shell=/bin/bash 
-ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
-
-#ipa user-add hdfs-sandbox  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
-#ipa user-add ambari-qa-sandbox  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
+awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > add-spn.sh
+awk -F"," '/USER/ {print "ipa user-add "$5" --first="$5" --last=Hadoop --shell=/bin/bash"}' kerberos.csv > ipa-add-upn.sh
+sh ipa-add-spn.sh
+sh ipa-add-upn.sh
 ```
 
 - Create keytabs on HDP node
