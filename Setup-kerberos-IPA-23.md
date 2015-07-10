@@ -65,12 +65,14 @@ sudo service ambari-server restart
 #now install FreeIPA using "Add service wizard" in Ambari
 ```
 
-4. (optional) Create example users
+4. (optional) Create example users & groups
 
 ```
-## become root
-sudo su -
+## Authenticate with the password you set above
+kinit admin
+```
 
+```
 ## Add groups
 ipa group-add marketing --desc marketing
 ipa group-add legal --desc legal
@@ -128,40 +130,37 @@ rm -f tmp.txt
 
 -  Paste contents to a file on the cluster. If you have any principal names that have upper case chars in them, lower case them (e.g. change ambari-qa-Sandbox to ambari-qa-sandbox and change hdfs-Sandbox to hdfs-sandbox)
 ```
-vi host-principal-keytab-list.csv
+vi kerberos.csv
 ```
 
 - Create principals using csv file
 ```
-awk -F"," '/SERVICE/ {print "ipa service-add "$3}' host-principal-keytab-list.csv | grep -v HTTP > add-spn.sh
-sudo bash add-spn.sh
+awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > add-spn.sh
+awk -F"," '/USER/ {print "ipa user-add "$5" --first="$5" --last=Hadoop --shell=/bin/bash"}' kerberos.csv > ipa-add-upn.sh
+sh ipa-add-spn.sh
+sh ipa-add-upn.sh
 ```
 
-- Create the HDFS/ambariqa users
-```
-sudo ipa user-add hdfs  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
-sudo ipa user-add ambari-qa  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
+- Create keytabs on HDP node
 
-#ipa user-add hdfs-sandbox  --first=HDFS --last=HADOOP --homedir=/var/lib/hadoop-hdfs --shell=/bin/bash 
-#ipa user-add ambari-qa-sandbox  --first=AMBARI-QA --last=HADOOP --homedir=/home/ambari-qa --shell=/bin/bash 
+```
+## authenticate
+sudo kinit admin
 ```
 
-- Create keytabs
 ```
-kinit admin
-#hortonworks
 sudo mkdir /etc/security/keytabs/
 sudo chown root:hadoop /etc/security/keytabs/
-awk -F"," '/'$(hostname)'/ {print "ipa-getkeytab -s '$(hostname -f)' -p "$3" -k "$6""}' host-principal-keytab-list.csv | sort -u > gen_keytabs.sh
+awk -F"," '/'$(hostname -f)'/ {print "ipa-getkeytab -s ldap.hortonworks.com -p "$3" -k "$6";chown "$7":"$9,$6";chmod "$11,$6}' kerberos.csv | sort -u > gen_keytabs.sh
 sudo bash ./gen_keytabs.sh
 sudo chmod ugo+r /etc/security/keytabs/*
 ```
 
 - Verify kinit works before proceeding (should not give errors)
 ```
-kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
-kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
-kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
 ```
 - Press next on security wizard and proceed to stop services
 ![Image](../master/screenshots/2.3-ipa-kerb-stop.png?raw=true)
