@@ -1,6 +1,6 @@
 set -e
-#eth=eth0
-eth=eno16777736
+eth=eth0
+#eth=eno16777736
 
 #turn off firewall
 if grep -q -i "release 7" /etc/redhat-release
@@ -13,13 +13,14 @@ else
 	chkconfig iptables off		
 fi
 
-#install IPA bits
-yum -y update
-yum install -y "*ipa-server" bind bind-dyndb-ldap ntp
-
 #setup /etc/hosts - you may need to replace eth0 below
 ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
 echo "${ip} ldap.hortonworks.com" | sudo tee -a /etc/hosts
+
+
+#install IPA bits
+yum -y update
+yum install -y "*ipa-server" bind bind-dyndb-ldap ntp
 
 #install IPA server
 ipa-server-install --hostname=ldap.hortonworks.com --domain=hortonworks.com --realm=HORTONWORKS.COM --ds-password=hortonworks --master-password=hortonworks --admin-password=hortonworks --setup-dns --forwarder=8.8.8.8 --unattended
