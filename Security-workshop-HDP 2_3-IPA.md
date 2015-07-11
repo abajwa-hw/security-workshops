@@ -15,7 +15,7 @@
 - Install Centos 6.5 on on VM and setup FreeIPA using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
        
 #### Part 1: Authentication                       
-Setup HDP 2.3 and configure kerberos using principals in IPA server. Instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA.md)
+Setup HDP 2.3 and configure kerberos using principals in IPA server. Also sync Ambari with LDAP. Instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA-23.md)
 
        
 #### Part 1: Authentication                       
