@@ -190,7 +190,7 @@ http://sandbox.hortonworks.com:6080
 
 - In Ranger UI add admins group to default policy to give access to root HDFS dir
 
-  - Ranger -> Access Manager -> HDFS -> <clustername>_hadoop
+  - Ranger -> Access Manager -> HDFS -> (clustername)_hadoop
   - Click Policy ID # 1
   - Under select group; add admins
 
