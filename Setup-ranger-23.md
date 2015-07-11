@@ -152,6 +152,7 @@ Advanced ranger-ugsync-site
 
 - Open log file to confirm agent was able to import users/groups from LDAP
   - `sudo tail -f /var/log/ranger/usersync/usersync.log`
+  - Look for successful messages with "INFO LdapUserGroupBuilder"
 
 - Open WebUI and login as admin/admin. 
 http://sandbox.hortonworks.com:6080
@@ -166,15 +167,23 @@ http://sandbox.hortonworks.com:6080
 
 - Open HDFS configuration in Ambari and make below changes
 
+```
+- HDFS -> Configs -> Advanced ->
+  - Advanced ranger-hdfs-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+  - Advanced ranger-hdfs-plugin-properties:
+    - Enable Ranger for HDFS: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+  - Advanced hadoop-env:
+    - "hadoop-env template"
+      - Add the following after the last instance of JAVA_JDBC_LIBS:
+        - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
+
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
-
-- Now set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
-
-- In Ambari go to HDFS -> Configs -> "Advanced hadoop-env” -> hadoop-env template and enter the following line after JAVA_JDBC_LIBS is defined.
-```
-export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
-```
 
 - Restart HDFS via Ambari
 
