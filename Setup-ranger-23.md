@@ -192,8 +192,8 @@ http://sandbox.hortonworks.com:6080
 - Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
 ```
 #run as root
-su hdfs -c "hdfs dfs -mkdir /rangerdemo"
-su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
+sudo su hdfs -c "hdfs dfs -mkdir /rangerdemo"
+sudo su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 ```
 
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Access tab you can see audit trail of what user accessed HDFS at what time with what result
@@ -201,22 +201,25 @@ su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 
 ##### HDFS Audit Exercises in Ranger:
 ```
-su ali
+sudo su ali
 hdfs dfs -ls /rangerdemo
-#should fail saying "Failed to find any Kerberos tgt"
+## should fail saying "Failed to find any Kerberos tgt"
+
 klist
 kinit
-#enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
+## enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
+
 hdfs dfs -ls /rangerdemo
-#this should fail with "Permission denied"
+## this should fail with "Permission denied"
 ```
-- Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
+- Notice the audit report and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 ![Image](../master/screenshots/ranger-hdfs-audit-userdenied.png?raw=true)
 
 - Add policy in Ranger PolicyManager > hdfs_sandbox > Add new policy
   - Resource path: /rangerdemo
   - Recursive: True
   - User: ali and give read, write, execute
+  - Rights:  give read, write, execute
   - Save > OK and wait 30s
   - ![Image](../master/screenshots/ranger-hdfs-setup-user.png?raw=true)
   
@@ -224,7 +227,7 @@ hdfs dfs -ls /rangerdemo
 ```
 hdfs dfs -ls /rangerdemo
 ```
-- Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
+- Now look at the audit reports for the above and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 ![Image](../master/screenshots/ranger-hdfs-audit.png?raw=true)
 
 - Attempt to access dir before/after adding group level Ranger HDFS policy
