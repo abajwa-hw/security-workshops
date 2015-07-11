@@ -23,75 +23,63 @@
   - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
 
 
-#####  Create Kerberos user `rangeradmin` *(if not already created)*
+#####  Install Ranger and its User/Group sync agent
 
-- **In production environments, this will likely be handled by your Active Directory or KDC/IPA Admins**
-- Example using FreeIPA Server:
-  - 1) Authenticate: `kinit admin`
-  - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/bin/bash --password`
-
-#####  Confirm Kerberos user `rangeradmin`
-
-- `sudo -u rangeradmin kinit`
-  - At 1st login, you may be prompted to reset the password
-
-##### Create & confirm MySQL user 'rangerroot'
-
-- `sudo mysql`
-- Execute following in the MySQL shell. Change the password to your preference. 
-
-    ```sql
-CREATE USER 'rangerroot'@'%';
-GRANT ALL PRIVILEGES ON *.* to 'rangerroot'@'%' WITH GRANT OPTION;
-SET PASSWORD FOR 'rangerroot'@'%' = PASSWORD('hortonworks');
-FLUSH PRIVILEGES;
+- Verify you can kinit as rangeradmin and set the password to hortonworks
+```
+su rangeradmin
+kinit
+#Enter hortonworks twice
 exit
 ```
 
-- Confirm MySQL user: `mysql -u rangerroot -p -e "select count(user) from mysql.user;"`
-  - Output should be a simple count. Check the last step if there are errors.
+- setup existing MySQL for Ranger DB
+```
+mysql
+select host, user, password from mysql.user;
+-- only if this user does not exist create it
+create user 'root'@'%' identified by 'hortonworks'; 
+grant all privileges on *.* to 'root'@'%' identified by 'hortonworks' with grant option; 
+flush privileges;
+set password for 'root'@'localhost'=password ('hortonworks');
+set password for 'root'@'sandbox.hortonworks.com'=password ('hortonworks');
+set password for 'root'@'127.0.0.1'=password ('hortonworks');
+exit
+```
 
-##### Prepare Ambari for MySQL *(or the database you want to use)*
-
-- Add MySQL JAR to Ambari:
-  - `sudo ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar`
-    - If the file is not present, it is available on RHEL/CentOS with: `sudo yum -y install mysql-connector-java`
-
-##### Install & Configure Ranger using Ambari
+- double check you can login
+```
+mysql -u root -phortonworks -h sandbox.hortonworks.com
+exit
+```
+- enable ambari to recognize mysql jar
+```
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java-5.1.17.jar
+```
+You should copy mysql jar to other nodes (if any)
 
 - Start the Ranger install by navigating to below link in Ambari
   - Admin -> Stacks/Versions -> Ranger -> Add service
 
-- Below is a summary of the congfigurations needed to enable LDAP user/group sync.
-- **The settings shown are for our IPA howto. Tweak to fit your own LDAP configuration.**
-  - There are many more options which you may want to review, but should not need to change.
+- Under configuration screen of the wizard, open all the accordions and make the the below changes to look like below screenshots. This will configure Ranger to periodically sync the user/groups in our LDAP
+```
+TODO: use this table as a summary of below properties
+POLICY_MGR_URL = http://sandbox.hortonworks.com:6080
+SYNC_SOURCE = ldap
+SYNC_LDAP_URL = ldap://ldap.hortonworks.com:389
+SYNC_LDAP_BIND_DN = uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
+SYNC_LDAP_BIND_PASSWORD = hortonworks
+SYNC_LDAP_USER_SEARCH_BASE = cn=users,cn=accounts,dc=hortonworks,dc=com
+SYNC_LDAP_USER_SEARCH_FILTER : (space)
+SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 
 ```
-Ranger Settings:
-  - Ranger DB root user = rangerroot (or whatever you set for MySQL user above)
-  - External URL = http://your-servers-public-name:6080
-Advanced ranger-ugsync-site
-  - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
-  - ranger.usersync.source.impl.class = ldap
-  - ranger.usersync.ldap.binddn = uid=rangeradmin,cn=users,cn=accounts,dc=hortonworks,dc=com
-  - ranger.usersync.ldap.url = ldap://your-ldap-server-name:389
-  - ranger.usersync.ldap.user.nameattribute = uid
-  - ranger.usersync.ldap.user.objectclass = person
-  - ranger.usersync.ldap.user.searchbase = cn=users,cn=accounts,dc=hortonworks,dc=com
-  - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
-
-```
-- Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
-**TODO** update screenshot
-
+- Enter hortonworks for the passwords:
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
 
 ---------
 
-- Configure passwords as set earlier in this guide.
-- Update the External URL to `http://your-servers-fqdn:6080/`.
-- The auth method determines who is allowed to login to Ranger Web UI (local unix, AD, LDAP etc):
-
+- Enter hortonworks for the passwords and update the external URL. The auth method determines who is allowed to login to Ranger webui (local unix, AD, LDAP etc):
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
 
 ---------
@@ -116,22 +104,22 @@ Advanced ranger-ugsync-site
 
 ---------
 
-- Set the bind password to that of your 'kinit admin'
-- Set the searchBase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
+- Set the bind password to hortonworks
+- Set the searchBase to cn=users,cn=accounts,dc=hortonworks,dc=com 
 ![Image](../master/screenshots/23-rangersetup-7.png?raw=true)
 
 ---------
 
 - Set impl.class to ldap 
-- Set the bindn (`uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
-- Set the ldapurl to `ldap://fqdn-of-your-ldap-ipa-or-AD-server:389`
+- Set the bindn to uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
+- Set the ldapurl to ldap://ldap.hortonworks.com:389
 ![Image](../master/screenshots/23-rangersetup-8.png?raw=true)
 
 ---------
 
 - set the user.nameattribute to uid
 - set the user.objectclass to person
-- set the searchbase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
+- set the searchbase to cn=users,cn=accounts,dc=hortonworks,dc=com
 - **change user.searchfilter from empty to ' '** (i.e. a single space, without the quotes)
 ![Image](../master/screenshots/23-rangersetup-9.png?raw=true)
 
@@ -144,17 +132,16 @@ Advanced ranger-ugsync-site
 
 - Finish the wizard to start the Ranger and ugsync setup
 
-- confirm Agent/Ranger started: `ps -f -C java | grep "Dproc_ranger" | awk '{print $9}'`
-  - output should contain at least:
-  
-    ```
-    -Dproc_rangeradmin
-    -Dproc_rangerusersync
-    ```
+- confirm Agent/Ranger started
+```
+ps -ef | grep UnixAuthenticationService
+ps -ef|grep proc_ranger
+```
 
 - Open log file to confirm agent was able to import users/groups from LDAP
-  - `sudo tail -f /var/log/ranger/usersync/usersync.log`
-  - Look for successful messages with "INFO LdapUserGroupBuilder"
+```
+tail -f /var/log/ranger/usersync/usersync.log
+```
 
 - Open WebUI and login as admin/admin. 
 http://sandbox.hortonworks.com:6080
@@ -167,67 +154,67 @@ http://sandbox.hortonworks.com:6080
 
 #####  Setup Ranger HDFS plugin
 
-- Open HDFS configuration in Ambari and make below changes:
-
-- HDFS -> Configs -> Advanced ->
-  - Advanced ranger-hdfs-audit:
-    - Audit to DB: Check
-    - Audit to HDFS: Check
-  - Advanced ranger-hdfs-plugin-properties:
-    - Enable Ranger for HDFS: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
-  - Advanced hadoop-env:
-    - "hadoop-env template"
-      - Add the following after the last instance of JAVA_JDBC_LIBS:
-        - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
-
+- Open HDFS configuration in Ambari and make below changes
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
+- Now set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
+
+- In Ambari go to HDFS -> Configs -> "Advanced hadoop-env” -> hadoop-env template and enter the following line after JAVA_JDBC_LIBS is defined.
+```
+export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
+```
+
 - Restart HDFS via Ambari
 
 - Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
+
 ```
-#run as root
-su hdfs -c "hdfs dfs -mkdir /rangerdemo"
-su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
+sudo su hdfs -c "hdfs dfs -mkdir /rangerdemo"
+sudo su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 ```
 
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Access tab you can see audit trail of what user accessed HDFS at what time with what result
 ![Image](../master/screenshots/ranger-hdfs-agent.png?raw=true)
 
 ##### HDFS Audit Exercises in Ranger:
+
 ```
-su ali
+sudo su ali
 hdfs dfs -ls /rangerdemo
-#should fail saying "Failed to find any Kerberos tgt"
+## should fail saying "Failed to find any Kerberos tgt"
+
 klist
 kinit
 #enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
+
 hdfs dfs -ls /rangerdemo
-#this should fail with "Permission denied"
+## this should fail with "Permission denied"
 ```
-- Notice the audit report and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
+
+- Notice the audit report and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
 ![Image](../master/screenshots/ranger-hdfs-audit-userdenied.png?raw=true)
 
 - Add policy in Ranger PolicyManager > hdfs_sandbox > Add new policy
   - Resource path: /rangerdemo
   - Recursive: True
-  - User: ali and give read, write, execute
+  - User: ali
+  - Rights: give read, write, execute
   - Save > OK and wait 30s
   - ![Image](../master/screenshots/ranger-hdfs-setup-user.png?raw=true)
   
 - Now the HDFS access should succeed
+
 ```
 hdfs dfs -ls /rangerdemo
 ```
-- Now look at the audit reports for the above and filter on "REPOSITORY TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
+
+- Now look at the audit reports for the above and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 ![Image](../master/screenshots/ranger-hdfs-audit.png?raw=true)
 
 - Attempt to access dir before/after adding group level Ranger HDFS policy
+
 ```
 su hr1
 hdfs dfs -ls /rangerdemo
