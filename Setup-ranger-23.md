@@ -173,6 +173,7 @@ http://sandbox.hortonworks.com:6080
   - Advanced ranger-hdfs-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
@@ -193,6 +194,7 @@ http://sandbox.hortonworks.com:6080
   - Ranger -> Access Manager -> HDFS -> (clustername)_hadoop
   - Click Policy ID # 1
   - Under select group; add admins
+  - Save
 
 ![Image](../master/screenshots/23-adminpolicy.png?raw=true)	
 
