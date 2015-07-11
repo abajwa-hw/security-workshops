@@ -73,15 +73,39 @@ SYNC_LDAP_USER_SEARCH_FILTER : (space)
 SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 
 ```
+- Enter hortonworks for the passwords:
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
+
+- Enter hortonworks for the passwords and update the external URL. The auth method determines who is allowed to login to Ranger webui (local unix, AD, LDAP etc):
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
+
+- These settings provide the details for above authentication methods. No change needed:
 ![Image](../master/screenshots/23-rangersetup-3.png?raw=true)
+
+- Solr audit and other configs. No change needed:
 ![Image](../master/screenshots/23-rangersetup-4.png?raw=true)
+
+- No change needed:
 ![Image](../master/screenshots/23-rangersetup-5.png?raw=true)
+
+- The ranger-ugsync-site accordion is the section related to syncing user/groups from LDAP:
 ![Image](../master/screenshots/23-rangersetup-6.png?raw=true)
+
+- Set the bind password to hortonworks
+- Set the searchBase to cn=users,cn=accounts,dc=hortonworks,dc=com 
 ![Image](../master/screenshots/23-rangersetup-7.png?raw=true)
+
+- Set impl.class to ldap 
+- Set the bindn to uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
+- Set the ldapurl to ldap://ldap.hortonworks.com:389
 ![Image](../master/screenshots/23-rangersetup-8.png?raw=true)
+
+- set the user.nameattribute to uid
+- set the user.objectclass to person
+- set the searchbase to cn=users,cn=accounts,dc=hortonworks,dc=com
 ![Image](../master/screenshots/23-rangersetup-9.png?raw=true)
+
+- No changed needed:
 ![Image](../master/screenshots/23-rangersetup-10.png?raw=true)
 
 - Finish the wizard to start the Ranger and ugsync setup
