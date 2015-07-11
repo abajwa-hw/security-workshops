@@ -183,6 +183,7 @@ http://sandbox.hortonworks.com:6080
     - "hadoop-env template"
       - Add the following after the last instance of JAVA_JDBC_LIBS:
         - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
+```
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
