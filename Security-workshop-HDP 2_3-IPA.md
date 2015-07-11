@@ -11,7 +11,7 @@
   - We will be using a 2 VM setup: one with LDAP and one with HDP 2.3. In this example we will be using a single node HDP 2.3 setup installed via Ambari
   - The official 2.3 sandbox is not being used as it already has Ranger installed.
 
-####  Part 0: Setup and start LDAP and HDP Virtual Machines
+####  Part 0: Setup and start LDAP  Virtual Machine
 - Install Centos 6.5 on on VM and setup FreeIPA using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
        
 #### Part 1: Authentication                       
