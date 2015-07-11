@@ -105,9 +105,6 @@ SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
 ---------
 
 - Set the bind password to hortonworks
-
----------
-
 - Set the searchBase to cn=users,cn=accounts,dc=hortonworks,dc=com 
 ![Image](../master/screenshots/23-rangersetup-7.png?raw=true)
 
@@ -162,6 +159,10 @@ http://sandbox.hortonworks.com:6080
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
+- In Ambari go to HDFS -> Configs -> "Advanced hadoop-env” -> hadoop-env template and enter the following line after JAVA_JDBC_LIBS is defined.
+```
+export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
+```
 
 - Restart HDFS via Ambari
 
