@@ -159,6 +159,8 @@ http://sandbox.hortonworks.com:6080
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
+- Now set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
+
 - In Ambari go to HDFS -> Configs -> "Advanced hadoop-env” -> hadoop-env template and enter the following line after JAVA_JDBC_LIBS is defined.
 ```
 export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
@@ -239,12 +241,16 @@ hdfs dfs -ls /rangerdemo
 - In Ambari, add admins group and restart HDFS
 hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
+- **Under Hive > Config > Settings > Security: choose authorization as ‘Ranger’ from drop down box**
+  - When you select the Ranger from drop down box, warning pop will be opened as shown below. Click on apply and save the changes.
+
 - Open Hive configuration in Ambari and make below changes
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
-- *TODO*: add additional Hive config form Settings page
+- Now set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
+
 
 - restart Hive in Ambari
 
@@ -355,16 +361,14 @@ exit
 
 ---------------------
 
-#####  Setup HBase repo in Ranger
-
-- Install HBase plugin
-
-**Note: if this were a multi-node cluster, you would run these steps on the host running HBase**
+#####  Setup HBase plugin
 
 - Open HBase configuration in Ambari and make below changes
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+
+- Set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
 
 - Restart Hbase
 
@@ -428,6 +432,8 @@ Steps available [here]() **WIP**
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+
+- Set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
 
 - Restart Storm
   
