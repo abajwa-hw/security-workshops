@@ -169,7 +169,7 @@ http://sandbox.hortonworks.com:6080
 
 - Open HDFS configuration in Ambari and make below changes:
 
-- HDFS -> Configs -> Advanced ->
+  - HDFS -> Configs -> Advanced ->
   - Advanced ranger-hdfs-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
@@ -183,11 +183,19 @@ http://sandbox.hortonworks.com:6080
       - Add the following after the last instance of JAVA_JDBC_LIBS:
         - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
 
-
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
 - Restart HDFS via Ambari
+
+- In Ranger UI add admins group to default policy to give access to root HDFS dir
+
+  - Ranger -> Access Manager -> HDFS -> <clustername>_hadoop
+  - Click Policy ID # 1
+  - Under select group; add admins
+
+![Image](../master/screenshots/23-adminpolicy.png?raw=true)	
+
 
 - Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
 ```
