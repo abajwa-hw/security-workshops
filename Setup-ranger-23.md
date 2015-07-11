@@ -278,12 +278,21 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
 - **Under Hive > Config > Settings > Security: choose authorization as ‘Ranger’ from drop down box**
   - When you select the Ranger from drop down box, warning pop will be opened as shown below. Click on apply and save the changes.
 
+- Under Hive -> Configs -> Advanced ->
+  - Advanced ranger-hive-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+  - Advanced ranger-hive-plugin-properties:
+    - Enable Ranger for Hive: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+
 - Open Hive configuration in Ambari and make below changes
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
-
-- Now set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
 
 
 - restart Hive in Ambari
@@ -399,10 +408,19 @@ exit
 
 - Open HBase configuration in Ambari and make below changes
 
+- Under HBase -> Configs -> Advanced ->
+  - Advanced ranger-hbase-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+  - Advanced ranger-hbase-plugin-properties:
+    - Enable Ranger for HBase: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
-
-- Set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
 
 - Restart Hbase
 
