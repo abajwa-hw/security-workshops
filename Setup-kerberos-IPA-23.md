@@ -199,7 +199,7 @@ ipa passwd rangeradmin < tmp.txt
 ```
 ambari-server setup-ldap
 ```
-- Enter below parameters at each prompt:
+- Enter below parameters at each prompt (all passwords are hortonworks):
 ```
 Using python  /usr/bin/python2.6
 Setting up LDAP properties...
@@ -212,12 +212,20 @@ Group object class* (posixGroup):
 Group name attribute* (cn):
 Group member attribute* (member):
 Distinguished name attribute* (dn):
-Base DN* (dc=hortonworks,dc=com): cn=users,cn=accounts,dc=hortonworks,dc=com
+Base DN* (cn=users,cn=accounts,dc=hortonworks,dc=com): cn=accounts,dc=hortonworks,dc=com
 Referral method [follow/ignore] (follow):
 Bind anonymously* [true/false] (false):
 Manager DN* (uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com):
 Enter Manager Password* :
 Re-enter password:
+====================
+Review Settings
+====================
+authentication.ldap.managerDn: uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
+authentication.ldap.managerPassword: *****
+Save settings [y/n] (y)? y
+Saving...done
+Ambari Server 'setup-ldap' completed successfully.
 ```
 
 - Restart Ambari and start sync
