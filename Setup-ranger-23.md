@@ -167,9 +167,8 @@ http://sandbox.hortonworks.com:6080
 
 #####  Setup Ranger HDFS plugin
 
-- Open HDFS configuration in Ambari and make below changes
+- Open HDFS configuration in Ambari and make below changes:
 
-```
 - HDFS -> Configs -> Advanced ->
   - Advanced ranger-hdfs-audit:
     - Audit to DB: Check
@@ -183,7 +182,7 @@ http://sandbox.hortonworks.com:6080
     - "hadoop-env template"
       - Add the following after the last instance of JAVA_JDBC_LIBS:
         - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
-```
+
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
