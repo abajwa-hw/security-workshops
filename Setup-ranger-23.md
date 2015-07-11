@@ -43,7 +43,7 @@
     ```sql
 CREATE USER 'rangerroot'@'%';
 GRANT ALL PRIVILEGES ON *.* to 'rangerroot'@'%' WITH GRANT OPTION;
-SET PASSWORD FOR 'rangerroot'@'%' = PASSWORD('Hortonworks1');
+SET PASSWORD FOR 'rangerroot'@'%' = PASSWORD('hortonworks');
 FLUSH PRIVILEGES;
 exit
 ```
@@ -68,6 +68,7 @@ exit
 
 ```
 Ranger Settings:
+  - Ranger DB root user = rangerroot (or whatever you set for MySQL user above)
   - External URL = http://your-servers-public-name:6080
 Advanced ranger-ugsync-site
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
@@ -80,7 +81,8 @@ Advanced ranger-ugsync-site
   - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
 
 ```
-- Configure passwords to your preference and from earlier in this document):
+- Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
+**TODO** update screenshot
 
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
 
