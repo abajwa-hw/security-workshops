@@ -190,3 +190,45 @@ echo Hortonworks1 >> tmp.txt
 ipa passwd xapolicymgr < tmp.txt
 ipa passwd rangeradmin < tmp.txt
 ```
+
+## Sync LDAP with Ambari
+
+- Now we will setup LDAP sync and kerberos following steps from [doc](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Ambari_Doc_Suite/Ambari_Security_v20.pdf)
+
+- First setup sync Ambari with LDAP
+```
+ambari-server setup-ldap
+```
+- Enter below parameters at each prompt:
+```
+Using python  /usr/bin/python2.6
+Setting up LDAP properties...
+Primary URL* {host:port} (ldap.hortonworks.com:389):
+Secondary URL {host:port} :
+Use SSL* [true/false] (false):
+User object class* (posixAccount):
+User name attribute* (uid):
+Group object class* (posixGroup):
+Group name attribute* (cn):
+Group member attribute* (member):
+Distinguished name attribute* (dn):
+Base DN* (dc=hortonworks,dc=com): cn=users,cn=accounts,dc=hortonworks,dc=com
+Referral method [follow/ignore] (follow):
+Bind anonymously* [true/false] (false):
+Manager DN* (uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com):
+Enter Manager Password* :
+Re-enter password:
+```
+
+- Restart Ambari and start sync
+```
+ambari-server restart
+ambari-server sync-ldap --all
+#when prompted for Ambari credentials, login as admin/hortonworks (not admin/admin)
+```
+
+- Login to ambari as paul/hortonworks and notice no views
+
+- Login as admin and add paul as Ambari admin
+
+- now re-try login and notice it works. LDAP sync is now setup
