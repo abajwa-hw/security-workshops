@@ -63,19 +63,21 @@ exit
   - Admin -> Stacks/Versions -> Ranger -> Add service
 
 - Below is a summary of the congfigurations needed to enable LDAP user/group sync.
-- The settings shown are for our IPA howto. Tweak to fir your own LDAP configuration.
+- **The settings shown are for our IPA howto. Tweak to fit your own LDAP configuration.**
   - There are many more options which you may want to review, but should not need to change.
 
 ```
-TODO: use this table as a summary of below properties
-POLICY_MGR_URL = http://your-servers-public-name:6080
-SYNC_SOURCE = ldap
-SYNC_LDAP_URL = ldap://your-ldap-server-name:389
-SYNC_LDAP_BIND_DN = uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
-SYNC_LDAP_BIND_PASSWORD = hortonworks
-SYNC_LDAP_USER_SEARCH_BASE = cn=users,cn=accounts,dc=hortonworks,dc=com
-SYNC_LDAP_USER_SEARCH_FILTER : (space)
-SYNC_LDAP_USER_NAME_ATTRIBUTE = uid
+Ranger Settings:
+  - External URL = http://your-servers-public-name:6080
+Advanced ranger-ugsync-site
+  - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
+  - ranger.usersync.source.impl.class = ldap
+  - ranger.usersync.ldap.binddn = uid=rangeradmin,cn=users,cn=accounts,dc=hortonworks,dc=com
+  - ranger.usersync.ldap.url = ldap://your-ldap-server-name:389
+  - ranger.usersync.ldap.user.nameattribute = uid
+  - ranger.usersync.ldap.user.objectclass = person
+  - ranger.usersync.ldap.user.searchbase = cn=users,cn=accounts,dc=hortonworks,dc=com
+  - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
 
 ```
 - Configure passwords to your preference and from earlier in this document):
