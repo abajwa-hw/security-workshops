@@ -63,6 +63,7 @@ You should copy mysql jar to other nodes (if any)
 
 - Under configuration screen of the wizard, open all the accordions and make the the below changes to look like below screenshots. This will configure Ranger to periodically sync the user/groups in our LDAP
 ```
+TODO: use this table as a summary of below properties
 POLICY_MGR_URL = http://sandbox.hortonworks.com:6080
 SYNC_SOURCE = ldap
 SYNC_LDAP_URL = ldap://ldap.hortonworks.com:389
