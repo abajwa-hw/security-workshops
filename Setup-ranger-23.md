@@ -23,19 +23,21 @@
   - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
 
 
-#####  Create Kerberos user `rangeradmin` *(if not already created)*
+##### Pre-requisites
+
+######  Create Kerberos user `rangeradmin` *(if not already created)*
 
 - **In production environments, this will likely be handled by your Active Directory or KDC/IPA Admins**
 - Example using FreeIPA Server:
   - 1) Authenticate: `kinit admin`
   - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/bin/bash --password`
 
-#####  Confirm Kerberos user `rangeradmin`
+######  Confirm Kerberos user `rangeradmin`
 
 - `sudo -u rangeradmin kinit`
   - At 1st login, you may be prompted to reset the password
 
-##### Create & confirm MySQL user 'rangerroot'
+###### Create & confirm MySQL user 'rangerroot'
 
 - `sudo mysql`
 - Execute following in the MySQL shell. Change the password to your preference. 
@@ -51,7 +53,7 @@ exit
 - Confirm MySQL user: `mysql -u rangerroot -p -e "select count(user) from mysql.user;"`
   - Output should be a simple count. Check the last step if there are errors.
 
-##### Prepare Ambari for MySQL *(or the database you want to use)*
+###### Prepare Ambari for MySQL *(or the database you want to use)*
 
 - Add MySQL JAR to Ambari:
   - `sudo ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar`
