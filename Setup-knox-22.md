@@ -21,16 +21,22 @@
 
 - Add the below to HDFS config via Ambari and restart HDFS:
 ```
-hadoop.proxyuser.knox.groups = * 
+hadoop.proxyuser.knox.groups = users, admin, sales, marketing, legal, hr
 hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
 ```	
+
+  - (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
+  ```
+  {"RemoteException":{"exception":"SecurityException","javaClassName":"java.lang.SecurityException","message":"Failed to obtain user group information: org.apache.hadoop.security.authorize.AuthorizationException: User: knox is not allowed to impersonate hr1"}}
+  ```
 
 - Try out a WebHDFS request without Knox and notice it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
 ```
 http://sandbox.hortonworks.com:50070/webhdfs/v1/user/?op=LISTSTATUS
 ```
 
-- Start Knox using Ambari (it comes pre-installed with HDP 2.2)
+- Start Knox using Ambari (it comes pre-installed with HDP 2.2 onwards). Note you may need to start the demo LDAP from Ambari under Knox -> Service actions as shown below
+![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
 - Try out a WebHDFS request through Knox now. The guest user is defined in the demo LDAP that Knox comes with which is why this works. notice it goes over HTTPS (not HTTP) on port 8443 and credentials are needed
 ```
