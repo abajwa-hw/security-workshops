@@ -714,11 +714,36 @@ storm kill WordCountTopology
 
 #####  Setup Solr repo in Ranger - TBD
 
+--------------------
 
 ##### Ranger Audit dashboard
 
-- At this point you should have a number of events appear in the Audit dashboard, where you can query using the search bar.
+- At this point you should have a number of events appear in the Audit dashboard, where you can:
+  - query using the search bar.
+  - view time series view of events as they come in
+  - view top user accounts across events
+  - distribution of repos across events
+  - access types across events
 ![Image](../master/screenshots/Ranger-audit-dashboard.png?raw=true)
 
+- Add your own widget by modifying the dashboards [default.json](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/default.json) under /opt/banana/latest/src/app/dashboards/
+- Then rebuild and reload the new webapp using the below commands
+```
+#clean any previous webapp compilations
+/bin/rm -f /opt/banana/latest/build/banana*.war
+/bin/rm -f /opt/solr/server/webapps/banana.war
+
+#compile latest dashboard json
+cd /opt/banana/latest
+ant
+
+/bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
+/bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
+
+#restart solr
+/opt/solr/ranger_audit_server/scripts/stop_solr.sh
+/opt/solr/ranger_audit_server/scripts/start_solr.sh
+```
+-----------
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location 
