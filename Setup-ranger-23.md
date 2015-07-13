@@ -37,20 +37,20 @@
 - `sudo -u rangeradmin kinit`
   - At 1st login, you may be prompted to reset the password
 
-###### Create & confirm MySQL user 'rangerroot'
+###### Create & confirm MySQL user 'root'
 
 - `sudo mysql`
 - Execute following in the MySQL shell. Change the password to your preference. 
 
     ```sql
-CREATE USER 'rangerroot'@'%';
-GRANT ALL PRIVILEGES ON *.* to 'rangerroot'@'%' WITH GRANT OPTION;
-SET PASSWORD FOR 'rangerroot'@'%' = PASSWORD('hortonworks');
+CREATE USER 'root'@'%';
+GRANT ALL PRIVILEGES ON *.* to 'root'@'%' WITH GRANT OPTION;
+SET PASSWORD FOR 'root'@'%' = PASSWORD('hortonworks');
 FLUSH PRIVILEGES;
 exit
 ```
 
-- Confirm MySQL user: `mysql -u rangerroot -p -e "select count(user) from mysql.user;"`
+- Confirm MySQL user: `mysql -u root -p -e "select count(user) from mysql.user;"`
   - Output should be a simple count. Check the last step if there are errors.
 
 ###### Prepare Ambari for MySQL *(or the database you want to use)*
@@ -128,7 +128,7 @@ ant
 
 ```
 Ranger Settings:
-  - Ranger DB root user = rangerroot (or whatever you set for MySQL user above)
+  - Ranger DB root user = root *(or another MySQL user with MySQL privileges)*
   - External URL = http://your-servers-public-name:6080
 Advanced ranger-ugsync-site
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
