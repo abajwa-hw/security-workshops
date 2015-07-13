@@ -100,8 +100,9 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
   - Advanced ranger-knox-plugin-properties:
     - Enable Ranger for KNOX: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
