@@ -92,8 +92,14 @@ vi kerberos.csv
 ```
 
 - **On the IPA node** Create principals using csv file
+
 ```
-awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > add-spn.sh
+## authenticate
+kinit admin
+```
+
+```
+awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > ipa-add-spn.sh
 awk -F"," '/USER/ {print "ipa user-add "$5" --first="$5" --last=Hadoop --shell=/bin/bash"}' kerberos.csv > ipa-add-upn.sh
 sh ipa-add-spn.sh
 sh ipa-add-upn.sh
@@ -107,19 +113,22 @@ sudo kinit admin
 ```
 
 ```
+ipa_server=$(cat /etc/ipa/default.conf | awk '/^server =/ {print $3}')
 sudo mkdir /etc/security/keytabs/
 sudo chown root:hadoop /etc/security/keytabs/
-awk -F"," '/'$(hostname -f)'/ {print "ipa-getkeytab -s ldap.hortonworks.com -p "$3" -k "$6";chown "$7":"$9,$6";chmod "$11,$6}' kerberos.csv | sort -u > gen_keytabs.sh
+awk -F"," '/'$(hostname -f)'/ {print "ipa-getkeytab -s '${ipa_server}' -p "$3" -k "$6";chown "$7":"$9,$6";chmod "$11,$6}' kerberos.csv | sort -u > gen_keytabs.sh
 sudo bash ./gen_keytabs.sh
 sudo chmod ugo+r /etc/security/keytabs/*
 ```
 
 - Verify kinit works before proceeding (should not give errors)
+
 ```
-sudo -u hdfs kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
-sudo -u ambari-qa kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
-sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
+sudo kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
 ```
+
 - Press next on security wizard and proceed to stop services
 ![Image](../master/screenshots/2.3-ipa-kerb-stop.png?raw=true)
 
