@@ -6,18 +6,19 @@
   - Use Excel to securely access Hive via KNOX
 
 - Why? 
-  - Enables Perimeter Security so there is a single point of cluster access using Hadoop REST APIs, JDBC and ODBC calls 
+  - Enables Perimeter Security so there is a single point of cluster access using Hadoop REST APIs, JDBC and ODBC calls
+  - Avoid the need to business users to kinit: they simply provide their LDAP credentials
 
 - Contents
-  - [Pre-requisite steps](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#pre-requisite-steps)  
-  - [Setup Knox repo](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#setup-knox-repo)
-  - [Knox WebHDFS audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#knox-webhdfs-audit-exercises-in-ranger)
-  - [Setup Hive to go over Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#setup-hive-to-go-over-knox)
-  - [Knox exercises to check Hive setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#knox-exercises-to-check-hive-setup)
-  - [Download data over HTTPS via Knox/Hive](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-22.md#download-data-over-https-via-knoxhive)
+  - [Pre-requisite steps](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#pre-requisite-steps)  
+  - [Setup Knox repo](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#setup-knox-repo)
+  - [Knox WebHDFS audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#knox-webhdfs-audit-exercises-in-ranger)
+  - [Setup Hive to go over Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#setup-hive-to-go-over-knox)
+  - [Knox exercises to check Hive setup](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#knox-exercises-to-check-hive-setup)
+  - [Download data over HTTPS via Knox/Hive](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#download-data-over-https-via-knoxhive)
 
 
-###### Configure Knox to use IPA
+###### Integrate Knox with IPA LDAP
 
 - Add the below to HDFS config via Ambari and restart HDFS:
 ```
@@ -86,95 +87,30 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 ```
 - Next lets setup Ranger plugin for Knox
 
-###### Pre-requisite steps
 
-- Export certificate to ~/knox.crt
-```
-cd /var/lib/knox/data/security/keystores
-keytool -exportcert -alias gateway-identity -keystore gateway.jks -file ~/knox.crt
-#hit enter
-```
+###### Integrate Knox with Ranger
 
-- Import ~/knox.crt
-```
-cd ~
-. /etc/ranger/admin/conf/java_home.sh
+- Open Knox configuration in Ambari and make below changes
 
-cp $JAVA_HOME/jre/lib/security/cacerts cacerts.withknox
-keytool -import -trustcacerts -file knox.crt   -alias knox  -keystore cacerts.withknox
-#Enter changeit as password
-#Type yes
-```
-- Copy cacerts.withknox to ranger conf dir
-```
-cp cacerts.withknox /etc/ranger/admin/conf
-```
+- Under Knox -> Configs -> Advanced ->
+  - Advanced ranger-knox-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+  - Advanced ranger-knox-plugin-properties:
+    - Enable Ranger for KNOX: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
 
-- vi /etc/ranger/admin/conf/ranger-admin-env-knox_cert.sh
-```
-#!/bin/bash                                                                                    
-certs_with_knox=/etc/ranger/admin/conf/cacerts.withknox
-export JAVA_OPTS="$JAVA_OPTS -Djavax.net.ssl.trustStore=${certs_with_knox}"
-```
+![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
+![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
-- Restart service 
-```
-chmod +x /etc/ranger/admin/conf/ranger-admin-env-knox_cert.sh
-service ranger-admin stop
-service ranger-admin start
-```
+- When you select the checkbox, warning pop will appear. Click on apply and save the changes.
+- Restart Knox
 
-- verify that javax.net.ssl.trustStore property was applied
-```
-ps -ef | grep proc_rangeradmin
-```
-###### Setup Knox repo
-
-
-- In the Ranger UI, under PolicyManager tab, click the + sign next to Hbase and enter below to create a Hbase repo:
-
-```
-Repository Name: knox_sandbox
-Username: rangeradmin@HORTONWORKS.COM
-Password: hortonworks
-knox.url= https://sandbox.hortonworks.com:8443/gateway/admin/api/v1/topologies/
-```
-![Image](../master/screenshots/ranger-knox-setup.png?raw=true)
-
-- Click Test (its ok if it gives an error). Then add the repository.
-
-- Install Knox plugin
-**Note: if this were a multi-node cluster, you would run these steps on the host running Knox**
-
-
-```
-cd /usr/hdp/2.2.0.0-2041/ranger-knox-plugin
-vi install.properties
-
-POLICY_MGR_URL=http://sandbox.hortonworks.com:6080
-REPOSITORY_NAME=knox_sandbox
-
-XAAUDIT.DB.IS_ENABLED=true
-XAAUDIT.DB.FLAVOUR=MYSQL
-XAAUDIT.DB.HOSTNAME=localhost
-XAAUDIT.DB.DATABASE_NAME=ranger_audit
-XAAUDIT.DB.USER_NAME=rangerlogger
-XAAUDIT.DB.PASSWORD=hortonworks
-```
-
-- Enable Ranger Knox plugin
-```
-./enable-knox-plugin.sh
-```
-
-- To enable Ranger Knox plugin, in Ambari, under Knox > Configs > Advanced Topology, add the below under ```<gateway>```
-```
-	<provider>
-		<role>authorization</role>
-        <name>XASecurePDPKnox</name>
-        <enabled>true</enabled>
-	</provider>
-```
+- Notice that the Knox agent shows up in the list of agents. In case it does not, it should appear when the first WebHDFS curl request is run below 
+![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
 
 - Restart Knox via Ambari
 
@@ -195,7 +131,7 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
 ![Image](../master/screenshots/ranger-knox-denied.png?raw=true)
 
 - Add policy in Ranger PolicyManager > hdfs_knox > Add new policy
-  - Policy name: test
+  - Policy name: webhdfs
   - Topology name: default
   - Service name: WEBHDFS
   - Group permissions: sales and check Allow
@@ -203,7 +139,7 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
   - Save > OK 
   - ![Image](../master/screenshots/ranger-knox-policy.png?raw=true)
   
-- While waiting 30s for the policy to be activated, review the Analytics tab
+- While waiting 30s for the policy to be activated, Review the Report tab (under Access Manager)
 ![Image](../master/screenshots/ranger-knox-analytics.png?raw=true)
 
 - Re-run the WebHDFS request and notice this time it succeeds
@@ -212,6 +148,13 @@ curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/defa
 curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 ![Image](../master/screenshots/ranger-knox-allowed.png?raw=true)
+
+- Re-run the WebHDFS request for a user not in sales group and notice it still fails (since we only gave access to sales group)
+```
+curl -iv -k -u legal1:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+```
+
+- Review the Ranger audits for Knox to confirm
 
 #####  Setup Hive to go over Knox 
 
@@ -230,7 +173,7 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 
 #### Knox exercises to check Hive setup
 
-- Run beehive query connecting through Knox. Note that the beeline connect string is different for connecting via Knox
+- Run beehive query connecting through Knox. Note that the beeline connect string is different for connecting via Knox. Also you would need to replace trustStorePassword=knox with whatever password was specified during cluster creation/installing Knox service
 ```
 su ali
 beeline
@@ -249,7 +192,7 @@ beeline
   - Click Add
   - ![Image](../master/screenshots/ranger-knox-hive-policy.png?raw=true)  
   
-- Review the Analytics tab while waiting 30s for the policy to take effect.  
+- Review the Report tab (under Access Manager) while waiting 30s for the policy to take effect.  
 ![Image](../master/screenshots/ranger-knox-hive-analytics.png?raw=true)  
 
 - Now re-run the connect command above and run some queries:
@@ -270,6 +213,10 @@ select * from sample_07;
 
 !q
 ```
+- Review the audit for service type Knox: these should all be successful now
+
+- Review the audit for service type Hive: these will show which hive requests (over Knox) were allowed and which were not authorized (based on the Ranger policies previously setup for Hive)
+
 
 #### Download data over HTTPS via Knox/Hive
 
