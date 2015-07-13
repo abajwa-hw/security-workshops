@@ -179,8 +179,9 @@ http://sandbox.hortonworks.com:6080
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
   - Advanced hadoop-env:
     - "hadoop-env template"
       - Add the following after the last instance of JAVA_JDBC_LIBS:
@@ -288,8 +289,9 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
   - Advanced ranger-hive-plugin-properties:
     - Enable Ranger for Hive: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
 - Open Hive configuration in Ambari and make below changes
 
@@ -418,8 +420,10 @@ exit
   - Advanced ranger-hbase-plugin-properties:
     - Enable Ranger for HBase: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
+
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
@@ -471,7 +475,7 @@ exit
 
 #####  Setup Knox repo in Ranger
 
-Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
+Steps to integrate Knox with LDAP and Ranger available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
 
 ---------------------
 
@@ -487,8 +491,10 @@ Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/mast
   - Advanced ranger-yarn-plugin-properties:
     - Enable Ranger for YARN: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
+
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
@@ -515,8 +521,10 @@ Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/mast
   - Advanced ranger-kafka-plugin-properties:
     - Enable Ranger for KAFKA: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
-    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
+
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
@@ -532,16 +540,24 @@ Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/mast
 #####  Setup Storm repo in Ranger
 
 
-- Install Storm plugin
-
-**Note: if this were a multi-node cluster, you would run these steps on the host running Storm Nimbus and UI server**
-
 - Open Storm configuration in Ambari and make below changes
+
+- Under Storm -> Configs -> Advanced ->
+  - Advanced ranger-storm-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+  - Advanced ranger-storm-plugin-properties:
+    - Enable Ranger for STORM: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
-- Set common.name.for.certificate as blank (you need to give a single space to avoid required field validation)
+- When you select the checkbox, warning pop will appear. Click on apply and save the changes.
 
 - Restart Storm
   
@@ -606,6 +622,7 @@ storm kill WordCountTopology
 ```
 ---------------------
 
+#####  Setup Solr repo in Ranger - TBD
 
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location 
