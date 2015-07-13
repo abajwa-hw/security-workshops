@@ -159,7 +159,7 @@ Advanced ranger-admin-site
 ---------
 
 - Configure passwords as set earlier in this guide.
-- Update the External URL to `http://your-servers-fqdn:6080/`.
+- Update the External URL to `http://your-servers-fqdn:6080`. *Make sure there are no trailing slashes after this value*
 - The auth method determines who is allowed to login to Ranger Web UI (local unix, AD, LDAP etc):
 
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
