@@ -13,6 +13,7 @@ To demonstrate:
 Why integrate security with LDAP? 
  - To show how Hadoop plugs in to the enterprise's existing Identity Management system
 
+----------------------
 
 #### Workshop Materials
 
