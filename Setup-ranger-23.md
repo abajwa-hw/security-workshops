@@ -139,13 +139,15 @@ Advanced ranger-ugsync-site
   - ranger.usersync.ldap.user.objectclass = person
   - ranger.usersync.ldap.user.searchbase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
-Advanced ranger-admin-site (Optional - if Solr audit desired)
+```
+- (Optional) - additional Ranger settings if saving audit to Solr is desired
+```  
+Advanced ranger-admin-site 
   - ranger.audit.solr.password = NONE
   - ranger.audit.solr.urls = http://sandbox.hortonworks.com:6083/solr/ranger_audits
   - ranger.audit.solr.username = ranger_solr
   - ranger.audit.solr.zookeepers = NONE
   - ranger.audit.source.type = solr  
-
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
 **TODO** update screenshot
