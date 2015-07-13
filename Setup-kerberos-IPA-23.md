@@ -19,7 +19,7 @@
 
 ## Pre-requisites if not done already
 
-1. Install HDP 2.3 using Ambari 2.1 
+1. Install Ambari 2.1 
 
 ```
 systemctl stop firewalld
