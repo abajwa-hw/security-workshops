@@ -724,6 +724,7 @@ storm kill WordCountTopology
   - view top user accounts across events
   - distribution of repos across events
   - access types across events
+  - drill down into each events details using the list at the bottom of the page
 ![Image](../master/screenshots/Ranger-audit-dashboard.png?raw=true)
 
 - Add your own widget by modifying the dashboards [default.json](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/default.json) under /opt/banana/latest/src/app/dashboards/
