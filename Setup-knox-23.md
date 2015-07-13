@@ -112,9 +112,7 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 - Notice that the Knox agent shows up in the list of agents. In case it does not, it should appear when the first WebHDFS curl request is run below 
 ![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
 
-- Restart Knox via Ambari
-
-- Find out your topology name e.g. default
+- Find out your topology name (should be 'default' unless it was changed)
 ```
 ls /etc/knox/conf/topologies/*.xml
 ```

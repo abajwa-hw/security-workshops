@@ -471,10 +471,64 @@ exit
 
 #####  Setup Knox repo in Ranger
 
-Steps available [here]() **WIP**
+Steps available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
 
 ---------------------
 
+###### Setup Yarn repo in Ranger
+
+- Open Yarn configuration in Ambari and make below changes
+
+- Under Yarn -> Configs -> Advanced ->
+  - Advanced ranger-yarn-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+  - Advanced ranger-yarn-plugin-properties:
+    - Enable Ranger for YARN: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+
+![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
+![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+
+- When you select the checkbox, warning pop will appear. Click on apply and save the changes.
+
+- Restart Yarn
+
+- Notice that the Yarn agent shows up in the list of agents. 
+![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
+
+
+---------------------
+
+###### Setup Kafka repo in Ranger
+
+- Open Kafka configuration in Ambari and make below changes
+
+- Under Kafka -> Configs -> Advanced ->
+  - Advanced ranger-kafka-audit:
+    - Audit to DB: Check
+    - Audit to HDFS: Check
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+  - Advanced ranger-kafka-plugin-properties:
+    - Enable Ranger for KAFKA: Check
+    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - common.name.for.certificate: a single space without the quotes: " "
+    - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user
+
+![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
+![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+
+- When you select the checkbox, warning pop will appear. Click on apply and save the changes.
+
+- Restart Kafka
+
+- Notice that the Kafka agent shows up in the list of agents.  
+![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
+
+--------------------
 #####  Setup Storm repo in Ranger
 
 
