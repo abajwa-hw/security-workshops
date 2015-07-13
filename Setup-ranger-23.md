@@ -718,7 +718,7 @@ storm kill WordCountTopology
 
 ##### Ranger Audit dashboard
 
-- At this point you should have a number of events appear in the Audit dashboard, where you can:
+- At this point you should have a number of events appear in the Audit dashboard, where you can vizualize the Solr audits:
   - query using the search bar.
   - view time series view of events as they come in
   - view top user accounts across events
