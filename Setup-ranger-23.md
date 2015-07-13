@@ -59,6 +59,60 @@ exit
   - `sudo ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar`
     - If the file is not present, it is available on RHEL/CentOS with: `sudo yum -y install mysql-connector-java`
 
+###### (Optional) Setup Solr for storing audits
+
+```
+#set time to UTC
+service ntpd stop
+ntpdate us.pool.ntp.org
+hwclock --systohc
+mv /etc/localtime /etc/localtime.bak
+ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+
+#first setup solr using https://docs.google.com/document/d/1591hv4aEmJ8Fq_jG5cRKHB2225odW-8RqBT4yY2In0U/edit
+#TODO add missing steps here
+cd /usr/local/
+wget <location of ranger_solr_setup.tgz>
+tar xvf ranger_solr_setup.tgz
+cd ranger_solr_setup
+./setup.sh
+cd ranger_audit_server/scripts/
+#in case start_solr.sh not created, copy from template and run some sed commands
+cp start_solr.sh.template start_solr.sh
+./start_solr.sh
+
+
+#setup banana
+cd /opt/banana
+git clone https://github.com/LucidWorks/banana.git
+mv banana latest
+
+#change references to logstash_logs
+sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
+
+
+#copy ranger audit dashboard json and replace sandbox.hortonworks.com with host where Solr is installed
+host=`hostname -f`
+/bin/cp -f ~/security-workshops/scripts/default.json /opt/banana/latest/src/app/dashboards
+sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
+
+
+#clean any previous webapp compilations
+/bin/rm -f /opt/banana/latest/build/banana*.war
+/bin/rm -f /opt/solr/server/webapps/banana.war
+
+#compile latest dashboard json
+cd /opt/banana/latest
+ant
+
+/bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
+/bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
+
+#restart solr
+/opt/solr/ranger_audit_server/scripts/stop_solr.sh
+/opt/solr/ranger_audit_server/scripts/start_solr.sh
+```
+
 ##### Install & Configure Ranger using Ambari
 
 - Start the Ranger install by navigating to below link in Ambari
