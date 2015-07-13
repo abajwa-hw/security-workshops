@@ -96,9 +96,11 @@
           "time_options": [
             "15m",
             "1h",
+            “3h",
+            “6h",
+            “12h",
             "24h",
-            "30d",
-            "180d"
+            "30d"
           ],
           "timespan": "15m",
           "timefield": "evtTime",
