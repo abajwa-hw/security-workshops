@@ -63,17 +63,6 @@ git clone https://github.com/abajwa-hw/security-workshops
 ~/security-workshops/scripts/run_FreeIPA_importusers.sh
 ```
 More details/video can be found [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
-
-  - If you choose not to run the above script to import all the demo users, run the below to create rangeradmin user
-  ```
-  #change password to whatever you want
-  password=hortonworks
-  ipa user-add rangeradmin --first=Ranger --last=Admin
-  ipa group-add-member admins --users=rangeradmin
-  echo $password > tmp.txt
-  echo $password >> tmp.txt
-  ipa passwd rangeradmin < tmp.txt
-  ```
   
 
 ------------------

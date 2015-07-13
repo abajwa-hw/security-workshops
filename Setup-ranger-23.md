@@ -31,6 +31,8 @@
 - Example using FreeIPA Server:
   - 1) Authenticate: `kinit admin`
   - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/bin/bash --password`
+  - 3) Add user to admins `ipa group-add-member admins --users=rangeradmin`
+  
 
 ######  Confirm Kerberos user `rangeradmin`
 
@@ -718,7 +720,7 @@ storm kill WordCountTopology
 
 ##### Ranger Audit dashboard
 
-- At this point you should have a number of events appear in the Audit dashboard, where you can vizualize the Solr audits:
+- At this point you should have a number of events appear in the Audit dashboard, where you can visualize the Solr audits:
   - query using the search bar.
   - view time series view of events as they come in
   - view top user accounts across events
