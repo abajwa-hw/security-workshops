@@ -96,6 +96,9 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
   - Advanced ranger-knox-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true    
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-knox-plugin-properties:
     - Enable Ranger for KNOX: Check

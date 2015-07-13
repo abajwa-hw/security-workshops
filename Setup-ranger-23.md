@@ -139,6 +139,12 @@ Advanced ranger-ugsync-site
   - ranger.usersync.ldap.user.objectclass = person
   - ranger.usersync.ldap.user.searchbase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
+Advanced ranger-admin-site (Optional - if Solr audit desired)
+  - ranger.audit.solr.password = NONE
+  - ranger.audit.solr.urls = http://sandbox.hortonworks.com:6083/solr/ranger_audits
+  - ranger.audit.solr.username = ranger_solr
+  - ranger.audit.solr.zookeepers = NONE
+  - ranger.audit.source.type = solr  
 
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
@@ -233,6 +239,9 @@ http://sandbox.hortonworks.com:6080
   - Advanced ranger-hdfs-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
@@ -346,7 +355,11 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
   - Advanced ranger-hive-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
-    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true
+    - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode    
+
   - Advanced ranger-hive-plugin-properties:
     - Enable Ranger for Hive: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
@@ -477,7 +490,11 @@ exit
   - Advanced ranger-hbase-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+    
   - Advanced ranger-hbase-plugin-properties:
     - Enable Ranger for HBase: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
@@ -548,6 +565,9 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
   - Advanced ranger-yarn-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true    
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-yarn-plugin-properties:
     - Enable Ranger for YARN: Check
@@ -578,7 +598,11 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
   - Advanced ranger-kafka-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true   
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+    
   - Advanced ranger-kafka-plugin-properties:
     - Enable Ranger for KAFKA: Check
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
@@ -607,6 +631,9 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
   - Advanced ranger-storm-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
+    - (Optional) Audit to SOLR: Check
+    - (Optional) Audit provider summary enabled: Check 
+    - (Optional) xasecure.audit.is.enabled: true    
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-storm-plugin-properties:
     - Enable Ranger for STORM: Check
