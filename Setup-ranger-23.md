@@ -113,9 +113,9 @@ ant
 /opt/solr/ranger_audit_server/scripts/start_solr.sh
 ```
 
-
 - Solr UI should be available at http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
 - An Empty Banana dashboard should be available at http://sandbox.hortonworks.com:6083/banana
+- As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
 
 ##### Install & Configure Ranger using Ambari
 
@@ -713,6 +713,12 @@ storm kill WordCountTopology
 ---------------------
 
 #####  Setup Solr repo in Ranger - TBD
+
+
+##### Ranger Audit dashboard
+
+- At this point you should have a number of events appear in the Audit dashboard, where you can query using the search bar.
+![Image](../master/screenshots/Ranger-audit-dashboard.png?raw=true)
 
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location 
