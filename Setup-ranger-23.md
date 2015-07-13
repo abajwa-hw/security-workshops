@@ -182,10 +182,13 @@ http://sandbox.hortonworks.com:6080
     - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
+  - Custom hdfs-site:
+    - **Ambari should set this for you automatically. Placing here for completeness:**
+      - dfs.namenode.inode.attributes.provider.class: `org.apache.ranger.authorization.hadoop.RangerHdfsAuthorizer`
   - Advanced hadoop-env:
     - "hadoop-env template"
-      - Add the following after the last instance of JAVA_JDBC_LIBS:
-        - export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:
+      - Add the following after the last instance of JAVA_JDBC_LIBS
+        - `export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:`
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
