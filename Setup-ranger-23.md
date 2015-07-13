@@ -113,6 +113,10 @@ ant
 /opt/solr/ranger_audit_server/scripts/start_solr.sh
 ```
 
+
+- Solr UI should be available at http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
+- An Empty Banana dashboard should be available at http://sandbox.hortonworks.com:6083/banana
+
 ##### Install & Configure Ranger using Ambari
 
 - Start the Ranger install by navigating to below link in Ambari
