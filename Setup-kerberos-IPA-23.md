@@ -19,7 +19,7 @@
 
 ## Pre-requisites if not done already
 
-1. Install Ambari 2.1 on CentOS 7
+1. Install HDP 2.3 using Ambari 2.1 
 
 ```
 systemctl stop firewalld
@@ -50,69 +50,38 @@ ambari-server restart
     - choosing to manually register the hosts since the Ambari Agent is already registered
   - Or use a Blueprint
 
-------------------
-
-## Steps
-
-3. Install [freeipa ambari service](https://github.com/hortonworks-gallery/ambari-freeipa-service)
-
+3. Setup FreeIPA on a separate CentOS host by configuring and running the sample scripts. 
 ```
 yum install -y git
-cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services
-git clone https://github.com/hortonworks-gallery/ambari-freeipa-service.git   
-sudo service ambari-server restart
+cd ~
+git clone https://github.com/abajwa-hw/security-workshops
 
-#now install FreeIPA using "Add service wizard" in Ambari
+#configure/run script to install/start IPA server
+~/security-workshops/scripts/run_setupFreeIPA.sh
+
+# (Optional) configure/run script to import groups/users and their kerberos princials
+~/security-workshops/scripts/run_FreeIPA_importusers.sh
 ```
+More details/video can be found [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
 
-4. (optional) Create example users & groups
+  - If you choose not to run the above script to import all the demo users, run the below to create rangeradmin user
+  ```
+  #change password to whatever you want
+  password=hortonworks
+  ipa user-add rangeradmin --first=Ranger --last=Admin
+  ipa group-add-member admins --users=rangeradmin
+  echo $password > tmp.txt
+  echo $password >> tmp.txt
+  ipa passwd rangeradmin < tmp.txt
+  ```
+  
 
-```
-## Authenticate with the password you set above
-kinit admin
-```
+------------------
 
-```
-## Add groups
-ipa group-add marketing --desc marketing
-ipa group-add legal --desc legal
-ipa group-add hr --desc hr
-ipa group-add sales --desc sales
-ipa group-add finance --desc finance
+## Enable kerberos using wizard
 
-## Add users
-ipa user-add  ali --first=ALI --last=BAJWA
-ipa user-add  paul --first=PAUL --last=HEARMON
-ipa user-add legal1 --first=legal1 --last=legal1
-ipa user-add legal2 --first=legal2 --last=legal2
-ipa user-add legal3 --first=legal3 --last=legal3
-ipa user-add hr1 --first=hr1 --last=hr1
-ipa user-add hr2 --first=hr2 --last=hr2
-ipa user-add hr3 --first=hr3 --last=hr3
-
-## Add users to groups
-ipa group-add-member sales --users=ali,paul
-ipa group-add-member finance --users=ali,paul
-ipa group-add-member legal --users=legal1,legal2,legal3
-ipa group-add-member hr --users=hr1,hr2,hr3
-
-## Set passwords for accounts: hortonworks
-echo Hortonworks1 > tmp.txt
-echo Hortonworks1 >> tmp.txt
-
-ipa passwd ali < tmp.txt
-ipa passwd paul < tmp.txt
-ipa passwd legal1 < tmp.txt
-ipa passwd legal2 < tmp.txt
-ipa passwd legal3 < tmp.txt
-ipa passwd hr1 < tmp.txt
-ipa passwd hr2 < tmp.txt
-ipa passwd hr3 < tmp.txt
-rm -f tmp.txt
-```
-
-
-
+- Unless specified otherwise, the below steps are to be run on the HDP node
+  
 - Start security wizard and select "Manage Kerberos principals and key tabs manually" option
 ![Image](../master/screenshots/2.3-ipa-kerb-1.png?raw=true)
 
@@ -133,7 +102,7 @@ rm -f tmp.txt
 vi kerberos.csv
 ```
 
-- Create principals using csv file
+- **On the IPA node** Create principals using csv file
 ```
 awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > add-spn.sh
 awk -F"," '/USER/ {print "ipa user-add "$5" --first="$5" --last=Hadoop --shell=/bin/bash"}' kerberos.csv > ipa-add-upn.sh
@@ -141,7 +110,7 @@ sh ipa-add-spn.sh
 sh ipa-add-upn.sh
 ```
 
-- Create keytabs on HDP node
+- **On the HDP node** authenticate and create the keytabs
 
 ```
 ## authenticate
@@ -158,42 +127,22 @@ sudo chmod ugo+r /etc/security/keytabs/*
 
 - Verify kinit works before proceeding (should not give errors)
 ```
-sudo kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
-sudo kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
-sudo kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
+sudo -u hdfs kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
+sudo -u ambari-qa kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
+sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
 ```
 - Press next on security wizard and proceed to stop services
 ![Image](../master/screenshots/2.3-ipa-kerb-stop.png?raw=true)
 
-- In this step, FreeIPA service will also be brought down. You should bring it up via below before proceeding:
-```
-service ipa start
-```
-![Image](../master/screenshots/2.3-ipa-kerb-5.png?raw=true)
-![Image](../master/screenshots/2.3-ipa-kerb-6.png?raw=true)
 
 - At this point the cluster is kerborized
 ![Image](../master/screenshots/2.3-ipa-kerb-7.png?raw=true)
 
 
 
-## TODO: Ranger configuration
-
-```
-ipa user-add xapolicymgr --first=XAPolicy --last=Manager
-ipa user-add rangeradmin --first=Ranger --last=Admin
-
-ipa group-add-member admins --users=xapolicymgr,rangeradmin
-
-echo Hortonworks1 > tmp.txt
-echo Hortonworks1 >> tmp.txt
-ipa passwd xapolicymgr < tmp.txt
-ipa passwd rangeradmin < tmp.txt
-```
-
 ## Sync LDAP with Ambari
 
-- Now we will setup LDAP sync and kerberos following steps from [doc](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Ambari_Doc_Suite/Ambari_Security_v20.pdf)
+- Follow steps below to import business users from IPA LDAP to Ambari. Full doc available [here](http://docs.hortonworks.com/HDPDocuments/Ambari-2.0.0.0/Ambari_Doc_Suite/Ambari_Security_v20.pdf)
 
 - First setup sync Ambari with LDAP
 ```
@@ -235,8 +184,15 @@ ambari-server sync-ldap --all
 #when prompted for Ambari credentials, login as admin/hortonworks (not admin/admin)
 ```
 
-- Login to ambari as paul/hortonworks and notice no views
+- Login to ambari as paul/hortonworks and notice he has no views
 
-- Login as admin and add paul as Ambari admin
+- Login as admin and then pull down the drop down on upper right select "Manage Ambari". From here admins can 
+  - Click users, select a particular user and make them an Ambari Admin add paul as Ambari admin 
+  - Click Views from where they can create instances of views and assign him specific views
 
-- now re-try login and notice it works. LDAP sync is now setup
+- now re-try login and notice it works. 
+
+- This completed the LDAP sync with Ambari. The administrator can now configure which views each user has access to
+
+## TODO: Setup views on kerborized setup
+  - Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
