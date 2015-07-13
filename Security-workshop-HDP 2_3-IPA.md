@@ -1,7 +1,7 @@
 ## Enable security on HDP 2.3 single node setup using *FreeIPA* as LDAP
 
 
-#### Setup LDAP: Install HDP 2.3 cluster and install FreeIPA on it using instructions here
+#### Setup LDAP: Install HDP 2.3 cluster and install FreeIPA on a separate host
 
 - How to integrate with LDAP?
   - [IPA](http://freeipa.org) (Identity Policy Audit) is an integrated solution developed by [Red Hat](http://www.redhat.com) that wraps an LDAP/DNS/NTP/Kerberos server together. It makes it easy to implement a kerberos solution and to get users access to a cluster. 
@@ -21,7 +21,7 @@ Setup HDP 2.3 and configure kerberos using principals in IPA server. Also sync A
 Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager on HDP 2.3 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md)
             
 #### Part 3: Perimeter Security
-Enable Knox to work with kerberos enabled cluster to enable perimeter security on HDP 2.3 using steps [here]() (WIP)
+Enable Knox to work with kerberos enabled cluster to enable perimeter security on HDP 2.3 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
 
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
