@@ -54,7 +54,7 @@
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode    
-![Image](../master/screenshots/23-kms-config-4.png?raw=true)  
+![Image](../master/screenshots/23-kms-config-5.png?raw=true)  
   - Note: to audit to Solr, you need to have previously installed Solr and made the necessary changes in Ranger settings under Advanced ranger-admin-site
   
 - Restart KMS
