@@ -15,7 +15,7 @@
 - Install Centos 6.5 on on VM and setup FreeIPA using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
        
 #### Part 1: Authentication                       
-Setup HDP 2.3 and configure kerberos using principals in IPA server. Instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA-23.md). To configure Ambari to sync with LDAP see steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Ambari.md)
+Setup HDP 2.3 and configure kerberos using principals in IPA server using instructions [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-IPA-23.md). To configure Ambari to sync with LDAP see steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Ambari.md)
              
 #### Part 2: Authorization/Audit
 Setup Ranger and authorization policies and review audit reports from a Rangers Policy Manager on HDP 2.3 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md)
