@@ -23,7 +23,7 @@
 - Add the below to HDFS config via Ambari and restart HDFS:
 ```
 hadoop.proxyuser.knox.groups = users, admin, sales, marketing, legal, hr
-hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
+hadoop.proxyuser.knox.hosts = localhost
 ```	
 
   - (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
@@ -33,21 +33,26 @@ hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com
 
 - Recall that a WebHDFS request *without Knox* uses the below format it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
 ```
-http://sandbox.hortonworks.com:50070/webhdfs/v1/user/?op=LISTSTATUS
+curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
 ```
 
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2 onwards). Note you may need to start the demo LDAP from Ambari under Knox -> Service actions as shown below
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- Try out a WebHDFS request through Knox now. The guest user is defined in the demo LDAP that Knox comes with which is why this works. notice it goes over HTTPS (not HTTP) on port 8443 and credentials are needed
+- Try out a WebHDFS request through Knox now.
+
+* If using the Sandbox, their is a guest user pre-configured in the "demo LDAP" service.
+* Note that the traffic goes over HTTPS & credentials are required.
+
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- To configure Knox to use IPA LDAP instead of the demo one, in Ambari, under Knox > Configs > Advanced Topology: 
+- To configure Knox to use FreeIPA LDAP add the following configurations in Ambari:
+- Under Knox > Configs > Advanced Topology: 
   - First, modify the below ```<value>```entries:
   ```                      
                     <param>
@@ -78,12 +83,12 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 
 - Re-try the WebHDFS request. After the above change we can pass in user credentials from IPA.
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Notice the guest user no longer works because we did not create it in IPA
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 - Next lets setup Ranger plugin for Knox
 
@@ -125,8 +130,8 @@ ls /etc/knox/conf/topologies/*.xml
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u paul:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 -These should result in HTTP 403 error and should show up as Denied results in Ranger Audit
@@ -146,14 +151,14 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
 
 - Re-run the WebHDFS request and notice this time it succeeds
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u paul:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 ![Image](../master/screenshots/ranger-knox-allowed.png?raw=true)
 
 - Re-run the WebHDFS request for a user not in sales group and notice it still fails (since we only gave access to sales group)
 ```
-curl -iv -k -u legal1:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u legal1:hortonworks https://$(hostname -f)m:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Review the Ranger audits for Knox to confirm
@@ -166,11 +171,11 @@ hive.server2.transport.mode = http
 ```
 - give users access to jks file. This is ok since it is only truststore - not keys!
 ```
-chmod a+rx /var/lib/knox
-chmod a+rx /var/lib/knox/data
-chmod a+rx /var/lib/knox/data/security
-chmod a+rx /var/lib/knox/data/security/keystores
-chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
+chmod o+x /var/lib/knox
+chmod o+x /var/lib/knox/data
+chmod o+x /var/lib/knox/data/security
+chmod o+x /var/lib/knox/data/security/keystores
+chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 
 #### Knox exercises to check Hive setup
@@ -179,7 +184,7 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 su ali
 beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
+!connect jdbc:hive2://localhost:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
 #enter ali/hortonworks
 !q
 ```
