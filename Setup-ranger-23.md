@@ -65,6 +65,7 @@ exit
 
 ```
 #set time to UTC
+yum install -y ntp
 service ntpd stop
 ntpdate us.pool.ntp.org
 hwclock --systohc
