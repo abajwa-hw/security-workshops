@@ -7,9 +7,8 @@
   
 - Pre-requisites: 
   1. Ambari 2.1
-    - Change port from 8080 as it will conflict with FreeIPA
   2. Deploy HDP 2.3 using Ambari
-    - If deploying Knox, move it from port 8443 as it will conflict with FreeIPA
+
 
 - Steps:
   3. Install FreeIPA using Ambari
@@ -38,17 +37,18 @@ git clone -b centos-7 https://github.com/seanorama/ambari-bootstrap
 cd ambari-bootstrap
 sudo install_ambari_server=true ./ambari-bootstrap.sh
 
-## Move Ambari Server to port 8081 so not to conflict with FreeIPA
-grep -q client.api.port /etc/ambari-server/conf/ambari.properties || echo client.api.port=8081 | sudo tee -a /etc/ambari-server/conf/ambari.properties
-
 ambari-server restart
 ```
 
 2. Deploy HDP 2.3
 
-  - Deploy manually from http://YOURHOST:8081
+  - Deploy manually from http://YOURHOST:8080
     - choosing to manually register the hosts since the Ambari Agent is already registered
   - Or use a Blueprint
+```
+export ambari_services="AMBARI_METRICS KNOX YARN ZOOKEEPER TEZ PIG SLIDER MAPREDUCE2 HIVE HDFS HBASE"
+bash ./deploy/deploy-recommended-cluster.bash
+```
 
 3. Setup FreeIPA on a separate CentOS host by configuring and running the sample scripts. 
 ```
