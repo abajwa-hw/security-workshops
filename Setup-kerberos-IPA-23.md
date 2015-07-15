@@ -80,6 +80,7 @@ More details/video can be found [here](https://github.com/abajwa-hw/security-wor
 - Remove clustername from smoke/hdfs principals to look like below
   - smoke user principal: ${cluster-env/smokeuser}@${realm}
   - HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
+  - HBase user principal: ${hbase-env/hbase_user}@${realm}
 
 ![Image](../master/screenshots/2.3-ipa-kerb-3.png?raw=true)
 
