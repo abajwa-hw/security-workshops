@@ -139,6 +139,18 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
 
 ## Using your Kerberized cluster
 
+0. Try to run commands without authenticating to kerberos.
+  ```
+$ hadoop fs -ls /
+15/07/15 14:32:05 WARN ipc.Client: Exception encountered while connecting to the server : javax.security.sasl.SaslException: GSS initiate failed [Caused by GSSException: No valid credentials provided (Mechanism level: Failed to find any Kerberos tgt)]
+  ```
+
+  ```
+$ curl -u someuser -skL "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS"
+<title>Error 401 Authentication required</title>
+  ```
+
+
 1. Get a token
   ```
 ## for the current user
