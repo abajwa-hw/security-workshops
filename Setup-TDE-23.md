@@ -114,11 +114,11 @@ sudo -u hdfs hdfs dfs -chmod 700 /enczone1
 echo "Hello TDE" >> myfile.txt
 hadoop dfs -put myfile.txt /enczone1
 ```
-- Setup policy in Ranger for only admins, sales groups to have access to /enczone1 dir
+- Setup policy in Ranger for only sales groups to have access to /enczone1 dir
   - Resource path: /enczone1
   - Recursive: Yes
   - Audit logging: Yes
-  - Group permissions: admins, sales and select Read/Write/Execute
+  - Group permissions: sales and select Read/Write/Execute
   - ![Image](../master/screenshots/ranger-tde-setup.png?raw=true)
 
 ##### Audit excercies
