@@ -23,7 +23,7 @@
 - Add the below to HDFS config via Ambari and restart HDFS:
 ```
 hadoop.proxyuser.knox.groups = users, admin, sales, marketing, legal, hr
-hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com 
+hadoop.proxyuser.knox.hosts = localhost
 ```	
 
   - (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
@@ -39,15 +39,20 @@ curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2 onwards). Note you may need to start the demo LDAP from Ambari under Knox -> Service actions as shown below
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- Try out a WebHDFS request through Knox now. The guest user is defined in the demo LDAP that Knox comes with which is why this works. notice it goes over HTTPS (not HTTP) on port 8443 and credentials are needed
+- Try out a WebHDFS request through Knox now.
+
+* If using the Sandbox, their is a guest user pre-configured in the "demo LDAP" service.
+* Note that the traffic goes over HTTPS & credentials are required.
+
 ```
-curl -iv -k -u guest:guest-password https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- To configure Knox to use IPA LDAP instead of the demo one, in Ambari, under Knox > Configs > Advanced Topology: 
+- To configure Knox to use FreeIPA LDAP add the following configurations in Ambari:
+- Under Knox > Configs > Advanced Topology: 
   - First, modify the below ```<value>```entries:
   ```                      
                     <param>
@@ -78,12 +83,12 @@ curl -iv -k -u guest:guest-password https://$(hostname -f):8443/gateway/default/
 
 - Re-try the WebHDFS request. After the above change we can pass in user credentials from IPA.
 ```
-curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Notice the guest user no longer works because we did not create it in IPA
 ```
-curl -iv -k -u guest:guest-password https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 - Next lets setup Ranger plugin for Knox
 
