@@ -1,4 +1,8 @@
-## Enable Perimeter Security: Enable Knox to work with kerberos enabled cluster to enable perimeter security using single end point
+## Workshop: Apache Knox for Perimeter Security
+
+> The Apache Knox Gateway is a REST API Gateway for interacting with Hadoop clusters. http://knox.apache.org/
+
+This workshop will enable Knox to work with kerberos enabled cluster.
 
 - Goals: 
   - Configure KNOX to authenticate against FreeIPA
@@ -18,41 +22,51 @@
   - [Download data over HTTPS via Knox/Hive](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md#download-data-over-https-via-knoxhive)
 
 
-###### Integrate Knox with IPA LDAP
+## Integrate Knox with IPA LDAP
 
-- Add the below to HDFS config via Ambari and restart HDFS:
-```
-hadoop.proxyuser.knox.groups = users, admin, sales, marketing, legal, hr
+1. Update the HDFS 'custom-site' config via Ambari and restart HDFS.
+  - Note: Do not change 'hosts' if it's already set to your servers hostname
+
+  ```
+hadoop.proxyuser.knox.groups = users,admin,sales,marketing,legal,hr
 hadoop.proxyuser.knox.hosts = localhost
-```	
+  ```	
 
-  - (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
+2. (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
+
   ```
-  {"RemoteException":{"exception":"SecurityException","javaClassName":"java.lang.SecurityException","message":"Failed to obtain user group information: org.apache.hadoop.security.authorize.AuthorizationException: User: knox is not allowed to impersonate hr1"}}
+{"RemoteException":{"exception":"SecurityException","javaClassName":"java.lang.SecurityException","message":"Failed to obtain user group information: org.apache.hadoop.security.authorize.AuthorizationException: User: knox is not allowed to impersonate hr1"}}
   ```
 
-- Recall that a WebHDFS request *without Knox* uses the below format it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
-```
+3. Recall that a WebHDFS request *without Knox* uses the below format it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
+
+  ```
 curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
-```
+  ```
 
-- Start Knox using Ambari (it comes pre-installed with HDP 2.2 onwards). Note you may need to start the demo LDAP from Ambari under Knox -> Service actions as shown below
+## (Optional) Try Knox with the "Demo LDAP"
+
+4. Start Knox using Ambari
+5. Start the Knox "Demo LDAP" from Ambari under Knox -> Service actions as shown below
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- Try out a WebHDFS request through Knox now.
+6. Try out a WebHDFS request through Knox now.
+  * Their is a guest user pre-configured in the "demo LDAP" service.
+  * Note that the traffic goes over HTTPS & credentials are required.
 
-* If using the Sandbox, their is a guest user pre-configured in the "demo LDAP" service.
-* Note that the traffic goes over HTTPS & credentials are required.
-
-```
+  ```
 curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-```
+  ```
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
 
-- To configure Knox to use FreeIPA LDAP add the following configurations in Ambari:
-- Under Knox > Configs > Advanced Topology: 
+--------
+
+## Configure Knox with FreeIPA (or other LDAP services)
+
+1. Add the following configurations in Ambari at "Knox > Configs > Advanced Topology":
+
   - First, modify the below ```<value>```entries:
   ```                      
                     <param>
@@ -79,21 +93,72 @@ curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhd
                         <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
                     </param> 
   ```
-- Restart Knox via Ambari
 
-- Re-try the WebHDFS request. After the above change we can pass in user credentials from IPA.
+1. Restart Knox via Ambari
+
+--------
+
+##  Configure Hive for Knox
+
+1. In Ambari, under Hive > Configs > set the below and restart Hive component.
+
 ```
-curl -iv -k -u ali:hortonworks https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+hive.server2.transport.mode = http
 ```
+
+2. (optional) Give users access to jks file.
+  - This is only for testing since we are using a self-signed cert.
+  - This only exposes the truststore, not the keys.
+```
+chmod o+x /var/lib/knox /var/lib/knox/data /var/lib/knox/data/security /var/lib/knox/data/security/keystores
+chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
+```
+
+--------
+
+## Use Knox
+
+Now lets use Knox with our LDAP credentials
+
+#### WebHDFS
+  ```
+curl -ik -u gooduser https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+  ```
 
 - Notice the guest user no longer works because we did not create it in IPA
-```
-curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-```
-- Next lets setup Ranger plugin for Knox
 
+  ```
+curl -ivk -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+  ```
 
-###### Integrate Knox with Ranger
+#### Hive
+
+- Open Beeline
+```
+beeline
+```
+
+- Connect: Requires a signed certificate
+```
+## this will fail since we have a self-signed certificate
+> !connect jdbc:hive2://localhost:8443/;ssl=true;transportMode=http;httpPath=gateway/default/hive
+```
+
+- Connect: With a self-signed certificate:
+  - You'll need to update 'trustStorePassword' to fit your cluster. The defaults vary:
+    - Default if not specified: hadoop
+    - On Sandbox: knox
+
+```
+## to workaround the self-signed certificate, you provide the keystore details:
+> !connect jdbc:hive2://localhost:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=hadoop;transportMode=http;httpPath=gateway/default/hive
+```
+
+--------
+
+## Integrate Knox with Ranger
+
+Now let's integrate Knox with Ranger for better management
 
 - Open Knox configuration in Ambari and make below changes
 
@@ -126,7 +191,9 @@ curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhd
 ls /etc/knox/conf/topologies/*.xml
 ```
 
-#####  Knox WebHDFS audit exercises in Ranger
+-------
+
+##  Knox WebHDFS audit exercises in Ranger
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
@@ -163,30 +230,14 @@ curl -iv -k -u legal1:hortonworks https://$(hostname -f)m:8443/gateway/default/w
 
 - Review the Ranger audits for Knox to confirm
 
-#####  Setup Hive to go over Knox 
+-------
 
-- In Ambari, under Hive > Configs > set the below and restart Hive component. Note that in this mode you will not be able to run queries through Hue
-```
-hive.server2.transport.mode = http
-```
-- give users access to jks file. This is ok since it is only truststore - not keys!
-```
-chmod o+x /var/lib/knox
-chmod o+x /var/lib/knox/data
-chmod o+x /var/lib/knox/data/security
-chmod o+x /var/lib/knox/data/security/keystores
-chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
-```
-
-#### Knox exercises to check Hive setup
+## Knox exercises with Ranger to check Hive setup
 
 - Run beehive query connecting through Knox. Note that the beeline connect string is different for connecting via Knox. Also you would need to replace trustStorePassword=knox with whatever password was specified during cluster creation/installing Knox service
 ```
-su ali
 beeline
 !connect jdbc:hive2://localhost:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
-#enter ali/hortonworks
-!q
 ```
 - This fails with HTTP 403. On reviewing the attempt in Ranger Audit, we see that the request was denied
 ![Image](../master/screenshots/ranger-knox-hive-denied.png?raw=true)
@@ -206,7 +257,7 @@ beeline
 ```
 su ali
 beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
+!connect jdbc:hive2://localhost:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
 #enter ali/hortonworks
 
 #these should pass
@@ -224,8 +275,9 @@ select * from sample_07;
 
 - Review the audit for service type Hive: these will show which hive requests (over Knox) were allowed and which were not authorized (based on the Ranger policies previously setup for Hive)
 
+-------
 
-#### Download data over HTTPS via Knox/Hive
+## Excel/ODBC with Knox & Hive
 
 - On windows machine, install Hive ODBC driver from http://hortonworks.com/hdp/addons and setup ODBC connection 
   - name: securedsandbox
@@ -258,5 +310,3 @@ select * from sample_07;
 ![Image](../master/screenshots/ranger-knox-hive-allowed.png?raw=true)  
 
 - With this we have shown how HiveServer2 can transport data over HTTPS using Knox for existing users defined in enterprise LDAP, without them having to request kerberos ticket. Also authorization and audit of such transactions can be done via Ranger
-
-- For more info on Knox you can refer to the doc: http://knox.apache.org/books/knox-0-5-0/knox-0-5-0.html
