@@ -132,7 +132,9 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
 - Press next on security wizard and proceed to stop services
 ![Image](../master/screenshots/2.3-ipa-kerb-stop.png?raw=true)
 
-- Proceed with the "Kerborize cluster" and  "Start and Test Services" steps of the wizard
+- Proceed with the next steps of wizard by clicking Next
+![Image](../master/screenshots/Ambari-kerborize-cluster.png?raw=true)
+![Image](../master/screenshots/Ambari-start-services.png?raw=true)
 
 - Once completed, the cluster is kerborized
 ![Image](../master/screenshots/2.3-ipa-kerb-7.png?raw=true)
