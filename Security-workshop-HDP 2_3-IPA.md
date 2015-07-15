@@ -24,7 +24,7 @@ Setup Ranger and authorization policies and review audit reports from a Rangers 
 Enable Knox to work with kerberos enabled cluster to enable perimeter security on HDP 2.3 using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
 
 #### Part 4: Encryption at rest
-Enable encryption at rest by setting up Ranger KMS, its Ranger plugin and encryption zones
+Enable encryption at rest by setting up Ranger KMS, its Ranger plugin and encryption zones 
 
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
