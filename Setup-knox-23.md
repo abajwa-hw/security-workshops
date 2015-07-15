@@ -171,11 +171,11 @@ hive.server2.transport.mode = http
 ```
 - give users access to jks file. This is ok since it is only truststore - not keys!
 ```
-chmod a+rx /var/lib/knox
-chmod a+rx /var/lib/knox/data
-chmod a+rx /var/lib/knox/data/security
-chmod a+rx /var/lib/knox/data/security/keystores
-chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
+chmod o+x /var/lib/knox
+chmod o+x /var/lib/knox/data
+chmod o+x /var/lib/knox/data/security
+chmod o+x /var/lib/knox/data/security/keystores
+chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 
 #### Knox exercises to check Hive setup
@@ -184,7 +184,7 @@ chmod a+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 su ali
 beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
+!connect jdbc:hive2://localhost:8443/;ssl=true;sslTrustStore=/var/lib/knox/data/security/keystores/gateway.jks;trustStorePassword=knox;transportMode=http;httpPath=gateway/default/hive
 #enter ali/hortonworks
 !q
 ```
