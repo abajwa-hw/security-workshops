@@ -146,6 +146,7 @@ echo "python /usr/lib/hue/tools/start_scripts/splash.py" >> /etc/rc.local
 
 ```
 
+##### Setup Hue
 
 - Configure cluster for Hue using [doc](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.0/HDP_Man_Install_v22/index.html#Item1.14.3):
   - hdfs-site:
@@ -163,6 +164,7 @@ echo "python /usr/lib/hue/tools/start_scripts/splash.py" >> /etc/rc.local
   - Custom oozie-site:
     - oozie.service.ProxyUserService.proxyuser.hue.hosts = *
     - oozie.service.ProxyUserService.proxyuser.hue.groups = *
+
 
 
 - Install Hue
