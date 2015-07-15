@@ -23,31 +23,34 @@
   - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
 
 
-##### Pre-requisites
+## Pre-requisites
 
-######  Create Kerberos user `rangeradmin` *(if not already created)*
+####  Create Kerberos user `rangeradmin` *(if not already created)*
 
+- **Note: In this workshop, this should be done from your IPA node**
 - **In production environments, this will likely be handled by your Active Directory or KDC/IPA Admins**
-- Example using FreeIPA Server:
+
   - 1) Authenticate: `kinit admin`
   - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/bin/bash --password`
   - 3) Add user to admins `ipa group-add-member admins --users=rangeradmin`
   
+####  Confirm Kerberos user `rangeradmin`
 
-######  Confirm Kerberos user `rangeradmin`
-
-- `sudo -u rangeradmin kinit`
+- `sudo sudo -u rangeradmin kinit`
   - At 1st login, you may be prompted to reset the password
 
-###### Create & confirm MySQL user 'root'
+#### Create & confirm MySQL user 'root'
 
-- `sudo mysql`
+* Note: In this workshop, this should be done from your HDP node
+
+- `sudo mysql -u $(hostname -f)`
 - Execute following in the MySQL shell. Change the password to your preference. 
 
     ```sql
 CREATE USER 'root'@'%';
 GRANT ALL PRIVILEGES ON *.* to 'root'@'%' WITH GRANT OPTION;
 SET PASSWORD FOR 'root'@'%' = PASSWORD('hortonworks');
+SET PASSWORD = PASSWORD('hortonworks');
 FLUSH PRIVILEGES;
 exit
 ```
@@ -84,7 +87,6 @@ cd ranger_audit_server/scripts/
 cp start_solr.sh.template start_solr.sh
 ./start_solr.sh
 
-
 #setup banana
 cd /opt/banana
 git clone https://github.com/LucidWorks/banana.git
@@ -120,7 +122,7 @@ ant
 - An Empty Banana dashboard should be available at http://sandbox.hortonworks.com:6083/banana
 - As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
 
-##### Install & Configure Ranger using Ambari
+## Install & Configure Ranger using Ambari
 
 - Start the Ranger install by navigating to below link in Ambari
   - Admin -> Stacks/Versions -> Ranger -> Add service
@@ -133,8 +135,10 @@ ant
 Ranger Settings:
   - Ranger DB root user = root *(or another MySQL user with MySQL privileges)*
   - External URL = http://your-servers-public-name:6080
+  
 Advanced ranger-ugsync-site
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
+  - ranger.usersync.ldap.searchBase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.source.impl.class = ldap
   - ranger.usersync.ldap.binddn = uid=rangeradmin,cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.ldap.url = ldap://your-ldap-server-name:389
@@ -257,8 +261,8 @@ http://sandbox.hortonworks.com:6080
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
+    - Policy user for HDFS: rangeradmin@HORTONWORKS.COM
     - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
   - Custom hdfs-site:
@@ -287,8 +291,8 @@ http://sandbox.hortonworks.com:6080
 - Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
 ```
 #run as root
-sudo su hdfs -c "hdfs dfs -mkdir /rangerdemo"
-sudo su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
+sudo sudo -u hdfs hadoop fs -mkdir /rangerdemo
+sudo sudo -u hdfs hadoop fs -chmod 700 /rangerdemo
 ```
 
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Access tab you can see audit trail of what user accessed HDFS at what time with what result
@@ -296,15 +300,15 @@ sudo su hdfs -c "hdfs dfs -chmod 700 /rangerdemo"
 
 ##### HDFS Audit Exercises in Ranger:
 ```
-sudo su ali
-hdfs dfs -ls /rangerdemo
+sudo su - ali
+hadoop fs -ls /rangerdemo
 ## should fail saying "Failed to find any Kerberos tgt"
 
 klist
 kinit
 ## enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
 
-hdfs dfs -ls /rangerdemo
+hadoop fs -ls /rangerdemo
 ## this should fail with "Permission denied"
 ```
 - Notice the audit report and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how denied request was logged 
@@ -320,7 +324,7 @@ hdfs dfs -ls /rangerdemo
   
 - Now the HDFS access should succeed
 ```
-hdfs dfs -ls /rangerdemo
+hadoop fs -ls /rangerdemo
 ```
 - Now look at the audit reports for the above and filter on "SERVICE TYPE"="HDFS" and "USER"="ali" to see the how allowed request was logged 
 ![Image](../master/screenshots/ranger-hdfs-audit.png?raw=true)
@@ -328,12 +332,12 @@ hdfs dfs -ls /rangerdemo
 - Attempt to access dir before/after adding group level Ranger HDFS policy
 ```
 su hr1
-hdfs dfs -ls /rangerdemo
+hadoop fs -ls /rangerdemo
 #should fail saying "Failed to find any Kerberos tgt"
 klist
 kinit
 #enter hortonworks as password. You may need to enter this multiple times if it asks you to change it
-hdfs dfs -ls /rangerdemo
+hadoop fs -ls /rangerdemo
 #this should fail with "Permission denied". View the audit page for the new activity
 ```
 
@@ -346,7 +350,7 @@ hdfs dfs -ls /rangerdemo
 
 - This HDFS access as hr1 user should pass now. 
 ```
-hdfs dfs -ls /rangerdemo
+hadoop fs -ls /rangerdemo
 ```
 - View the audit page for the new activity
 ![Image](../master/screenshots/ranger-hdfs-audit-groupallowed.png?raw=true)
@@ -430,7 +434,7 @@ su ali
 klist
 kinit
 beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
+!connect jdbc:hive2://localhost:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 #Hit enter twice when it prompts for password
 ```
 - these will not work as user does not have access to all columns of sample_07
@@ -472,7 +476,7 @@ su legal1
 klist
 kinit
 beeline
-!connect jdbc:hive2://sandbox.hortonworks.com:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
+!connect jdbc:hive2://localhost:10000/default;principal=hive/sandbox.hortonworks.com@HORTONWORKS.COM
 #Hit enter twice when it prompts for password
 ```
 
