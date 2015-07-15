@@ -71,7 +71,7 @@ More details/video can be found [here](https://github.com/abajwa-hw/security-wor
 
 - Unless specified otherwise, the below steps are to be run on the HDP node
   
-- Start security wizard and select "Manage Kerberos principals and key tabs manually" option
+- In Ambari, start security wizard by clicking Admin -> Kerberos and click Enable Kerberos. Then select "Manage Kerberos principals and key tabs manually" option
 ![Image](../master/screenshots/2.3-ipa-kerb-1.png?raw=true)
 
 - Enter your realm
