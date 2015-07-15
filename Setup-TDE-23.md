@@ -33,12 +33,14 @@
   
 - Post install changes:
   - Link core-site.xml
-  `ln -s /etc/hadoop/conf/core-site.xml /etc/ranger/kms/conf/core-site.xml)`
+  `ln -s /etc/hadoop/conf/core-site.xml /etc/ranger/kms/conf/core-site.xml`
   - Configure HDFS to access KMS by making the below HDFS config changes 
     - Advanced core-site
       - hadoop.security.key.provider.path = kms://http@sandbox.hortonworks.com:9292/kms
+![Image](../master/screenshots/23-kms-config-3.png?raw=true)      
     - Advanced hdfs-site    
       - dfs.encryption.key.provider.uri = kms://http@sandbox.hortonworks.com:9292/kms
+![Image](../master/screenshots/23-kms-config-4.png?raw=true)      
 
 - Restart Ranger KMS and HDFS services
 
