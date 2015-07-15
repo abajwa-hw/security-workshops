@@ -40,7 +40,7 @@
 
 ##### Enable Ranger plugin for KMS
 
-- Under Ranger KMS -> Configs -> Advanced ->
+- In Ambari, under Ranger KMS -> Configs -> Advanced ->
   - Advanced ranger-kms-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
