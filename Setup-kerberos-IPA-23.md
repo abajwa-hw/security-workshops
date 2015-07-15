@@ -84,7 +84,7 @@ More details/video can be found [here](https://github.com/abajwa-hw/security-wor
 
 ![Image](../master/screenshots/2.3-ipa-kerb-3.png?raw=true)
 
-- On next page download csv file
+- On next page download csv file but **DO NOT** click Next yet
 ![Image](../master/screenshots/2.3-ipa-kerb-4.png?raw=true)
 
 -  Paste contents to a file on the cluster. If you have any principal names that have upper case chars in them, lower case them (e.g. change ambari-qa-Sandbox to ambari-qa-sandbox and change hdfs-Sandbox to hdfs-sandbox)
