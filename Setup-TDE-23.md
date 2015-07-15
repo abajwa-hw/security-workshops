@@ -10,9 +10,11 @@
   - Advanced kms-properties
     - REPOSITORY_CONFIG_USERNAME = rangeradmin@HORTONWORKS.COM
     - REPOSITORY_CONFIG_PASSWORD = hortonworks
-    - db_password = hortonworks (or whatever you set MySql pssword to when setting up Ranger [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root))
+    - db_password = hortonworks (or whatever you set MySql password to when setting up Ranger [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root))
     - db_root_password = hortonworks  (or whatever you set MySql pssword to when setting up Ranger [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root))
     - KMS_MASTER_KEY_PASSWD = hortonworks (or whatever you wish to set this to be)
+
+![Image](../master/screenshots/23-kms-config-1.png?raw=true)
 
   - Advanced kms-site (these should already be set but just confirm)
     - hadoop.kms.authentication.type=kerberos
@@ -24,6 +26,8 @@
     - hadoop.kms.proxyuser.rangeradmin.users = *
     - hadoop.kms.proxyuser.rangeradmin.hosts = *
     - hadoop.kms.proxyuser.rangeradmin.groups = *
+    
+![Image](../master/screenshots/23-kms-config-2.png?raw=true)
     
   - After setting above, proceed with install of Ranger KMS
   
