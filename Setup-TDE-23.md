@@ -69,7 +69,7 @@ sudo -u hdfs hadoop key list -metadata
 
 ##### Create key from Ranger
 
-- Login to Ranger as keyadmin/keyadmin 
+- Login to Ranger as keyadmin/keyadmin http://sandbox.hortonworks.com:6080
 
 - Click Encryption tab and select the KMS service from the dropdown. The previously created key should appear
 
