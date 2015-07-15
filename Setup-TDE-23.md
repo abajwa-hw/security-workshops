@@ -84,6 +84,8 @@ sudo -u hdfs hadoop key list -metadata
 
 - Both keys should now appear
 
+![Image](../master/screenshots/23-kms-createkey2.png?raw=true) 
+
 - (Optional) In case of errors, check that:
   - Click edit icon next to Ranger > Access Manager > KMS > Sandbox_kms to edit the service. Ensure the correct values are present for KMS URL, user, password and that test connection works
   - In previous step, the proxyuser was created for the same user as above
