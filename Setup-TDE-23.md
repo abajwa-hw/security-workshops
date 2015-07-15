@@ -80,6 +80,7 @@ sudo -u hdfs hadoop key list -metadata
 - Click Encryption tab and select the KMS service from the dropdown. The previously created key should appear
 
 - Click "Add New Key" and create a new key: testkeyfromui
+![Image](../master/screenshots/23-kms-createkey.png?raw=true) 
 
 - Both keys should now appear
 
