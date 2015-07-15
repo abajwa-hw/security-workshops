@@ -33,7 +33,7 @@ hadoop.proxyuser.knox.hosts = sandbox.hortonworks.com
 
 - Recall that a WebHDFS request *without Knox* uses the below format it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
 ```
-http://sandbox.hortonworks.com:50070/webhdfs/v1/user/?op=LISTSTATUS
+curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
 ```
 
 - Start Knox using Ambari (it comes pre-installed with HDP 2.2 onwards). Note you may need to start the demo LDAP from Ambari under Knox -> Service actions as shown below
@@ -41,7 +41,7 @@ http://sandbox.hortonworks.com:50070/webhdfs/v1/user/?op=LISTSTATUS
 
 - Try out a WebHDFS request through Knox now. The guest user is defined in the demo LDAP that Knox comes with which is why this works. notice it goes over HTTPS (not HTTP) on port 8443 and credentials are needed
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
@@ -78,12 +78,12 @@ curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway
 
 - Re-try the WebHDFS request. After the above change we can pass in user credentials from IPA.
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Notice the guest user no longer works because we did not create it in IPA
 ```
-curl -iv -k -u guest:guest-password https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u guest:guest-password https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 - Next lets setup Ranger plugin for Knox
 
@@ -125,8 +125,8 @@ ls /etc/knox/conf/topologies/*.xml
 
 - Submit a WebHDFS request to the topology using curl (replace default with your topology name) 
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u paul:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 -These should result in HTTP 403 error and should show up as Denied results in Ranger Audit
@@ -146,14 +146,14 @@ curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/def
 
 - Re-run the WebHDFS request and notice this time it succeeds
 ```
-curl -iv -k -u ali:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-curl -iv -k -u paul:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u ali:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u paul:hortonworks https://$(hostname -f):8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 ![Image](../master/screenshots/ranger-knox-allowed.png?raw=true)
 
 - Re-run the WebHDFS request for a user not in sales group and notice it still fails (since we only gave access to sales group)
 ```
-curl -iv -k -u legal1:hortonworks https://sandbox.hortonworks.com:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
+curl -iv -k -u legal1:hortonworks https://$(hostname -f)m:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
 ```
 
 - Review the Ranger audits for Knox to confirm
