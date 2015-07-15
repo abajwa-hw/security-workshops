@@ -137,7 +137,7 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
 ![Image](../master/screenshots/Ambari-start-services.png?raw=true)
 
 - Once completed, click Complete and now the cluster is kerborized
-![Image](../master/screenshots/2.3-ipa-kerb-7.png?raw=true)
+![Image](../master/screenshots/Ambari-wizard-completed.png?raw=true)
 
 -------
 
