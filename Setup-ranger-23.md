@@ -234,6 +234,13 @@ http://sandbox.hortonworks.com:6080
 - Your LDAP users and groups should appear in the Ranger UI, under Users/Groups
 ![Image](../master/screenshots/ranger-ldap-users.png?raw=true)
 
+- (Optional) If at some point you get Ranger errors and would like to enable DEBUG logging, edit /usr/hdp/current/ranger-admin/ews/webapp/WEB-INF/log4j.xml and change "info" to "debug" as below. Then restart Ranger admin.
+```
+        <category name="org.apache.ranger" additivity="false">
+                <priority value="debug" />
+                <appender-ref ref="xa_log_appender" />
+        </category>
+```
 ---------------------
 
 #####  Setup Ranger HDFS plugin
