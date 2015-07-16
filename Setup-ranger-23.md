@@ -119,8 +119,8 @@ sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
 sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 ```
 
-- Solr UI should be available at http://<hostname>:6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
-- An Empty Banana dashboard should be available at http://<hostname>:6083/banana e.g. http://sandbox.hortonworks.com:6083/banana
+- Solr UI should be available at http://(your hostname):6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
+- An Empty Banana dashboard should be available at http://(your hostname):6083/banana e.g. http://sandbox.hortonworks.com:6083/banana
 - As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
 
 ## Install & Configure Ranger using Ambari
@@ -152,7 +152,7 @@ Advanced ranger-ugsync-site
 - (Optional) - additional Ranger settings if saving audit to Solr is desired
 ```  
 Advanced ranger-admin-site 
-  - ranger.audit.solr.urls = http://<your solr host fqdn>:6083/solr/ranger_audits
+  - ranger.audit.solr.urls = http://(your solr host fqdn):6083/solr/ranger_audits
   - ranger.audit.source.type = solr  
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
@@ -305,14 +305,14 @@ sudo sudo -u hdfs hadoop fs -chmod 700 /rangerdemo
 ![Image](../master/screenshots/ranger-hdfs-agent.png?raw=true)
 
 - Confirm that HDFS audits are appearing in Ranger: 
-http://<hostname>:6080/index.html#!/reports/audit/bigData
+http://(your hostname):6080/index.html#!/reports/audit/bigData
 
 - Confirm that Audits are appearing in HDFS (if configured above)
 ```
 sudo sudo -u hdfs hadoop fs -ls /ranger/audit/hdfs
 ```
 - Confirm that Audits are appearing in Solr (if configured above):
-http://<hostname>:6083/solr/#/ranger_audits/query
+http://(your hostname):6083/solr/#/ranger_audits/query
 
 ##### HDFS Audit Exercises in Ranger:
 ```
