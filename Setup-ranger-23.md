@@ -36,14 +36,14 @@
   
 ####  Confirm Kerberos user `rangeradmin`
 
-- `sudo sudo -u rangeradmin kinit`
+- On HDP node: `sudo sudo -u rangeradmin kinit`
   - At 1st login, you may be prompted to reset the password
 
 #### Create & confirm MySQL user 'root'
 
 * Note: In this workshop, this should be done from your HDP node
 
-- `sudo mysql -u $(hostname -f)`
+- `sudo mysql -h $(hostname -f)`
 - Execute following in the MySQL shell. Change the password to your preference. 
 
     ```sql
