@@ -14,26 +14,12 @@
     - db_root_password = hortonworks  (or whatever you set MySql pssword to when setting up Ranger [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#create--confirm-mysql-user-root))
     - KMS_MASTER_KEY_PASSWD = hortonworks (or whatever you wish to set this to be)
 
-![Image](../master/screenshots/23-kms-config-1.png?raw=true)
-
-  - Advanced kms-site (these should already be set but just confirm)
-    - hadoop.kms.authentication.type=kerberos
-    - hadoop.kms.authentication.kerberos.keytab=/etc/security/keytabs/spnego.service.keytab
-    - hadoop.kms.authentication.kerberos.principal=*
-
-
-  - Custom kms-site (the proxy user should match the user from REPOSITORY_CONFIG_USERNAME above)
-    - hadoop.kms.proxyuser.rangeradmin.users = *
-    - hadoop.kms.proxyuser.rangeradmin.hosts = *
-    - hadoop.kms.proxyuser.rangeradmin.groups = *
-    
-![Image](../master/screenshots/23-kms-config-2.png?raw=true)
-    
+![Image](../master/screenshots/23-kms-config-1.png?raw=true)    
   - After setting above, proceed with install of Ranger KMS
   
 - Post install changes:
   - Link core-site.xml
-  `ln -s /etc/hadoop/conf/core-site.xml /etc/ranger/kms/conf/core-site.xml`
+  `sudo ln -s /etc/hadoop/conf/core-site.xml /etc/ranger/kms/conf/core-site.xml`
   - Configure HDFS to access KMS by making the below HDFS config changes 
     - Advanced core-site
       - hadoop.security.key.provider.path = kms://http@sandbox.hortonworks.com:9292/kms
@@ -41,6 +27,19 @@
     - Advanced hdfs-site    
       - dfs.encryption.key.provider.uri = kms://http@sandbox.hortonworks.com:9292/kms
 ![Image](../master/screenshots/23-kms-config-4.png?raw=true)      
+
+  - Advanced kms-site (these should already be set but just confirm)
+    - hadoop.kms.authentication.type=kerberos
+    - hadoop.kms.authentication.kerberos.keytab=/etc/security/keytabs/spnego.service.keytab
+    - hadoop.kms.authentication.kerberos.principal=*
+
+  - Custom kms-site (the proxy user should match the user from REPOSITORY_CONFIG_USERNAME above)
+    - hadoop.kms.proxyuser.rangeradmin.users = *
+    - hadoop.kms.proxyuser.rangeradmin.hosts = *
+    - hadoop.kms.proxyuser.rangeradmin.groups = *
+    
+![Image](../master/screenshots/23-kms-config-2.png?raw=true)
+
 
 - Restart Ranger KMS and HDFS services
 
