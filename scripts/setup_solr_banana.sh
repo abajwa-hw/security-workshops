@@ -7,7 +7,8 @@ sudo mv /etc/localtime /etc/localtime.bak
 sudo ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 
-#Install and start Solr
+
+#####Install and start Solr#######
 cd /usr/local/
 sudo wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/ranger_solr_setup.zip
 sudo unzip ranger_solr_setup.zip
@@ -16,11 +17,14 @@ cd ranger_solr_setup
 sudo ./setup.sh
 sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
-#setup banana
+#####Install and start Banana#######
 sudo mkdir /opt/banana
 cd /opt/banana
 sudo git clone https://github.com/LucidWorks/banana.git
 sudo mv banana latest
+
+
+#####Setup Ranger dashboard#######
 
 #change references to logstash_logs
 sudo sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
@@ -45,6 +49,28 @@ sudo ant
 sudo /bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
 sudo /bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
 
-#restart solr
+#####Restart Solr#######
 sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
 sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
+
+
+#####Setup iFrame view to open Banana webui in Ambari#######
+
+host=`curl icanhazip.com`
+if [ ! -f /etc/yum.repos.d/epel-apache-maven.repo ]
+then
+	sudo curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
+fi	
+sudo yum -y install apache-maven
+cd /tmp
+sudo git clone https://github.com/abajwa-hw/iframe-view.git
+sudo sed -i "s/iFrame View/Ranger Audits/g" iframe-view/src/main/resources/view.xml	
+sudo sed -i "s/IFRAME_VIEW/RANGER_AUDITS/g" iframe-view/src/main/resources/view.xml	
+sudo sed -i "s#sandbox.hortonworks.com:6080#$host:6083/banana#g" iframe-view/src/main/resources/index.html	
+sudo sed -i "s/iframe-view/rangeraudits-view/g" iframe-view/pom.xml	
+sudo sed -i "s/Ambari iFrame View/Ranger Audits View/g" iframe-view/pom.xml	
+sudo mv iframe-view rangeraudits-view
+cd rangeraudits-view
+sudo mvn clean package
+sudo cp target/*.jar /var/lib/ambari-server/resources/views
+sudo ambari-server restart
