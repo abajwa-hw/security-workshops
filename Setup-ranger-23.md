@@ -339,7 +339,7 @@ hadoop fs -ls /rangerdemo
 hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 - **Under Hive > Config > Settings > Security: choose authorization as ‘Ranger’ from drop down box**
-  - When you select the Ranger from drop down box, warning pop will be opened as shown below. Click on apply and save the changes.
+  - When you select the Ranger from drop down box, and Save, awarning pop will be opened as shown below. Click on apply and save the changes.
 
 - Under Hive -> Configs -> Advanced ->
   - Advanced ranger-hive-audit:
@@ -349,19 +349,15 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode    
+![Image](../master/screenshots/23-ranger-hive-setup1.png?raw=true)
 
   - Advanced ranger-hive-plugin-properties:
     - Enable Ranger for Hive: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for HIVE: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
-
-- Open Hive configuration in Ambari and make below changes
-
-![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
-![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
-
+![Image](../master/screenshots/23-ranger-hive-setup2.png?raw=true)
 
 - restart Hive in Ambari
 
