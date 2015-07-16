@@ -40,8 +40,10 @@
     
 ![Image](../master/screenshots/23-kms-config-2.png?raw=true)
 
-
 - Restart Ranger KMS and HDFS services
+
+- At this point you can query for the list of keys that the KMS:
+`hadoop key list`
 
 ##### Enable Ranger plugin for KMS
 
