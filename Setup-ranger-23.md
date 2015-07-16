@@ -481,6 +481,8 @@ exit
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+
+![Image](../master/screenshots/ranger23-confighbaseagent1.png?raw=true)
     
   - Advanced ranger-hbase-plugin-properties:
     - Enable Ranger for HBase: Check
@@ -489,9 +491,7 @@ exit
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
-
-![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
-![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+![Image](../master/screenshots/ranger23-confighbaseagent2.png?raw=true)
 
 - Restart Hbase
 
