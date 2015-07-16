@@ -172,8 +172,8 @@ Now let's integrate Knox with Ranger for better management
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-knox-plugin-properties:
     - Enable Ranger for KNOX: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for KNOX: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
