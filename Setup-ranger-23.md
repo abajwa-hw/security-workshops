@@ -181,16 +181,13 @@ Advanced ranger-admin-site
 
 - No change needed:
 ![Image](../master/screenshots/23-rangersetup-5.png?raw=true)
-
----------
-
-- The ranger-ugsync-site accordion is the section related to syncing user/groups from LDAP:
 ![Image](../master/screenshots/23-rangersetup-6.png?raw=true)
 
 ---------
 
-- Set the bind password to that of your 'kinit admin'
-- Set the searchBase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
+- The ranger-ugsync-site accordion is the section related to syncing user/groups from LDAP:
+  - Set the bind password to that of your 'kinit admin'
+  - Set the searchBase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
 ![Image](../master/screenshots/23-rangersetup-7.png?raw=true)
 
 ---------
