@@ -607,7 +607,7 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 - Restart Kafka
 
 - Notice that the Kafka agent shows up in the list of agents.  
-![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
+![Image](../master/screenshots/ranger23-kafka-agent.png?raw=true)
 
 --------------------
 #####  Setup Storm repo in Ranger
