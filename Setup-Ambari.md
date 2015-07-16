@@ -115,10 +115,11 @@ Ambari Server 'setup-security' completed successfully.
 ## TODO: Ambari HTTPS
 
 ## Setup views on kerborized setup
-  - Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
 
 #### YARN queue manager view
   - Existing view will work on kerborized cluster
+
+--------------
   
 #### Files view
 
@@ -133,6 +134,8 @@ hadoop.proxyuser.ambari-user.groups=*
    - Update settings as below:
    
 ![Image](../master/screenshots/ViewsSetting-Files-kerberos.png?raw=true)	   
+
+--------------
  
 #### Hive view
  
@@ -142,3 +145,5 @@ hadoop.proxyuser.ambari-user.groups=*
     
 ![Image](../master/screenshots/ViewsSetting-Hive-kerberos1.png?raw=true)	   
 ![Image](../master/screenshots/ViewsSetting-Hive-kerberos2.png?raw=true)	   
+
+  - **TODO**:  Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
