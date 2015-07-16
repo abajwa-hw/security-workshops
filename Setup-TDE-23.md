@@ -24,8 +24,8 @@
     - Advanced core-site
       - hadoop.security.key.provider.path = kms://http@sandbox.hortonworks.com:9292/kms
 ![Image](../master/screenshots/23-kms-config-3.png?raw=true)      
-    - Advanced hdfs-site    
-      - dfs.encryption.key.provider.uri = kms://http@sandbox.hortonworks.com:9292/kms
+      - Advanced hdfs-site    
+        - dfs.encryption.key.provider.uri = kms://http@sandbox.hortonworks.com:9292/kms
 ![Image](../master/screenshots/23-kms-config-4.png?raw=true)      
 
   - Advanced kms-site (these should already be set but just confirm)
