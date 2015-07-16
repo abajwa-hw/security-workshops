@@ -146,17 +146,17 @@ hadoop fs -cat /enczone1/myfile.txt
 
 - View contents of raw file in encrypted zone as hdfs super user. This should show some encrypted chacaters
 ```
-sudo -u hdfs hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
+sudo sudo -u hdfs hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
 ```
 
 - Prevent user hdfs from reading the file by setting security.hdfs.unreadable.by.superuser attribute. Note that this attribute can only be set on files and can never be removed.
 ```
-sudo -u hdfs hadoop fs -setfattr -n security.hdfs.unreadable.by.superuser /enczone1/myfile.txt
+sudo sudo -u hdfs hadoop fs -setfattr -n security.hdfs.unreadable.by.superuser /enczone1/myfile.txt
 ```
 - Now as hdfs super user, try to read the files or the contents of the raw file
 ```
-sudo -u hdfs hdfs dfs -cat /enczone1/myfile.txt
-sudo -u hdfs hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
+sudo sudo -u hdfs hdfs dfs -cat /enczone1/myfile.txt
+sudo sudo -u hdfs hdfs dfs -cat /.reserved/raw/enczone1/myfile.txt
 ```
 - You should get an error similar to below in both cases
 ```
