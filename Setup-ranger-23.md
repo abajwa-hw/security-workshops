@@ -67,66 +67,67 @@ exit
 ###### (Optional) Setup Solr for storing audits
 
 ```
-#set time to UTC
-yum install -y ntp
+#if not already, set clock to UTC
+sudo yum install -y ntp
 service ntpd stop
-ntpdate us.pool.ntp.org
-hwclock --systohc
-mv /etc/localtime /etc/localtime.bak
-ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+sudo ntpdate us.pool.ntp.org
+sudo hwclock --systohc
+sudo mv /etc/localtime /etc/localtime.bak
+sudo ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
-#first setup solr using https://docs.google.com/document/d/1591hv4aEmJ8Fq_jG5cRKHB2225odW-8RqBT4yY2In0U/edit
-#TODO add missing steps here
+
+#Install and start Solr
 cd /usr/local/
-wget <location of ranger_solr_setup.tgz>
-tar xvf ranger_solr_setup.tgz
+sudo wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/ranger_solr_setup.zip
+sudo unzip ranger_solr_setup.zip
+sudo rm -rf __MACOSX
 cd ranger_solr_setup
-./setup.sh
-cd ranger_audit_server/scripts/
-#in case start_solr.sh not created, copy from template and run some sed commands
-cp start_solr.sh.template start_solr.sh
-./start_solr.sh
+sudo ./setup.sh
+sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
 #setup banana
+sudo mkdir /opt/banana
 cd /opt/banana
-git clone https://github.com/LucidWorks/banana.git
-mv banana latest
+sudo git clone https://github.com/LucidWorks/banana.git
+sudo mv banana latest
 
 #change references to logstash_logs
-sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
+sudo sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
 
 
 #copy ranger audit dashboard json and replace sandbox.hortonworks.com with host where Solr is installed
 host=`hostname -f`
-/bin/cp -f ~/security-workshops/scripts/default.json /opt/banana/latest/src/app/dashboards
-sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
+sudo wget https://raw.githubusercontent.com/abajwa-hw/security-workshops/master/scripts/default.json -O /opt/banana/latest/src/app/dashboards/default.json
+sudo sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
 
 
 #clean any previous webapp compilations
-/bin/rm -f /opt/banana/latest/build/banana*.war
-/bin/rm -f /opt/solr/server/webapps/banana.war
+sudo /bin/rm -f /opt/banana/latest/build/banana*.war
+sudo /bin/rm -f /opt/solr/server/webapps/banana.war
 
 #compile latest dashboard json
+sudo yum install -y ant
 cd /opt/banana/latest
-ant
+sudo mkdir /opt/banana/latest/build/
+sudo ant
 
-/bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
-/bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
+sudo /bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
+sudo /bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
 
 #restart solr
-/opt/solr/ranger_audit_server/scripts/stop_solr.sh
-/opt/solr/ranger_audit_server/scripts/start_solr.sh
+sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
+sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 ```
 
-- Solr UI should be available at http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
-- An Empty Banana dashboard should be available at http://sandbox.hortonworks.com:6083/banana
+- Solr UI should be available at http://<hostname>:6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits
+- An Empty Banana dashboard should be available at http://<hostname>:6083/banana e.g. http://sandbox.hortonworks.com:6083/banana
 - As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
 
 ## Install & Configure Ranger using Ambari
 
 - Start the Ranger install by navigating to below link in Ambari
   - Admin -> Stacks/Versions -> Ranger -> Add service
-
+  - When prompted, click "I have met all the requirements above" and click Proceed and choose which host to install on
 - Below is a summary of the congfigurations needed to enable LDAP user/group sync.
 - **The settings shown are for our IPA howto. Tweak to fit your own LDAP configuration.**
   - There are many more options which you may want to review, but should not need to change.
@@ -134,26 +135,24 @@ ant
 ```
 Ranger Settings:
   - Ranger DB root user = root *(or another MySQL user with MySQL privileges)*
-  - External URL = http://your-servers-public-name:6080
-  
+  - External URL = http://your-servers-fqdn:6080 (e.g. http://p-lab990-hdp.c.siq-haas.internal:6080)
+  - 4 sets of passwords (e.g. hortonworks or your own)
 Advanced ranger-ugsync-site
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
   - ranger.usersync.ldap.searchBase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.source.impl.class = ldap
   - ranger.usersync.ldap.binddn = uid=rangeradmin,cn=users,cn=accounts,dc=hortonworks,dc=com
-  - ranger.usersync.ldap.url = ldap://your-ldap-server-name:389
+  - ranger.usersync.ldap.url = ldap://your-ldap-servers-internal-name:389
   - ranger.usersync.ldap.user.nameattribute = uid
-  - ranger.usersync.ldap.user.objectclass = person
   - ranger.usersync.ldap.user.searchbase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.ldap.user.searchfilter = a single space without the quotes: " "
 ```
+  - Test connection will not work yet as Ambari will create the DB in MySQL
+  
 - (Optional) - additional Ranger settings if saving audit to Solr is desired
 ```  
 Advanced ranger-admin-site 
-  - ranger.audit.solr.password = NONE
-  - ranger.audit.solr.urls = http://sandbox.hortonworks.com:6083/solr/ranger_audits
-  - ranger.audit.solr.username = ranger_solr
-  - ranger.audit.solr.zookeepers = NONE
+  - ranger.audit.solr.urls = http://<your solr public host>:6083/solr/ranger_audits
   - ranger.audit.source.type = solr  
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
@@ -217,9 +216,9 @@ Advanced ranger-admin-site
 
 ---------
 
-- Finish the wizard to start the Ranger and ugsync setup
+- Click Next -> Deploy to finish the wizard to start the Ranger and ugsync setup
 
-- confirm Agent/Ranger started: `ps -f -C java | grep "Dproc_ranger" | awk '{print $9}'`
+- Once successfully installed/started, confirm Agent/Ranger started: `ps -f -C java | grep "Dproc_ranger" | awk '{print $9}'`
   - output should contain at least:
   
     ```
