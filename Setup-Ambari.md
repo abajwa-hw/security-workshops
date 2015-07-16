@@ -158,8 +158,11 @@ hadoop.proxyuser.ambari-user.groups=*
 
 -----------------
 
+#### TODO: Tez view
+
+More details here: [internal doc](https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww)
+
 ## TODO: automate kerborized view setup
 
-https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
 
 ## TODO: Ambari HTTPS
