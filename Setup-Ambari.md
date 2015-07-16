@@ -116,3 +116,19 @@ Ambari Server 'setup-security' completed successfully.
 
 ## TODO: Setup views on kerborized setup
   - Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
+
+#### Files view
+
+  - Add proxyuser settings for ambari-user under HDFS -> Configs and then restart HDFS
+```
+hadoop.proxyuser.ambari-user.hosts=*
+hadoop.proxyuser.ambari-user.groups=*  
+```
+
+ - From dropdown in upper right -> Manage Ambari -> Views -> Files
+   - if view already exists, then delete it
+   - click Create instance
+   - Update settings as below:
+   
+![Image](../master/screenshots/ViewsSetting-Files-kerberos.png?raw=true)	   
+ 
