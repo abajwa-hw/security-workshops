@@ -172,7 +172,9 @@ Advanced ranger-admin-site
 
 ---------
 
-- Solr audit and other configs. No change needed:
+- Solr audit and other configs:
+- Set the Solr url to http://<your solr host fqdn>:6083/solr/ranger_audits
+- Set the audit source to solr  
 ![Image](../master/screenshots/23-rangersetup-4.png?raw=true)
 
 ---------
