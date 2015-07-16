@@ -114,7 +114,7 @@ Ambari Server 'setup-security' completed successfully.
 
 ## TODO: Ambari HTTPS
 
-## TODO: Setup views on kerborized setup
+## Setup views on kerborized setup
   - Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
 
 #### Files view
