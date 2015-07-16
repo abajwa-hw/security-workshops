@@ -361,16 +361,13 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 - restart Hive in Ambari
 
-- Create a policy for admin user granting admin access to default database
-![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
-
 - Check Audit > Agent in Ranger policy manager UI to ensure Hive agent shows up now
 ![Image](../master/screenshots/ranger-hive-agent.png?raw=true)
 
-- Restart hue to make it aware of Ranger changes
-```
-service hue restart
-```
+- Create a policy for admin user granting admin access to default database
+  - Ranger -> Access Manager -> under Hive -> xxxxx_hive
+![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
+
 
 #####  Hive Audit Exercises in Ranger
 
