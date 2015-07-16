@@ -204,10 +204,6 @@ Advanced ranger-admin-site
 - set the searchbase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
 - **change user.searchfilter from empty to ' '** (i.e. a single space, without the quotes)
 ![Image](../master/screenshots/23-rangersetup-9.png?raw=true)
-
----------
-
-- No changed needed:
 ![Image](../master/screenshots/23-rangersetup-10.png?raw=true)
 
 ---------
