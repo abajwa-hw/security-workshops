@@ -146,5 +146,16 @@ hadoop.proxyuser.ambari-user.groups=*
 
   - **TODO**: Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
 
+----------------
+
+#### Pig view
+
+ - Ambari -> From dropdown in upper right -> Manage Ambari -> Views -> Pig
+   - click Create instance and create view called Pigsecure
+   - Update settings as below:
+![Image](../master/screenshots/ViewsSetting-Pig-kerberos1.png?raw=true)	   
+![Image](../master/screenshots/ViewsSetting-Pig-kerberos2.png?raw=true)
+
+-----------------
 
 ## TODO: Ambari HTTPS
