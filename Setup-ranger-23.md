@@ -188,11 +188,12 @@ Advanced ranger-admin-site
 - The ranger-ugsync-site accordion is the section related to syncing user/groups from LDAP:
   - Set the bind password to that of your 'kinit admin'
   - Set the searchBase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
+  - Set ranger.usersync.source.impl.class to ldap 
+
 ![Image](../master/screenshots/23-rangersetup-7.png?raw=true)
 
 ---------
 
-- Set impl.class to ldap 
 - Set the bindn (`uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
 - Set the ldapurl to `ldap://fqdn-of-your-ldap-ipa-or-AD-server:389`
 ![Image](../master/screenshots/23-rangersetup-8.png?raw=true)
