@@ -31,7 +31,7 @@
 - **In production environments, this will likely be handled by your Active Directory or KDC/IPA Admins**
 
   - 1) Authenticate: `kinit admin`
-  - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/bin/bash --password`
+  - 2) Create user: `ipa user-add rangeradmin --first=Ranger --last=Admin --shell=/sbin/nologin --password`
   - 3) Add user to admins `ipa group-add-member admins --users=rangeradmin`
   
 ####  Confirm Kerberos user `rangeradmin`
