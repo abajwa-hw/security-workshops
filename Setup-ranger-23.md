@@ -277,7 +277,7 @@ xasecure.audit.hdfs.config.destination.rollover.interval.seconds=30
 xasecure.audit.hdfs.config.local.buffer.flush.interval.seconds=60
 xasecure.audit.hdfs.config.local.buffer.rollover.interval.seconds=60
 ```  
-![Image](../master/screenshots/23-ranger-hdfs-setup3.png?raw=true) 
+![Image](../master/screenshots/23-ranger-hdfs-setup4.png?raw=true) 
 
 - Restart HDFS via Ambari. You can tail the namenode log to check for any errors:
 ```
