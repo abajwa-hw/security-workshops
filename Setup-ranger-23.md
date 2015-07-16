@@ -156,7 +156,6 @@ Advanced ranger-admin-site
   - ranger.audit.source.type = solr  
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
-**TODO** update screenshot
 
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
 
