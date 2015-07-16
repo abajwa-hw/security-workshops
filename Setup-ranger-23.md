@@ -250,19 +250,24 @@ http://sandbox.hortonworks.com:6080
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
+![Image](../master/screenshots/23-ranger-hdfs-setup1.png?raw=true)    
+    
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
     - Policy user for HDFS: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
     - Ranger repository config user: rangeradmin@HORTONWORKS.COM (principal for the above user)
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
+![Image](../master/screenshots/23-ranger-hdfs-setup2.png?raw=true)        
   - Custom hdfs-site:
     - **Ambari should set this for you automatically. Placing here for completeness:**
       - dfs.namenode.inode.attributes.provider.class: `org.apache.ranger.authorization.hadoop.RangerHdfsAuthorizer`
+             
   - Advanced hadoop-env:
     - "hadoop-env template"
       - Add the following after the last instance of JAVA_JDBC_LIBS
         - `export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:`
+![Image](../master/screenshots/23-ranger-hdfs-setup3.png?raw=true)         
   - (Optional) Custom ranger-hdfs-audit: (to see HDFS audit logs immediately)
 ```
 xasecure.audit.hdfs.async.max.flush.interval.ms=30000
@@ -272,9 +277,7 @@ xasecure.audit.hdfs.config.destination.rollover.interval.seconds=30
 xasecure.audit.hdfs.config.local.buffer.flush.interval.seconds=60
 xasecure.audit.hdfs.config.local.buffer.rollover.interval.seconds=60
 ```  
-
-![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
-![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+![Image](../master/screenshots/23-ranger-hdfs-setup3.png?raw=true) 
 
 - Restart HDFS via Ambari. You can tail the namenode log to check for any errors:
 ```
