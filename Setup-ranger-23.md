@@ -312,7 +312,7 @@ http://(your hostname):6080/index.html#!/reports/audit/bigData
 sudo sudo -u hdfs hadoop fs -ls /ranger/audit/hdfs
 ```
 - Confirm that Audits are appearing in Solr (if configured above):
-http://(your hostname):6083/solr/#/ranger_audits/query
+  - http://(your hostname):6083/solr/#/ranger_audits/query
 
 ##### HDFS Audit Exercises in Ranger:
 ```
