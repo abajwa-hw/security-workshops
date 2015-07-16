@@ -69,14 +69,14 @@ hadoop fs -ls /ranger/audit/kms
 
 - Create key of length 256 from the command line and call it testkeyfromcli 
 ```
-sudo -u hdfs kinit -Vkt /etc/security/keytabs/hdfs.headless.keytab  hdfs@HORTONWORKS.COM
-sudo -u hdfs hadoop key create testkeyfromcli -size 256
-sudo -u hdfs hadoop key list -metadata
+sudo sudo -u hdfs kinit -Vkt /etc/security/keytabs/hdfs.headless.keytab  hdfs@HORTONWORKS.COM
+sudo sudo -u hdfs hadoop key create testkeyfromcli -size 256
+sudo sudo -u hdfs hadoop key list -metadata
 ```
 
 ##### Create key from Ranger
 
-- Login to Ranger as keyadmin/keyadmin http://sandbox.hortonworks.com:6080
+- Login to Ranger as **keyadmin/keyadmin** http://sandbox.hortonworks.com:6080
 
 - Click Encryption tab and select the KMS service from the dropdown. The previously created key should appear
 
@@ -96,9 +96,9 @@ sudo -u hdfs hadoop key list -metadata
 
 - Create an encryption zone under /enczone1 with zone key named testkeyfromui.  Then query the encrypted zones to check it was created
 ```
-sudo -u hdfs hdfs dfs -mkdir /enczone1
-sudo -u hdfs hdfs crypto -createZone -keyName testkeyfromui -path /enczone1
-sudo -u hdfs hdfs crypto -listZones 
+sudo sudo -u hdfs hdfs dfs -mkdir /enczone1
+sudo sudo -u hdfs hdfs crypto -createZone -keyName testkeyfromui -path /enczone1
+sudo sudo -u hdfs hdfs crypto -listZones 
 ```
 
 ##### Setup Ranger policy
