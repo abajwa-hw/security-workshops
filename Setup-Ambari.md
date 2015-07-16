@@ -114,6 +114,8 @@ Ambari Server 'setup-security' completed successfully.
 
 ## Setup views on kerborized setup
 
+- Pre-requisite: setup kerberos for Ambari using steps above
+
 #### YARN queue manager view
   - Existing view will work on kerborized cluster
 
