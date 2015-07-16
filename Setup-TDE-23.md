@@ -107,13 +107,13 @@ Since HDFS file encryption/decryption is transparent to its client, user can rea
 
 - As hdfs user, change permissions of encryption zone
 ```
-sudo -u hdfs hdfs dfs -chmod 700 /enczone1
+sudo sudo -u hdfs hdfs dfs -chmod 700 /enczone1
 ```
 
 - As hdfs user, create a file and push it to encrypted zone
 ```
 echo "Hello TDE" >> myfile.txt
-hadoop dfs -put myfile.txt /enczone1
+sudo sudo -u hdfs hadoop dfs -put myfile.txt /enczone1
 ```
 - Setup policy in Ranger for only sales groups to have access to /enczone1 dir
   - Resource path: /enczone1
