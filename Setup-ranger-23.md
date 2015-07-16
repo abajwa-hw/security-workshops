@@ -158,18 +158,13 @@ Advanced ranger-admin-site
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
 
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
-
----------
-
-- Configure passwords as set earlier in this guide.
-- Update the External URL to `http://your-servers-fqdn:6080`. *Make sure there are no trailing slashes after this value*
-- The auth method determines who is allowed to login to Ranger Web UI (local unix, AD, LDAP etc):
-
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
 
 ---------
 
-- These settings provide the details for above authentication methods. No change needed:
+- Update the External URL to `http://your-servers-fqdn:6080`. *Make sure there are no trailing slashes after this value*
+- The auth method determines who is allowed to login to Ranger Web UI (local unix, AD, LDAP etc):
+
 ![Image](../master/screenshots/23-rangersetup-3.png?raw=true)
 
 ---------
