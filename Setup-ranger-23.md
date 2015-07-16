@@ -55,7 +55,7 @@ FLUSH PRIVILEGES;
 exit
 ```
 
-- Confirm MySQL user: `mysql -u root -p -e "select count(user) from mysql.user;"`
+- Confirm MySQL user: `mysql -u root -h $(hostname -f) -p -e "select count(user) from mysql.user;"`
   - Output should be a simple count. Check the last step if there are errors.
 
 ###### Prepare Ambari for MySQL *(or the database you want to use)*
