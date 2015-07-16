@@ -71,7 +71,41 @@ sudo ambari-agent restart
 
 --------
 
-## TODO: Kerberos for Ambari
+## Kerberos for Ambari
+
+- On IPA node generate principal for ambari-user
+`ipa service-add ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM`
+
+- On HDP node, generate keytab for ambari-user:
+`sudo ipa-getkeytab -s p-lab990-ipa.c.siq-haas.internal -p ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM -k /etc/security/keytabs/ambari-user.keytab`
+
+- Stop Ambari server
+`sudo ambari-server stop`
+
+- Setup Ambari kerberos JAAS configuration
+
+```
+$ sudo ambari-server setup-security
+Using python  /usr/bin/python2.6
+Security setup options...
+===========================================================================
+Choose one of the following options:
+  [1] Enable HTTPS for Ambari server.
+  [2] Encrypt passwords stored in ambari.properties file.
+  [3] Setup Ambari kerberos JAAS configuration.
+  [4] Setup truststore.
+  [5] Import certificate to truststore.
+===========================================================================
+Enter choice, (1-5): 3
+Setting up Ambari kerberos JAAS configuration to access secured Hadoop daemons...
+Enter ambari server's kerberos principal name (ambari@EXAMPLE.COM): ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM
+Enter keytab path for ambari server's kerberos principal: /etc/security/keytabs/ambari-user.keytab
+Ambari Server 'setup-security' completed successfully.
+```
+
+- Start ambari-server
+`sudo ambari-server start`
+
 
 ## TODO: Ambari HTTPS
 
