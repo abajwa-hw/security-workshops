@@ -590,6 +590,8 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true   
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+
+![Image](../master/screenshots/ranger23-configkafkaagent1.png?raw=true)
     
   - Advanced ranger-kafka-plugin-properties:
     - Enable Ranger for KAFKA: Check
@@ -598,9 +600,7 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
-
-![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
-![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+![Image](../master/screenshots/ranger23-configkafkaagent2.png?raw=true)
 
 - When you select the checkbox, warning pop will appear. Click on apply and save the changes.
 
