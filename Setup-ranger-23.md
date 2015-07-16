@@ -250,6 +250,10 @@ sudo tail -f /var/log/hadoop/hdfs/hadoop-hdfs-namenode-`hostname -f`.log
 
 ![Image](../master/screenshots/23-adminpolicy.png?raw=true)	
 
+- Similarly create another policy for /ranger/audit dir in HDFS where the audits will also be written
+
+![Image](../master/screenshots/23-ranger-hdfs-policy-audit.png?raw=true)	
+
 
 - Create an HDFS dir and attempt to access it before/after adding userlevel Ranger HDFS policy
 ```

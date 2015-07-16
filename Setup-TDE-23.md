@@ -107,15 +107,16 @@ Since HDFS file encryption/decryption is transparent to its client, user can rea
 
 - As hdfs user, change permissions of encryption zone
 ```
-sudo sudo -u hdfs hdfs dfs -chmod 700 /enczone1
+sudo sudo -u hdfs hdfs dfs -chmod 777 /enczone1
 ```
 
 - As hdfs user, create a file and push it to encrypted zone
 ```
 echo "Hello TDE" >> myfile.txt
-sudo sudo -u hdfs hadoop dfs -put myfile.txt /enczone1
+sudo hadoop dfs -put myfile.txt /enczone1
+sudo sudo -u hdfs hdfs dfs -chmod 700 /enczone1
 ```
-- Setup policy in Ranger for only sales groups to have access to /enczone1 dir
+- Login to Ranger as admin/admin and setup HDFS policy for only sales groups to have access to /enczone1 dir
   - Resource path: /enczone1
   - Recursive: Yes
   - Audit logging: Yes
@@ -126,7 +127,7 @@ sudo sudo -u hdfs hadoop dfs -put myfile.txt /enczone1
 
 - Access the file as ali. This should succeed as he is part of Sales group.
 ```
-su ali
+sudo su ali
 kinit
 #hortonworks
 hadoop fs -cat /enczone1/myfile.txt
@@ -134,7 +135,7 @@ hadoop fs -cat /enczone1/myfile.txt
 
 - Access the file as hr1. This should be denied as he is not part of Sales group.
 ```
-su hr1
+sudo su hr1
 kinit
 #hortonworks
 hadoop fs -cat /enczone1/myfile.txt
