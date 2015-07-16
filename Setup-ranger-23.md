@@ -196,12 +196,11 @@ Advanced ranger-admin-site
 
 - Set the bindn (`uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
 - Set the ldapurl to `ldap://fqdn-of-your-ldap-ipa-or-AD-server:389`
+- set the user.nameattribute to `uid`
 ![Image](../master/screenshots/23-rangersetup-8.png?raw=true)
 
 ---------
 
-- set the user.nameattribute to uid
-- set the user.objectclass to person
 - set the searchbase (`cn=users,cn=accounts,dc=hortonworks,dc=com` if following our IPA howto)
 - **change user.searchfilter from empty to ' '** (i.e. a single space, without the quotes)
 ![Image](../master/screenshots/23-rangersetup-9.png?raw=true)
