@@ -110,8 +110,8 @@ hive.server2.transport.mode = http
   - This is only for testing since we are using a self-signed cert.
   - This only exposes the truststore, not the keys.
 ```
-chmod o+x /var/lib/knox /var/lib/knox/data /var/lib/knox/data/security /var/lib/knox/data/security/keystores
-chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
+sudo chmod o+x /var/lib/knox /var/lib/knox/data /var/lib/knox/data/security /var/lib/knox/data/security/keystores
+sudo chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
 ```
 
 --------
@@ -170,6 +170,9 @@ Now let's integrate Knox with Ranger for better management
     - (Optional) Audit provider summary enabled: Check 
     - (Optional) xasecure.audit.is.enabled: true    
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
+
+![Image](../master/screenshots/ranger23-configknoxagent1.png?raw=true)
+    
   - Advanced ranger-knox-plugin-properties:
     - Enable Ranger for KNOX: Check
     - policy User for KNOX: rangeradmin *(this is the user we created earlier in this guide)*
@@ -177,8 +180,7 @@ Now let's integrate Knox with Ranger for better management
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
-![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
-![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
+![Image](../master/screenshots/ranger23-configknoxagent2.png?raw=true)
 
 - When you select the checkbox, warning pop will appear. Click on apply and save the changes.
 - Restart Knox
