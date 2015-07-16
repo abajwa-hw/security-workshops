@@ -152,7 +152,7 @@ Advanced ranger-ugsync-site
 - (Optional) - additional Ranger settings if saving audit to Solr is desired
 ```  
 Advanced ranger-admin-site 
-  - ranger.audit.solr.urls = http://<your solr public host>:6083/solr/ranger_audits
+  - ranger.audit.solr.urls = http://<your solr host fqdn>:6083/solr/ranger_audits
   - ranger.audit.source.type = solr  
 ```
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
@@ -260,8 +260,8 @@ http://sandbox.hortonworks.com:6080
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode
   - Advanced ranger-hdfs-plugin-properties:
     - Enable Ranger for HDFS: Check
-    - Policy user for HDFS: rangeradmin@HORTONWORKS.COM
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - Policy user for HDFS: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM (principal for the above user)
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
   - Custom hdfs-site:
@@ -271,12 +271,24 @@ http://sandbox.hortonworks.com:6080
     - "hadoop-env template"
       - Add the following after the last instance of JAVA_JDBC_LIBS
         - `export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:`
+  - (Optional) Custom ranger-hdfs-audit: (to see HDFS audit logs immediately)
+```
+xasecure.audit.hdfs.async.max.flush.interval.ms=30000
+xasecure.audit.hdfs.config.destination.flush.interval.seconds=60
+xasecure.audit.hdfs.config.destination.open.retry.interval.seconds=60
+xasecure.audit.hdfs.config.destination.rollover.interval.seconds=30
+xasecure.audit.hdfs.config.local.buffer.flush.interval.seconds=60
+xasecure.audit.hdfs.config.local.buffer.rollover.interval.seconds=60
+```  
 
 ![Image](../master/screenshots/ranger23-confighdfsagent1.png?raw=true)
 ![Image](../master/screenshots/ranger23-confighdfsagent2.png?raw=true)
 
-- Restart HDFS via Ambari
-
+- Restart HDFS via Ambari. You can tail the namenode log to check for any errors:
+```
+sudo tail -f /var/log/hadoop/hdfs/hadoop-hdfs-namenode-`hostname -f`.log
+```
+ 
 - In Ranger UI add admins group to default policy to give access to root HDFS dir
 
   - Ranger -> Access Manager -> HDFS -> (clustername)_hadoop
@@ -297,6 +309,16 @@ sudo sudo -u hdfs hadoop fs -chmod 700 /rangerdemo
 - Notice the HDFS agent should show up in Ranger UI under Audit > Agents. Also notice that under Audit > Access tab you can see audit trail of what user accessed HDFS at what time with what result
 ![Image](../master/screenshots/ranger-hdfs-agent.png?raw=true)
 
+- Confirm that HDFS audits are appearing in Ranger: 
+http://<hostname>:6080/index.html#!/reports/audit/bigData
+
+- Confirm that Audits are appearing in HDFS (if configured above)
+```
+sudo sudo -u hdfs hadoop fs -ls /ranger/audit/hdfs
+```
+- Confirm that Audits are appearing in Solr (if configured above):
+http://<hostname>:6083/solr/#/ranger_audits/query
+
 ##### HDFS Audit Exercises in Ranger:
 ```
 sudo su - ali
@@ -314,6 +336,7 @@ hadoop fs -ls /rangerdemo
 ![Image](../master/screenshots/ranger-hdfs-audit-userdenied.png?raw=true)
 
 - Add policy in Ranger PolicyManager > hdfs_sandbox > Add new policy
+  - Policy name: /rangerdemo
   - Resource path: /rangerdemo
   - Recursive: True
   - User: ali and give read, write, execute
@@ -344,7 +367,7 @@ hadoop fs -ls /rangerdemo
   - Under Policy Manager tab, click "/rangerdemo" link
   - under group add "hr" and give read, write, execute
   - ![Image](../master/screenshots/ranger-hdfs-rangerdemo.png?raw=true)
-  - Save > OK and wait 30s. While you wait you can review the summary of policies under Analytics tab
+  - Save > OK and wait 30s. While you wait you can review the summary of policies under Access Manager -> Reports tab in Ranger
   ![Image](../master/screenshots/ranger-hdfs-analytics.png?raw=true)
 
 - This HDFS access as hr1 user should pass now. 
