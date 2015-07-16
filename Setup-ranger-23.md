@@ -573,7 +573,7 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 - Restart Yarn
 
 - Notice that the Yarn agent shows up in the list of agents. 
-![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
+![Image](../master/screenshots/ranger23-yarn-agent.png?raw=true)
 
 
 ---------------------
