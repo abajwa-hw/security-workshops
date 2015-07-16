@@ -74,12 +74,15 @@ sudo ambari-agent restart
 ## Kerberos for Ambari
 
 - On IPA node generate principal for ambari-user
+
 `ipa service-add ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM`
 
 - On HDP node, generate keytab for ambari-user:
+
 `sudo ipa-getkeytab -s p-lab990-ipa.c.siq-haas.internal -p ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM -k /etc/security/keytabs/ambari-user.keytab`
 
 - Stop Ambari server
+
 `sudo ambari-server stop`
 
 - Setup Ambari kerberos JAAS configuration
@@ -104,6 +107,7 @@ Ambari Server 'setup-security' completed successfully.
 ```
 
 - Start ambari-server
+
 `sudo ambari-server start`
 
 
