@@ -366,6 +366,10 @@ hadoop.proxyuser.hive.groups: users, sales, legal, admins
 
 - Create a policy for admin user granting admin access to default database
   - Ranger -> Access Manager -> under Hive -> xxxxx_hive
+  - select the default policy that gives rangeradmin global access
+  - under "Select Group", add admins and Save
+  
+  
 ![Image](../master/screenshots/ranger-hive-default-admin.png?raw=true)
 
 
