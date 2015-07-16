@@ -484,8 +484,8 @@ exit
     
   - Advanced ranger-hbase-plugin-properties:
     - Enable Ranger for HBase: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for HBASE: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*    
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
@@ -558,8 +558,8 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-yarn-plugin-properties:
     - Enable Ranger for YARN: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for YARN: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
@@ -592,8 +592,8 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
     
   - Advanced ranger-kafka-plugin-properties:
     - Enable Ranger for KAFKA: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for KAFKA: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
@@ -624,8 +624,8 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
     - In the value of xasecure.audit.destination.hdfs.dir, replace "NAMENODE_HOSTNAME" with FQDN of namenode e.g. sandbox.hortonworks.com
   - Advanced ranger-storm-plugin-properties:
     - Enable Ranger for STORM: Check
-    - Ranger repository config user: rangeradmin *(this is the Kerberos user we created earlier in this guide)*
-    - REPOSITORY_CONFIG_USERNAME: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
+    - policy User for STORM: rangeradmin *(this is the user we created earlier in this guide)*
+    - Ranger repository config user: rangeradmin@HORTONWORKS.COM *(this is the principal associated for above user)*
     - common.name.for.certificate: a single space without the quotes: " "
     - REPOSITORY_CONFIG_PASSWORD: the password you set for the above user (e.g. hortonworks)
 
