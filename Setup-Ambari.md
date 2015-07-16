@@ -144,8 +144,6 @@ hadoop.proxyuser.ambari-user.groups=*
 ![Image](../master/screenshots/ViewsSetting-Hive-kerberos1.png?raw=true)	   
 ![Image](../master/screenshots/ViewsSetting-Hive-kerberos2.png?raw=true)	   
 
-  - **TODO**: Need to test/automate steps mentioned here: https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
-
 ----------------
 
 #### Pig view
@@ -157,5 +155,9 @@ hadoop.proxyuser.ambari-user.groups=*
 ![Image](../master/screenshots/ViewsSetting-Pig-kerberos2.png?raw=true)
 
 -----------------
+
+## TODO: automate kerborized view setup
+
+https://docs.google.com/document/d/1z9g3yfPiB7pek_eQ1SLzZjOOrXDEPhtFcWYfMK1i6XA/edit#heading=h.4vbz7raxa0ww
 
 ## TODO: Ambari HTTPS
