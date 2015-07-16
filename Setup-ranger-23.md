@@ -64,7 +64,7 @@ exit
   - `sudo ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar`
     - If the file is not present, it is available on RHEL/CentOS with: `sudo yum -y install mysql-connector-java`
 
-###### (Optional) Setup Solr for storing audits
+###### (Optional) Setup Solr for storing audits on HDP node
 
 ```
 #if not already, set clock to UTC
