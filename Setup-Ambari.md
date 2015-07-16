@@ -78,8 +78,9 @@ sudo ambari-agent restart
 `ipa service-add ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM`
 
 - On HDP node, generate keytab for ambari-user:
-
-`sudo ipa-getkeytab -s p-lab990-ipa.c.siq-haas.internal -p ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM -k /etc/security/keytabs/ambari-user.keytab`
+```
+sudo ipa-getkeytab -s p-lab990-ipa.c.siq-haas.internal -p ambari-user/p-lab990-hdp.c.siq-haas.internal@HORTONWORKS.COM -k /etc/security/keytabs/ambari-user.keytab
+```
 
 - Stop Ambari server
 
