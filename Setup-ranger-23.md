@@ -67,7 +67,14 @@ exit
 ###### (Optional) Setup Solr for storing audits on HDP node
 
 
-- Download and run
+- Download and run script to setup solr/banana and ranger_audit dashboard:
+```
+cd
+wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/setup_solr_banana.sh
+chmod +x setup_solr_banana.sh
+sudo ./setup_solr_banana.sh
+```
+  - note the [script](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/setup_solr_banana.sh) currently sets up using the hosts public ip
 
 - Solr UI should be available at http://(your hostname):6083/solr/#/ranger_audits e.g.http://p-lab990-hdp.aa.anondns.net:6083/solr/#/ranger_audits
 - An Empty Banana dashboard should be available at http://(your hostname):6083/banana e.g. http://p-lab990-hdp.aa.anondns.net:6083/banana. If it doesn't work also try using the hosts public ip address which you can find via `curl icanhazip.com`
