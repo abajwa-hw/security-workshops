@@ -165,7 +165,7 @@ kinit
 kinit someuser
   ```
 
-2. Now you can use the cluster
+2. Use the cluster
 
 * Hadoop Commands
   ```
@@ -180,7 +180,14 @@ Found 8 items
 curl -skL --negotiate -u : "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS"
   ```
 
-* Beeline with Hive
+* Hive *(using Beeline or another Hive JDBC client)*
+
+  * Hive in Binary mode *(the default)*
+   ```
+beeline -u "jdbc:hive2://localhost:10000/default;principal=hive/$(hostname -f)@HORTONWORKS.COM"
+   ```
+
+  * Hive in HTTP mode
   ```
 ## note the update to use HTTP and the need to provide the kerberos principal.
 beeline -u "jdbc:hive2://localhost:10001/default;transportMode=http;httpPath=cliservice;principal=HTTP/$(hostname -f)@HORTONWORKS.COM"
