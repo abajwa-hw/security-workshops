@@ -1,16 +1,31 @@
 # Secure Hadoop: HDP with Kerberos integration to Active Directory
 
-By default Hadoop is 
+In this guide we will:
+- Enable Keberos for Authentication, aka "[Hadoop Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)".
+- use Active Directory as the KDC & LDAP
+- use Ambari's Kerberos Wizard for Active Directory which:
+  - create's our Kerberos principals in Active Directory,
+  - configures Kerberos on the HDP host(s), including distribution of keytabs,
+  - configures Hadoop for Kerberos.
+
+Warning: All HDP services will be STOPPED while using the Kerberos Wizard.
+
+## Why Kerberos
+
+> By default Hadoop runs in non-secure mode in which **no actual authentication is required**. -- *[Hadoop Documentation: Hadoop in Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)*
+
+TODO: Show how their is no authentication by default (e.g. HADOOP_USER_NAME). https://github.com/seanorama/masterclass/blob/master/security-authentication.md
+
+## Prerequisites:
 
 This guide uses:
 
-- CentOS 6 host, with:
+- 1 RedHat/CentOS host (testing with CentOS 6) with:
   - Ambari 2.1
   - HDP 2.3
-- Windows Server 2012 host, with:
-  - Active Directory services
-
-## Prerequisites:
+- 1 Windows Server 2012 host with:
+  - Active Directory services, and
+  - Active Directory LDAPS enabled *(by adding a certificate to the Active Directory)*
 
 ### Ambari 2.1 & HDP 2.3 Deployed
 
@@ -99,11 +114,6 @@ Pass: the password you chose
 - Next
 
 
-1. Disable UAC
-  - Server Manager -> Tools -> Local Security Policy
-  - Local Policies -> Security Options
-  - 
-Now if you scroll down to the bottom there are several policies to disable the UAC.
 
 ## Todo
 
