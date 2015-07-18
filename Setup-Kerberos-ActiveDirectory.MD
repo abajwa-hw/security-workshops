@@ -1,4 +1,4 @@
-# Kerberos for Hortonworks Data Platform clusters with Ambari & Active Directory
+# Secure Hadoop: HDP with Kerberos integration to Active Directory
 
 By default Hadoop is 
 
