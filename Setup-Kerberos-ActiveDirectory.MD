@@ -68,8 +68,8 @@ This guide uses:
 
 ### Trust the Active Directories certificate
 
-1. *(Not always required)* Trust the CA certificate from Windows to Linux and test LDAP.
-  - *Note: This is required for self-signed certificates, such as in our implementation of Active Directory. You can skip this if you've purchased an SSL certificate.*
+*Note: This is required for self-signed certificates, as in our implementation of Active Directory above. This may be skipped if a purchased SSL certificate is in use.*
+
   - On the **Windows host**:
     - Server Manager -> Tools -> Certificate Authority
     - Action -> Properties
