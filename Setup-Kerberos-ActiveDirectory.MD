@@ -1,14 +1,14 @@
 # Secure Hadoop: HDP with Kerberos integration to Active Directory
 
 In this guide we will:
-- Enable Keberos for Authentication, aka "[Hadoop Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)".
-- use Active Directory as the KDC & LDAP
-- use Ambari's Kerberos Wizard for Active Directory which:
-  - create's our Kerberos principals in Active Directory,
-  - configures Kerberos on the HDP host(s), including distribution of keytabs,
-  - configures Hadoop for Kerberos.
+- Enable Keberos for Authentication, aka "[Hadoop Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)", with
+  - Active Directory providing Kerberos & LDAP
+  - Ambari's "Kerberos Wizard for Active Directory" doing most of the work, such as:
+    - create Kerberos principals in Active Directory,
+    - configure Kerberos on the HDP host(s) (including distribution of keytabs) and
+    - configure Hadoop services for Kerberos.
 
-Warning: All HDP services will be STOPPED while using the Kerberos Wizard.
+**Warning: All HDP services will be STOPPED while using the Kerberos Wizard.**
 
 ## Why Kerberos
 
