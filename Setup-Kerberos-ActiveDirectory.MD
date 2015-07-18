@@ -1,5 +1,13 @@
 # Secure Hadoop: HDP with Kerberos integration to Active Directory
 
+## Why Kerberos
+
+> By default Hadoop runs in non-secure mode in which **no actual authentication is required**. -- *[Hadoop Documentation: Hadoop in Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)*
+
+TODO: Show how their is no authentication by default (e.g. HADOOP_USER_NAME). https://github.com/seanorama/masterclass/blob/master/security-authentication.md
+
+## Goal
+
 In this guide we will:
 - Enable Keberos for Authentication, aka "[Hadoop Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)", with
   - Active Directory providing Kerberos & LDAP
@@ -10,16 +18,9 @@ In this guide we will:
 
 **Warning: All HDP services will be STOPPED while using the Kerberos Wizard.**
 
-## Why Kerberos
-
-> By default Hadoop runs in non-secure mode in which **no actual authentication is required**. -- *[Hadoop Documentation: Hadoop in Secure Mode](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html)*
-
-TODO: Show how their is no authentication by default (e.g. HADOOP_USER_NAME). https://github.com/seanorama/masterclass/blob/master/security-authentication.md
-
 ## Prerequisites:
 
 This guide uses:
-
 - 1 RedHat/CentOS host (testing with CentOS 6) with:
   - Ambari 2.1
   - HDP 2.3
