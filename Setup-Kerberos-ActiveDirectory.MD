@@ -34,10 +34,10 @@ This guide uses:
 
 ### Active Directory configuration
 
-**Note: This is not a guide for best practices for Windows & Active Directory. Our goal is simply to hav an example environment available for integration.**
-- *In fact this is my (@seanorama) 1st experience with AD since 2006 (9 years)*
+**Note: This is not a guide for best practices for Windows & Active Directory. Our goal is simply to hav an example environment available for integration.** *In fact this is my (@seanorama) 1st experience with AD since 2006 (9 years)*
 
-1. [Add Active Directory services your Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
+#### On the Windows Host: 
+1. [Add Active Directory services to the Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
 
 1. [Install Active Directory Certificate Services](https://technet.microsoft.com/en-us/library/jj717285.aspx)
   - Ensure to configure as "Enterprise CA" not "Standalone CA".
@@ -66,7 +66,9 @@ This guide uses:
   - Actions -> Properties -> UPN Suffixes
     - Add the alternative SPN. Determined by executing `hostname -d` on your linux server.
 
-1. *(Not always required)* Trust the CA certificate from Windows to Linux. And test LDAP
+### Trust the Active Directories certificate
+
+1. *(Not always required)* Trust the CA certificate from Windows to Linux and test LDAP.
   - *Note: This is required for self-signed certificates, such as in our implementation of Active Directory. You can skip this if you've purchased an SSL certificate.*
   - On the **Windows host**:
     - Server Manager -> Tools -> Certificate Authority
