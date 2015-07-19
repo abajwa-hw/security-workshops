@@ -34,7 +34,7 @@ This guide uses:
 
 ### Active Directory configuration
 
-**Note: This is not a guide for best practices for Windows & Active Directory. Our goal is simply to hav an example environment available for integration.** *In fact this is my (@seanorama) 1st experience with AD since 2006 (9 years)*
+**Note: These is not a guide in managing/configuring Active Directory. The below configuration is for our test environment to facilitate this workshop.** *In fact this is my (@seanorama) 1st experience with AD since 2006 (9 years)*
 
 #### On the Windows Host: 
 1. [Add Active Directory services to the Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
