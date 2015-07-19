@@ -90,10 +90,12 @@ sudo ./setup_solr_banana.sh
   - There are many more options which you may want to review, but should not need to change.
 
 ```
+DB Settings:
+  - Ranger DB root password: hortonworks (or whatever you set earlier in this document)
+  - Other passwords: hortonworks (or whatever you want)
 Ranger Settings:
-  - Ranger DB root user = root *(or another MySQL user with MySQL privileges)*
-  - External URL = http://your-servers-fqdn:6080 (e.g. http://p-lab990-hdp.c.siq-haas.internal:6080)
-  - 4 sets of passwords (e.g. hortonworks or your own)
+  - External URL = http://localhost:6080
+    - *(If deploying on a cluster, this should be the FQDN of the Ranger server)*
 Advanced ranger-ugsync-site
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
   - ranger.usersync.ldap.searchBase = cn=users,cn=accounts,dc=hortonworks,dc=com
