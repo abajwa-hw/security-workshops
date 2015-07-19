@@ -39,6 +39,8 @@ This guide uses:
 #### On the Windows Host: 
 1. [Add Active Directory services to the Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
 
+1. [Install Identity Management for UNIX Components](https://msdn.microsoft.com/en-us/library/cc731178.aspx)
+
 1. [Install Active Directory Certificate Services](https://technet.microsoft.com/en-us/library/jj717285.aspx)
   - Ensure to configure as "Enterprise CA" not "Standalone CA".
   - *Note: This is only required if generating your own certificates for Active Directory*
@@ -131,7 +133,6 @@ TODO: Link to another workshop on using Hadoop in Secure Mode
 
 ## Todo
 
-OS integration with SSSD:
-1. [Install Identity Management for UNIX Components](https://msdn.microsoft.com/en-us/library/cc731178.aspx)
+OS integration with SSSD
 
 
