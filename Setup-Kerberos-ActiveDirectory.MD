@@ -46,15 +46,15 @@ This guide uses:
 1. Create a container, kerberos admin, and permissions for the cluster
   - Server Manager -> Active Directory Users & Computers
     - View -> Check "Advanced Features"
-    - Create a container named "labs"
-      - Action -> New -> Organization Unit: "labs"
-    - Create a container named "lab01"
-      - Action -> New -> Organization Unit: "lab01"
-    - Create a user named "lab01admin"
-      - Action -> New user -> "lab01admin"
-    - Delegate control of the conatiner to "lab01admin"
+    - Create a container named "hdp"
+      - Action -> New -> Organization Unit: "hdp"
+    - Create a container named "sandbox"
+      - Action -> New -> Organization Unit: "sandbox"
+    - Create a user named "sandboxadmin"
+      - Action -> New user -> "sandboxadmin"
+    - Delegate control of the conatiner to "sandboxadmin"
       - Chose "lab01"; Action -> Delegation Control
-        - User: "lab01admin
+        - User: sandboxadmin
         - Control: "Create, delete, and manage user accounts"
     - Choose "lab01admin"; Actions -> Properties
       - Security -> Advanced -> Permissions -> Add
@@ -77,15 +77,25 @@ This guide uses:
     - Choose the format: *"Base-64 encoded X.509 (.CER)"*
     - Save as 'activedirectory.cer' *(or whatever you like)*
     - Open with Notepad -> Copy Contents
+
   - On **Linux host**:
     - Create '/etc/pki/ca-trust/source/anchors/activedirectory.pem' and paste the certificate contents
-    - Trust the CA cert: `sudo update-ca-trust enable; sudo update-ca-trust extract; sudo update-ca-trust check`
-    - Trust the CA cert in OpenLDAP:
-      - `sudo ln -s /etc/pki/ca-trust/source/anchors/activedirectory.pem /etc/openldap/certs/`
-      - `sudo cacertdir_rehash /etc/openldap/certs`
-      - (optional) if the name of your host differs from it's DNS: `echo "TLS_REQCERT never" | sudo tee -a /etc/openldap/ldap.conf`
-      - Verify LDAP: `ldapsearch -W -H ldaps://${ldap_server} -D lab01admin@hortonworks.com -b "ou=test1,ou=labs,dc=hortonworks,dc=com"`
-    - Trust the CA cert in Java: `sudo keytool -keystore cacerts -importcert -alias activedirectory -file /etc/pki/ca-trust/source/anchors/activedirectory.pem`
+    - Trust CA cert: `sudo update-ca-trust enable; sudo update-ca-trust extract; sudo update-ca-trust check`
+    - Trust CA cert in Java: `sudo keytool -keystore cacerts -importcert -alias activedirectory -file /etc/pki/ca-trust/source/anchors/activedirectory.pem`
+      - password: changeit 
+    - (optional) Configure OpenLDAP to trust ActiveDirectory
+
+      ```
+sudo tee /etc/openldap/ldap.conf > /dev/null <<-'EOF'
+SASL_NOCANON    on
+URI ldaps://activedirectory.hortonworks.com
+BASE dc=hortonworks,dc=com
+TLS_CACERTDIR /etc/pki/tls/cacerts
+TLS_CACERT /etc/pki/tls/certs/ca-bundle.crt
+EOF
+      ```
+      
+      - Verify LDAP: `ldapsearch -W -H ldaps://activedirectory.hortonworks.com -D sandboxadmin@hortonworks.com -b "ou=sandbox,ou=hdp,dc=hortonworks,dc=com"`
 
 ## Enable Kerberos
 
@@ -93,29 +103,27 @@ This guide uses:
 
 ### Run the Kerberos Wizard
 
-TODO... document all of the fields and take screenshots.
-
 - Open Ambari in your browser
 - Ensure all Services are working before proceeding
 - Click: Admin -> Kerberos
-- Choose ...TODO...
-- 
-User: lab01admin@HORTONWORKS.COM
-Pass: the password you chose
+- On the "Getting Started" page, choose "Existing Active Directory" and make sure you've met all the requirements.
+- On the "Configure Kerberos" page, set:
+  - KDC:
+    - KDC host: activedirectory.hortonworks.com
+    - Realm name: HORTONWORKS.COM
+    - LDAP url: ldaps://activedirectory.hortonworks.com
+    - Container DN: ou=sandbox,ou=hdp,dc=hortonworks,dc=com
+  - Kadmin
+    - Kadmin host: activedirectory.hortonworks.com
+    - Admin principal: sandboxadmin@HORTONWORKS.COM
+    - Admin password: the password you set for this user in AD
+- On the "Configure Identities" page, you should not need to change anything.
+- Click through the rest of the wizard.
+- If all was set properly you should now have a Kerberized cluster.
 
+## Use Hadoop in Secure Mode
 
-- Configure Kerberos
-- Install and Test Kerberos
-- Configure Identities
-- Confirm Configuration
-- Stop Services
-- Kerberize Cluster
-- Start and Test Services
-- 
-- Click "Next" again. There should be nothing to change here.
-- (Optional) Click "Download CSV". You do not need it, but open it to see what Ambari is creating for you in Active Directory.
-- Next
-
+TODO: Link to another workshop on using Hadoop in Secure Mode
 
 
 ## Todo
@@ -124,6 +132,3 @@ OS integration with SSSD:
 1. [Install Identity Management for UNIX Components](https://msdn.microsoft.com/en-us/library/cc731178.aspx)
 
 
-## Use Hadoop in Secure Mode
-
-Link to another workshop on using Hadoop in Secure Mode
