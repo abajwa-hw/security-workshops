@@ -1,4 +1,4 @@
-# Secure Hadoop: HDP with Kerberos integration to Active Directory
+# HDP with Kerberos integration to Active Directory
 
 ## Why Kerberos
 
