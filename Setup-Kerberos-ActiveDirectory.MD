@@ -52,12 +52,15 @@ This guide uses:
       - Action -> New -> Organization Unit: "sandbox"
     - Create a user named "sandboxadmin"
       - Action -> New user -> "sandboxadmin"
-    - Delegate control of the conatiner to "sandboxadmin"
-      - Chose "lab01"; Action -> Delegation Control
+    - Delegate control of the container to "sandboxadmin"
+      - Chose the "lab01" container
+      - Action -> Delegation Control
         - User: sandboxadmin
         - Control: "Create, delete, and manage user accounts"
     - Choose "lab01admin"; Actions -> Properties
       - Security -> Advanced -> Permissions -> Add
+    - Screenshot showing the AD containers and user
+      - ![Screenshot showing the AD containers and user](http://i.imgur.com/y28pE0tm.png)
 
 1. *(Not always required)* Add the domain of your linux host(s) to be recognized by Active Directory
   - *Note: This may not be required. It is only required if the domain of your Linux servers is different than that of the Active Directory.*
