@@ -60,6 +60,7 @@ ssh root@ldap.hortonworks.com
 cd
 yum install -y git
 git clone https://github.com/abajwa-hw/security-workshops.git
+~/security-workshops/scripts/gen_hosts.sh
 ~/security-workshops/scripts/run_setupFreeIPA.sh
 ~/security-workshops/scripts/run_FreeIPA_importusers.sh
 cp ~/security-workshops/scripts/gen_hosts.sh ~
