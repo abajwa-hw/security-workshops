@@ -11,6 +11,11 @@ eth=eth0
 #eth=eno16777736
 
 
+#IF NOT ALREADY SETUP, setup /etc/hosts entry using below command - you may need to replace eth0 below
+#ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
+#echo "${ip} $host" | sudo tee -a /etc/hosts
+
+
 #################################################
 
 #turn off firewall
@@ -24,9 +29,6 @@ else
 	chkconfig iptables off		
 fi
 
-#setup /etc/hosts - you may need to replace eth0 below
-ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
-echo "${ip} $host" | sudo tee -a /etc/hosts
 
 
 #install IPA bits

@@ -55,12 +55,24 @@ ssh root@ldap.hortonworks.com
 
 ###### Option 1: Install via script
 
-- Run below scripts to setup FreeIPA and setup users (may run for 10min)
+- Setup /etc/hosts entry 
+```
+#setup /etc/hosts - you may need to replace eth0 below
+ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
+echo "${ip} $host" | sudo tee -a /etc/hosts
+```
+- Check that VM hostname is setup correctly
+```
+hostname
+hostname -f
+```
+
+- Once above looks ok, run below scripts to setup FreeIPA and setup users (may run for 10min)
 ```
 cd
 yum install -y git
 git clone https://github.com/abajwa-hw/security-workshops.git
-~/security-workshops/scripts/gen_hosts.sh
+
 ~/security-workshops/scripts/run_setupFreeIPA.sh
 ~/security-workshops/scripts/run_FreeIPA_importusers.sh
 cp ~/security-workshops/scripts/gen_hosts.sh ~
