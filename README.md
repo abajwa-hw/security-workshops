@@ -35,7 +35,7 @@ Note that FreeIPA will not work with Ambari 2.0 because the manual kerberos wiza
 1. Enable security on **HDP 2.3/Ambari 2.1** single node setup using **FreeIPA** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP 2_3-IPA.md) 
   - Prebuilt secured sandbox available [here](https://www.dropbox.com/sh/zdmu521sfhi728x/AADdh4jVXRAqRwh9WNTe4mt9a?dl=0)
-
+  
 
 
 
