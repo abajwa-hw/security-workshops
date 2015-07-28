@@ -12,6 +12,7 @@
   - At this point you should have setup an LDAP VM and a kerborized HDP sandbox. We will take this as a starting point and setup Ranger
 
 - Contents:
+  - [Pre-requisites](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#pre-requisites)
   - [Install Ranger and its User/Group sync agent](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install-ranger-and-its-usergroup-sync-agent)
   - [Setup HDFS repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hdfs-repo-in-ranger)
   - [HDFS Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hdfs-audit-exercises-in-ranger)
@@ -21,6 +22,7 @@
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hbase-audit-exercises-in-ranger)
   - [Setup Knox repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-knox-repo-in-ranger)  
   - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
+  - [Ranger Audit dashboard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#ranger-audit-dashboard)
 
 
 ## Pre-requisites
