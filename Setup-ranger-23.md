@@ -66,6 +66,11 @@ exit
 
 ###### (Optional) Setup Solr for storing audits on HDP node
 
+- Background: Hortonworks' general guidance is to send audit logs to both HDFS and Solr:
+  - HDFS is for long term archival. 
+  - Solr is for short term UI and visualization. 
+  - Depending upon the volume of audit logs and the resources allocated to Solr, they can be retained for anywhere from 3 months to 1 year. 
+  - If Solr is the only storage, then the compliance requirement of the enterprise will determine how long to retain these for
 
 - Download and run script to setup solr/banana and ranger_audit dashboard:
 ```
