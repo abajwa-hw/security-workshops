@@ -25,7 +25,9 @@ Note: the official docs on the new security wizard can be found [here](http://do
 - Start a CentOS VM using [CentOS-6.5-x86_64-minimal.iso](http://mir2.ovh.net/ftp.centos.org/6.5/isos/x86_64/CentOS-6.5-x86_64-minimal.iso)
   - Open VMWare Fusion and click File > New > Install from disc/image > Use another disk 
   - Select the iso file >  Deselect easy install > Customize settings > name: CentOSx64-IPAserver
-  - Under memory, set to 2048MB > Press Play to start VM
+  - Under memory, set to at least 6048MB 
+  - set number of cores to at least 2 
+  - Press Play to start VM
 
 - Go through CentOS install wizard 
   - Install > Skip > Next > English > US English > Basic Storage Devices > Yes, discard 
@@ -40,7 +42,7 @@ ip a
  
 - Now you can open a terminal window to run the remaining commands against this VM from there
 
-- Open your laptops /etc/hosts and add entry for ldap.hortonworks.com e.g. 
+- Open your laptops /etc/hosts and add entry for sandbox.hortonworks.com e.g. 
 ```
 sudo vi /etc/hosts
 192.168.191.211 ldap.hortonworks.com
