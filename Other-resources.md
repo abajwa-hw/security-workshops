@@ -1,12 +1,40 @@
 #### Other useful security resources/scripts
 
 - Contents
+  - [Troubleshooting]()
   - [Transparent Data at Rest Encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-transparent-data-at-rest-encryption-in-hdp-22)
   - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
   - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-ambari-services)
   
+
+
+##### Troubleshooting
+
+- Enable security failing when using KDC?
+  - restart KDC services and re-try
+  - ensure correct JCE was copied to all nodes
+  
+- Service not starting in kerborized mode?
+  - Ensure keytabs and principals were created correctly by running `kinit -kt`
+```
+sudo sudo -u hdfs kinit -kt /etc/security/keytabs/nn.service.keytab nn/$(hostname -f)@HORTONWORKS.COM
+sudo sudo -u ambari-qa kinit -kt /etc/security/keytabs/smokeuser.headless.keytab ambari-qa@HORTONWORKS.COM
+sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
+```
+
+- Jobs failing due to user not found?
+  - Ensure nslcd/sssd (or equivalent) is setup/running on *all* nodes of the cluster
+  - Verify you can run below on all nodes:
+  - `id <username>` or `groups <username>`
+  
+- krb configuration debugging. To turn on debug:
+  - in Java:  `-Dsun.security.krb5.debug=true`
+  - In Bash: `export KRB5_TRACE=/dev/stdout`
+  - Also see guide here: https://github.com/steveloughran/kerberos_and_hadoop
+
+
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
 - see blog for more details on this topic: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
