@@ -1,7 +1,7 @@
 #### Other useful security resources/scripts
 
 - Contents
-  - [Troubleshooting]()
+  - [Troubleshooting](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#troubleshooting)
   - [Transparent Data at Rest Encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-transparent-data-at-rest-encryption-in-hdp-22)
   - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
@@ -29,7 +29,7 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
   - Verify you can run below on all nodes:
   - `id <username>` or `groups <username>`
   
-- krb configuration debugging. To turn on debug:
+- Need to debug krb configuration. To turn on debug trace:
   - in Java:  `-Dsun.security.krb5.debug=true`
   - In Bash: `export KRB5_TRACE=/dev/stdout`
   - Also see guide here: https://github.com/steveloughran/kerberos_and_hadoop
