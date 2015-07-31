@@ -86,8 +86,13 @@ This guide uses:
   - On **Linux host**:
     - Create '/etc/pki/ca-trust/source/anchors/activedirectory.pem' and paste the certificate contents
     - Trust CA cert: `sudo update-ca-trust enable; sudo update-ca-trust extract; sudo update-ca-trust check`
-    - Trust CA cert in Java: `sudo keytool -keystore cacerts -importcert -alias activedirectory -file /etc/pki/ca-trust/source/anchors/activedirectory.pem`
-      - password: changeit 
+    - Trust CA cert in Java:
+      ```
+mycert=/etc/pki/ca-trust/source/anchors/activedirectory.pem
+sudo keytool -import -trustcacerts -noprompt -storepass changeit -file ${mycert} -keystore /etc/pki/java/cacerts
+sudo keytool -importcert -noprompt -storepass changeit -file ${mycert} -alias ad -keystore /etc/pki/java/cacerts
+      ```
+
     - (optional) Configure OpenLDAP to trust ActiveDirectory
 
       ```
@@ -131,8 +136,19 @@ EOF
 TODO: Link to another workshop on using Hadoop in Secure Mode
 
 
-## Todo
+## OS integration with AD after Ambari Kerberos of Hadoop
 
-OS integration with SSSD
+### The user will need delegated writes to the OU, ability to create computers & service principals
 
+### Active Directory integration using SSSD
+
+Configuration of this is identical across all nodes, with one exception in the sssd.conf:
+
+- Master & DataNodes only need NSS integration
+  - for populating the Hadoop user-group mapping
+  - for identity of users in order to create YARN containers
+- Edge nodes will need NSS, PAM, SSH in order to login
+
+Todo: I (seanorama) will put documentation here. For now you can see this script:
+https://github.com/seanorama/ambari-bootstrap/blob/master/extras/sssd-kerberos-ad.sh
 
