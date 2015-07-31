@@ -20,6 +20,7 @@ Setup Ranger and authorization policies and review audit reports from a Rangers 
             
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
+  - Troubleshooting
   - Encryption at Rest
     - HDFS TDE
     - LUKS volume encryption

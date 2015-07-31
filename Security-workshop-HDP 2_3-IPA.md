@@ -30,6 +30,7 @@ Enable encryption at rest by setting up Ranger KMS, its Ranger plugin and encryp
 
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
+  - Troubleshooting
   - Audit logs in HDFS
   - Wire encryption
   - Security related Ambari services
