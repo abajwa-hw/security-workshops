@@ -152,3 +152,5 @@ Configuration of this is identical across all nodes, with one exception in the s
 Todo: I (seanorama) will put documentation here. For now you can see this script:
 https://github.com/seanorama/ambari-bootstrap/blob/master/extras/sssd-kerberos-ad.sh
 
+- Further reading on setting up kerberos on Hadoop
+  - [Steve L](https://github.com/steveloughran/kerberos_and_hadoop)

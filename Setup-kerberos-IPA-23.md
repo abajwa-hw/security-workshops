@@ -14,6 +14,9 @@
   3. Install FreeIPA using Ambari
   4. (optional) Create example users
 
+- Further reading on setting up kerberos on Hadoop
+  - [Steve L](https://github.com/steveloughran/kerberos_and_hadoop)
+  
 -----------------------
 
 ## Pre-requisites if not done already
