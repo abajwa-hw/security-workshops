@@ -1,3 +1,26 @@
+#!/bin/sh
+# options:
+#    if no arguments passed, FQDN will be used as hostname to setup view
+#    if "publicip" is passed, the public ip address will be used as hostname to setup view
+#    otherwise the passed in value will be assumed to be the hostname to setup view
+arg=$1
+echo "arg is $arg"
+
+if [ ! -z "$arg" ]
+then
+    if [ "$arg" == "publicip" ]
+    then
+        echo "Argument publicip passed in..detecting public ip"
+        host=`curl icanhazip.com`
+    else
+        echo "Using $arg as hostname"
+        host=$arg
+    fi
+else
+    echo "No argument passed in. Using FQDN"
+    host=`hostname -f`
+fi
+
 #if not already, set clock to UTC
 sudo yum install -y ntp
 service ntpd stop
@@ -32,9 +55,7 @@ sudo sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
 
 #copy ranger audit dashboard json and replace sandbox.hortonworks.com with host where Solr is installed
 sudo wget https://raw.githubusercontent.com/abajwa-hw/security-workshops/master/scripts/default.json -O /opt/banana/latest/src/app/dashboards/default.json
-#use the public IP address of host
-host=`curl icanhazip.com`
-sudo sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
+#sudo sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
 
 #clean any previous webapp compilations
 sudo /bin/rm -f /opt/banana/latest/build/banana*.war
@@ -56,7 +77,6 @@ sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
 #####Setup iFrame view to open Banana webui in Ambari#######
 
-host=`curl icanhazip.com`
 if [ ! -f /etc/yum.repos.d/epel-apache-maven.repo ]
 then
 	sudo curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
@@ -74,3 +94,4 @@ cd rangeraudits-view
 sudo mvn clean package
 sudo cp target/*.jar /var/lib/ambari-server/resources/views
 sudo ambari-server restart
+
