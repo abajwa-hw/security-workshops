@@ -70,7 +70,7 @@
           "history": [
             "*:*",
             "action:write",
-            "acess:increment",
+            "access:increment",
             "resource:*driverName",
             "repo:sandbox_hive"
           ],
