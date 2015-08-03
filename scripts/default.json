@@ -35,8 +35,8 @@
       ],
       "list": {
         "0": {
-          "from": "2015-02-21T15:54:50.101Z",
-          "to": "2015-02-21T16:09:50.101Z",
+          "from": "NOW/HOUR-1HOUR",
+          "to": "NOW/HOUR%2B1HOUR",
           "field": "evtTime",
           "type": "time",
           "mandate": "must",
@@ -69,19 +69,14 @@
           "label": "Search",
           "history": [
             "*:*",
-            "sc_not_modified",
-            "log_message:MODIFIED",
-            "log_message:sc_not_modified",
-            "log_message:milliseconds",
-            "log_message:*",
-            "log_message:exception",
-            "log_message:shutdown_msg",
-            "type:hive_server2",
-            "level:warn"
+            "action:write",
+            "acess:increment",
+            "resource:*driverName",
+            "repo:sandbox_hive"
           ],
           "remember": 10,
           "pinned": true,
-          "query": "*",
+          "query": "*:*",
           "title": "Search",
           "def_type": ""
         },
@@ -94,21 +89,23 @@
           "status": "Stable",
           "mode": "relative",
           "time_options": [
+            "5m",
             "15m",
             "1h",
             "24h",
-            "30d",
-            "180d"
+            "3d",
+            "30d"
           ],
           "timespan": "15m",
           "timefield": "evtTime",
           "timeformat": "",
           "refresh": {
             "enable": true,
-            "interval": 30,
+            "interval": 5,
             "min": 3
           },
           "title": "Time Range",
+          "spyable": true,
           "filter_id": 0
         },
         {
