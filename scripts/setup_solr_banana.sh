@@ -1,8 +1,9 @@
 #!/bin/sh
 # options:
-#    if no arguments passed, FQDN will be used as hostname to setup view
-#    if "publicip" is passed, the public ip address will be used as hostname to setup view
-#    otherwise the passed in value will be assumed to be the hostname to setup view
+#    if no arguments passed, FQDN will be used as hostname to setup dashboard/view
+#    if "publicip" is passed, the public ip address will be used as hostname to setup dashboard/view
+#    otherwise the passed in value will be assumed to be the hostname to setup dashboard/view
+
 arg=$1
 echo "arg is $arg"
 
