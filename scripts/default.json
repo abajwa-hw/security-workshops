@@ -72,7 +72,8 @@
             "action:write",
             "access:increment",
             "resource:*driverName",
-            "repo:sandbox_hive"
+            "repo:sandbox_hive",
+            "result:0"
           ],
           "remember": 10,
           "pinned": true,
