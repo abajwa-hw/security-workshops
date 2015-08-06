@@ -23,6 +23,7 @@
 
 1. Install Ambari 2.1 
 
+  - For CentOS 7 yo can use the below:
 ```
 systemctl stop firewalld
 systemctl disable firewalld
@@ -72,6 +73,18 @@ More details/video can be found [here](https://github.com/abajwa-hw/security-wor
 
 ## Enable kerberos using wizard
 
+- Ensure the IPA client was setup correctly on HDP by checking that the LDAP users are recognized by the OS.
+```
+id paul      #or some other user contained in your LDAP
+groups paul   #or some other user contained in your LDAP
+```
+  - If this does not work, you can install the client using the below (replace the values for your own setup). On multinode setup, this should be run on all nodes. If using this guide: When prompted enter: yes > yes > hortonworks
+```
+yum install ipa-client openldap-clients -y
+ipa-client-install --domain=hortonworks.com --server=ldap.hortonworks.com  --mkhomedir --ntp-server=north-america.pool.ntp.org -p admin@HORTONWORKS.COM -W
+```  
+  - Now re-try the id/groups command above and it should work.
+  
 - Unless specified otherwise, the below steps are to be run on the HDP node
   
 - In Ambari, start security wizard by clicking Admin -> Kerberos and click Enable Kerberos. Then select "Manage Kerberos principals and key tabs manually" option
