@@ -112,6 +112,16 @@ ipa-client-install --domain=hortonworks.com --server=ldap.hortonworks.com  --mkh
 vi kerberos.csv
 ```
 
+  - If you are deploying storm, the storm user maybe missing from the storm USER row. If you see something like the below:
+```
+storm@HORTONWORKS.COM,USER,,/etc
+```  
+replace the `,,` with `,storm,`
+```
+storm@HORTONWORKS.COM,USER,storm,/etc
+```  
+
+
 - **On the IPA node** Create principals using csv file
 
 ```
