@@ -97,7 +97,7 @@ ipa-client-install --domain=hortonworks.com --server=ldap.hortonworks.com  --mkh
 - Enter your realm
 ![Image](../master/screenshots/2.3-ipa-kerb-2.png?raw=true)
 
-- Remove clustername from smoke/hdfs principals to look like below
+- Remove clustername from smoke/hdfs principals to remove the `-${cluster_name}` references to look like below
   - smoke user principal: ${cluster-env/smokeuser}@${realm}
   - HDFS user principal: ${hadoop-env/hdfs_user}@${realm}
   - HBase user principal: ${hbase-env/hbase_user}@${realm}
