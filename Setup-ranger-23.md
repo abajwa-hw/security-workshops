@@ -557,7 +557,7 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 
 ---------------------
 
-###### Setup YARN plugin for Ranger
+##### Setup YARN plugin for Ranger
 
 - Open Yarn configuration in Ambari and make below changes
 
