@@ -620,10 +620,10 @@ hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.ja
 org.apache.hadoop.yarn.exceptions.YarnException: Failed to submit application_1439300318912_0004 to YARN : org.apache.hadoop.security.AccessControlException: User ali cannot submit applications to queue root.default
 ```
 
-- Notice the jobs show up on YARN and Ranger Audit page. Also notice both jobs go to the 'default' queue and the Access enforcer is "ranger-acl" (not yarn-acl)
+- Notice the Ranger Audit page shows the jobs were denied. Also notice both jobs go to the 'default' queue and the Access enforcer is "ranger-acl" (not yarn-acl)
 ![Image](../master/screenshots/ranger23-yarn-audit-rejected.png?raw=true)
 
-- Setup a spark queue using the capacity scheduler view at: http://(your host):8080/#/main/views/CAPACITY-SCHEDULER/1.0.0/AUTO_CS_INSTANCE
+- Setup a spark queue using the capacity scheduler view at: http://(your host):8080/#/main/views/CAPACITY-SCHEDULER/1.0.0/AUTO_CS_INSTANCE. Use the below settings:
   - capacity: 50%
   - Max capacity: 100%
 ![Image](../master/screenshots/spark-queue.png?raw=true)
