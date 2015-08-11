@@ -4,8 +4,8 @@
 - Goals: 
   - Install Apache Ranger on HDP 2.3
   - Sync users between Apache Ranger and LDAP
-  - Configure HDFS & Hive to use Apache Ranger 
-  - Define HDFS & Hive Access Policy For Users
+  - Configure HDFS & Hive... to use Apache Ranger 
+  - Define HDFS & Hive ... Access Policy For Users
   - Login as the end user and note the authorization policies being enforced
 
 - Pre-requisites:
@@ -13,15 +13,17 @@
 
 - Contents:
   - [Pre-requisites](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#pre-requisites)
-  - [Install Ranger and its User/Group sync agent](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install-ranger-and-its-usergroup-sync-agent)
-  - [Setup HDFS repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hdfs-repo-in-ranger)
+  - [Install/Configure Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install--configure-ranger-using-ambari)
+  - [Setup HDFS plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hdfs-plugin)
   - [HDFS Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hdfs-audit-exercises-in-ranger)
-  - [Setup Hive repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hive-repo-in-ranger)
+  - [Setup Hive plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hive-repo-in-ranger)
   - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hive-audit-exercises-in-ranger)
-  - [Setup HBase repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hbase-repo-in-ranger)
+  - [Setup HBase plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-hbase-repo-in-ranger)
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hbase-audit-exercises-in-ranger)
-  - [Setup Knox repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-knox-repo-in-ranger)  
-  - [Setup Storm repo in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
+  - [Setup Knox plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-knox-repo-in-ranger)  
+  - [Setup YARN plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-knox-repo-in-ranger)  
+  - [YARN Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger)
+  - [Setup Storm plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-storm-repo-in-ranger)  
   - [Ranger Audit dashboard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#ranger-audit-dashboard)
 
 
@@ -204,7 +206,7 @@ http://sandbox.hortonworks.com:6080
 ```
 ---------------------
 
-#####  Setup Ranger HDFS plugin
+#####  Setup HDFS plugin for Ranger
 
 - Open HDFS configuration in Ambari and make below changes:
 
@@ -346,7 +348,7 @@ hadoop fs -ls /rangerdemo
 
 ---------------------
 
-#####  Setup Hive repo in Ranger
+#####  Setup Hive plugin for Ranger
 
 - In Ambari, add admins group and restart HDFS
 hadoop.proxyuser.hive.groups: users, sales, legal, admins
@@ -482,11 +484,9 @@ exit
 
 ---------------------
 
-#####  Setup HBase plugin
+#####  Setup HBase plugin for Ranger
 
-- Open HBase configuration in Ambari and make below changes
-
-- Under HBase -> Configs -> Advanced ->
+- Under Ambari -> HBase -> Configs -> Advanced ->
   - Advanced ranger-hbase-audit:
     - Audit to DB: Check
     - Audit to HDFS: Check
@@ -512,7 +512,7 @@ exit
 ![Image](../master/screenshots/ranger-hbase-agent.png?raw=true)
 
 #####  HBase audit exercises in Ranger
-- Login as to beeswax user ali and try to create HBase table 
+- Login to hbase shell as user ali and try to create HBase table 
 ```
 su ali
 klist
@@ -551,13 +551,13 @@ exit
 
 ---------------------
 
-#####  Setup Knox repo in Ranger
+#####  Setup Knox plugin for Ranger
 
 Steps to integrate Knox with LDAP and Ranger available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md)
 
 ---------------------
 
-###### Setup Yarn repo in Ranger
+###### Setup YARN plugin for Ranger
 
 - Open Yarn configuration in Ambari and make below changes
 
@@ -588,10 +588,68 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 - Notice that the Yarn agent shows up in the list of agents. 
 ![Image](../master/screenshots/ranger23-yarn-agent.png?raw=true)
 
+#####  YARN audit exercises in Ranger
+
+- Configure YARN to use only Ranger ACLs (i.e ignore YARN ACLs)
+  - Ambari > YARN > Custom ranger-yarn-security > add below property and restart YARN
+    - ranger.add-yarn-authorization = false
+
+![Image](../master/screenshots/23-ranger-yarn-config.png?raw=true)
+
+- Login as LDAP user
+````
+su ali
+````
+
+- Run a test Spark job
+```
+cd /usr/hdp/current/spark-client
+bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
+```
+  - It should fail with below:
+```
+org.apache.hadoop.yarn.exceptions.YarnException: Failed to submit application_1439300318912_0003 to YARN : org.apache.hadoop.security.AccessControlException: User ali cannot submit applications to queue root.default
+```
+
+- Now run a mapreduce job 
+```
+hadoop jar /usr/hdp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar pi 2 10
+```
+- This should fail with error similar to below:
+```
+org.apache.hadoop.yarn.exceptions.YarnException: Failed to submit application_1439300318912_0004 to YARN : org.apache.hadoop.security.AccessControlException: User ali cannot submit applications to queue root.default
+```
+
+- Notice the jobs show up on YARN and Ranger Audit page. Also notice both jobs go to the 'default' queue and the Access enforcer is "ranger-acl" (not yarn-acl)
+![Image](../master/screenshots/ranger23-yarn-audit-rejected.png?raw=true)
+
+- Setup a spark queue using the capacity scheduler view at: http://(your host):8080/#/main/views/CAPACITY-SCHEDULER/1.0.0/AUTO_CS_INSTANCE
+  - capacity: 50%
+  - Max capacity: 100%
+![Image](../master/screenshots/spark-queue.png?raw=true)
+
+- Update Spark config to submit to the new spark queue. Open Ambari > YARN > Configs
+![Image](../master/screenshots/spark-yarn-queue.png?raw=true)
+
+- Create a Ranger policy allowing user "ali" to submit to "spark" queue:
+![Image](../master/screenshots/ranger23-yarn-policy.png?raw=true)
+
+- Re-run the spark job. This time is should run successfully
+```
+cd /usr/hdp/current/spark-client
+bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
+```
+
+- Now look at the audit reports for the above and notice that audit reports for these queries show up in Ranger. Also notice in the audit record, the resource name now shows the newly created queue and policy ID that was in effect.
+![Image](../master/screenshots/ranger23-yarn-policy.png?raw=true)
+
+- The YARN resource manager UI also shows the same details for status of the jobs and queues the went to:
+![Image](../master/screenshots/ranger23-yarn-RM-ui.png?raw=true)
+
 
 ---------------------
 
-###### Setup Kafka repo in Ranger
+###### Setup Kafka plugin for Ranger
 
 - Open Kafka configuration in Ambari and make below changes
 
@@ -623,8 +681,8 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 ![Image](../master/screenshots/ranger23-kafka-agent.png?raw=true)
 
 --------------------
-#####  Setup Storm repo in Ranger
 
+#####  Setup Storm plugin for Ranger
 
 - Open Storm configuration in Ambari and make below changes
 
@@ -711,7 +769,7 @@ storm kill WordCountTopology
 ```
 ---------------------
 
-#####  Setup Solr repo in Ranger - TBD
+#####  Setup Solr plugin for Ranger - TBD
 
 --------------------
 
@@ -726,8 +784,9 @@ storm kill WordCountTopology
   - drill down into each events details using the list at the bottom of the page
 ![Image](../master/screenshots/Ranger-audit-dashboard.png?raw=true)
 
-- Add your own widget by modifying the dashboards [default.json](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/default.json) under /opt/banana/latest/src/app/dashboards/
-- Then rebuild and reload the new webapp using the below commands
+- (Optional) Customize the dashboard by adding your own widget. 
+  - To do this, you can modify the dashboards [default.json](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/default.json) under /opt/banana/latest/src/app/dashboards/
+  - Then rebuild and reload the new webapp using the below commands
 ```
 #clean any previous webapp compilations
 /bin/rm -f /opt/banana/latest/build/banana*.war
@@ -744,6 +803,7 @@ ant
 /opt/solr/ranger_audit_server/scripts/stop_solr.sh
 /opt/solr/ranger_audit_server/scripts/start_solr.sh
 ```
+
 -----------
 
 - Using Ranger, we have successfully added authorization policies and audit reports to our secure cluster from a central location 
