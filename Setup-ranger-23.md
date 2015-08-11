@@ -14,16 +14,16 @@
 - Contents:
   - [Pre-requisites](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#pre-requisites)
   - [Install/Configure Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#install--configure-ranger-using-ambari)
-  - [Setup HDFS plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hdfs-plugin)
+  - [Setup HDFS plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hdfs-plugin-for-ranger)
   - [HDFS Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hdfs-audit-exercises-in-ranger)
-  - [Setup Hive plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hive-plugin)
+  - [Setup Hive plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hive-plugin-for-ranger)
   - [Hive Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hive-audit-exercises-in-ranger)
-  - [Setup HBase plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hbase-plugin)
+  - [Setup HBase plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-hbase-plugin-for-ranger)
   - [HBase audit exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#hbase-audit-exercises-in-ranger)
-  - [Setup Knox plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-knox-plugin)  
-  - [Setup YARN plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-yarn-plugin)  
+  - [Setup Knox plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-knox-plugin-for-ranger)  
+  - [Setup YARN plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-yarn-plugin-for-ranger)  
   - [YARN Audit Exercises in Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#yarn-audit-exercises-in-ranger)
-  - [Setup Storm plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-storm-plugin)  
+  - [Setup Storm plugin for Ranger](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#setup-ranger-storm-plugin-for-ranger)  
   - [Ranger Audit dashboard](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md#ranger-audit-dashboard)
 
 
