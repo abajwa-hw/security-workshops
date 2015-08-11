@@ -29,7 +29,7 @@ sudo ntpdate us.pool.ntp.org
 sudo hwclock --systohc
 sudo mv /etc/localtime /etc/localtime.bak
 sudo ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
-
+service ntpd start
 
 
 #####Install and start Solr#######
