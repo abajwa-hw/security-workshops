@@ -640,7 +640,7 @@ cd /usr/hdp/current/spark-client
 bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
 ```
 
-- Now look at the audit reports for the above and notice that audit reports for these queries show up in Ranger. Also notice in the audit record, the resource name now shows the newly created queue and policy ID that was in effect.
+- Notice that audit reports for these queries show up in Ranger. Also notice in the audit record, the resource name now shows the newly created queue and policy ID that was in effect.
 ![Image](../master/screenshots/ranger23-yarn-audit-allowed.png?raw=true)
 
 - The YARN resource manager UI also shows the same details for status of the jobs and queues the went to:
