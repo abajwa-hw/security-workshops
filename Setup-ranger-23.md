@@ -637,7 +637,7 @@ org.apache.hadoop.yarn.exceptions.YarnException: Failed to submit application_14
   - Max capacity: 100%
 ![Image](../master/screenshots/spark-queue.png?raw=true)
 
-- Update Spark config to submit to the new spark queue. Open Ambari > YARN > Configs and change the default queue to be "spark" instead of "default"
+- Update Spark config to submit to the new spark queue. Open Ambari > YARN > Configs and change the default queue to be "spark" instead of "default". Then restart Spark.
 ![Image](../master/screenshots/spark-yarn-queue.png?raw=true)
 
 - Create a Ranger policy for YARN allowing user "ali" to submit to "spark" queue. Click Add and wait 30s
