@@ -137,7 +137,7 @@ Advanced ranger-admin-site
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
 
 ---------
-- These settings provide the details for above authentication methods. No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to change the properties under 'LDAP settings':
+- These settings provide the details for above authentication methods. No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in which case, you will need to change the properties under 'LDAP settings':
   - ranger.ldap.url=ldap://sandbox.hortonworks.com:389
   - ranger.ldap.user.dnpattern=uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.ldap.group.roleattribute=cn
@@ -152,7 +152,7 @@ Advanced ranger-admin-site
 
 ---------
 
-- No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to change:
+- No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in which case, you will need to change:
   - ranger.ldap.group.searchbase to dc=horotnworks,dc=com
   - ranger.ldap.group.searchfilter
 ![Image](../master/screenshots/23-rangersetup-5.png?raw=true)
@@ -183,7 +183,7 @@ Advanced ranger-admin-site
 
 ---------
 
-- Under 'Custom ranger-admin-site', no changes are needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to add:
+- Under 'Custom ranger-admin-site', no changes are needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in which case, you will need to add:
   - ranger.ldap.base.dn=dc=hortonworks,dc=com
   - ranger.ldap.bind.dn=uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.ldap.bind.password=hortonworks
