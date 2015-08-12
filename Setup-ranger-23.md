@@ -596,9 +596,18 @@ Steps to integrate Knox with LDAP and Ranger available [here](https://github.com
 
 ![Image](../master/screenshots/23-ranger-yarn-config.png?raw=true)
 
-- Login as LDAP user
+- If not created already, create home HDFS dir for ali user
+```
+su hdfs
+kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORTONWORKS.COM
+hadoop fs -mkdir /user/ali
+hadoop fs -chown ali /user/ali
+exit
+```
+- Login as LDAP user and kinit 
 ````
 su ali
+kinit
 ````
 
 - Run a test Spark job
@@ -623,7 +632,7 @@ org.apache.hadoop.yarn.exceptions.YarnException: Failed to submit application_14
 - Notice the Ranger Audit page shows the jobs were denied. Also notice both jobs go to the 'default' queue and the Access enforcer is "ranger-acl" (not yarn-acl)
 ![Image](../master/screenshots/ranger23-yarn-audit-rejected.png?raw=true)
 
-- Setup a spark queue using the capacity scheduler view at: http://(your host):8080/#/main/views/CAPACITY-SCHEDULER/1.0.0/AUTO_CS_INSTANCE. Use the below settings:
+- Setup a spark queue using the capacity scheduler view at: http://(your host):8080/#/main/views/CAPACITY-SCHEDULER/1.0.0/AUTO_CS_INSTANCE. Use the below settings and click Actions > "Save and Refresh Queues":
   - capacity: 50%
   - Max capacity: 100%
 ![Image](../master/screenshots/spark-queue.png?raw=true)
