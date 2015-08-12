@@ -132,10 +132,15 @@ Advanced ranger-admin-site
 - Set password as previously set
 - Update the External URL to `http://your-servers-fqdn:6080`. *Make sure there are no trailing slashes after this value*
 - The auth method determines who is allowed to login to Ranger Web UI (local unix, AD, LDAP etc):
+  - To login to Ranger as admin/admin: leave this value as default (i.e UNIX). You can skip the extra configurations below that are only needed to login to Ranger using LDAP credentials
+  - To login to Ranger as LDAP users: change this to LDAP. If you set this value, there are a number of extra configuration you will need to do login to Ranger using LDAP credentials
 ![Image](../master/screenshots/23-rangersetup-2.png?raw=true)
 
 ---------
-- These settings provide the details for above authentication methods. No change needed:
+- These settings provide the details for above authentication methods. No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to change the properties under 'LDAP settings':
+  - ranger.ldap.url=ldap://sandbox.hortonworks.com:389
+  - ranger.ldap.user.dnpattern=uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com
+  - ranger.ldap.group.roleattribute=cn
 ![Image](../master/screenshots/23-rangersetup-3.png?raw=true)
 
 ---------
@@ -147,7 +152,9 @@ Advanced ranger-admin-site
 
 ---------
 
-- No change needed:
+- No change needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to change:
+  - ranger.ldap.group.searchbase to dc=horotnworks,dc=com
+  - ranger.ldap.group.searchfilter
 ![Image](../master/screenshots/23-rangersetup-5.png?raw=true)
 ![Image](../master/screenshots/23-rangersetup-6.png?raw=true)
 
@@ -176,6 +183,14 @@ Advanced ranger-admin-site
 
 ---------
 
+- Under 'Custom ranger-admin-site', no changes are needed unless you would like to login to Ranger using LDAP credentials (instead of admin/admin) - in this case, you will need to add:
+  - ranger.ldap.base.dn=dc=hortonworks,dc=com
+  - ranger.ldap.bind.dn=uid=admin,cn=users,cn=accounts,dc=hortonworks,dc=com
+  - ranger.ldap.bind.password=hortonworks
+  - ranger.ldap.referral=follow
+![Image](../master/screenshots/23-rangersetup-11.png?raw=true)
+
+----------
 - Click Next -> Deploy to finish the wizard to start the Ranger and ugsync setup
 
 - Once successfully installed/started, confirm Agent/Ranger started: `ps -f -C java | grep "Dproc_ranger" | awk '{print $9}'`
