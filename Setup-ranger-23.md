@@ -84,14 +84,14 @@ wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/setup_so
 chmod +x setup_solr_banana.sh
 sudo ./setup_solr_banana.sh
 ```
-    - argument options:
-      - if no arguments passed, FQDN will be used as hostname to setup dashboard/view (use this if you have created local hosts entry for host where Solr will run e.g. sandbox.hortonworks.com)
-      - if "publicip" is passed, the public ip address will be used as hostname to setup dashboard/view (use this on cloud environments)
-      - otherwise the passed in value will be assumed to be the hostname to setup dashboard/view
+  - argument options:
+    - if no arguments passed, FQDN will be used as hostname to setup dashboard/view (use this if you have created local hosts entry for host where Solr will run e.g. sandbox.hortonworks.com)
+    - if "publicip" is passed, the public ip address will be used as hostname to setup dashboard/view (use this on cloud environments)
+    - otherwise the passed in value will be assumed to be the hostname to setup dashboard/view
 
-    - Solr UI should be available at http://(your hostname):6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits 
-    - An Empty Banana dashboard should be available at http://(your hostname):6083/banana e.g. http://sandbox.hortonworks.com:6083/banana. 
-    - As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
+  - Solr UI should be available at http://(your hostname):6083/solr/#/ranger_audits e.g. http://sandbox.hortonworks.com:6083/solr/#/ranger_audits 
+  - An Empty Banana dashboard should be available at http://(your hostname):6083/banana e.g. http://sandbox.hortonworks.com:6083/banana. 
+  - As the below steps are followed to setup Solr audit for a few Hadoop services, you should start to see events in the dashboard 
 
 ## Install & Configure Ranger using Ambari
 
