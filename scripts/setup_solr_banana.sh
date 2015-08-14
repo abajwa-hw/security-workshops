@@ -56,7 +56,7 @@ echo "SOLR_RANGER_PORT=6083" >> install.properties
 echo "SOLR_MAX_MEM=512m" >> install.properties
 
 sudo ./setup.sh
-sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
+#sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
 #####Install and start Banana#######
 sudo mkdir /opt/banana
@@ -89,9 +89,10 @@ sudo /bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/ba
 sudo /bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
 
 #####Restart Solr#######
-sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
+#sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
 sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
+rm -rf /usr/local/ranger_solr_setup*
 
 #####Setup iFrame view to open Banana webui in Ambari#######
 
