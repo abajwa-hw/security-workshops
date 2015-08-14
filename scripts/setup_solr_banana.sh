@@ -65,7 +65,7 @@ sudo ./setup.sh
 #sudo $solr_home/ranger_audit_server/scripts/start_solr.sh
 
 #####Install and start Banana#######
-sudo mkdir $banana_home
+sudo mkdir -p $banana_home
 cd $banana_home
 sudo git clone https://github.com/LucidWorks/banana.git
 sudo mv banana latest
@@ -88,7 +88,7 @@ sudo /bin/rm -f $solr_home/server/webapps/banana.war
 #compile latest dashboard json
 sudo yum install -y ant
 cd $banana_home/latest
-sudo mkdir $banana_home/latest/build/
+sudo mkdir -p $banana_home/latest/build/
 sudo ant
 
 sudo /bin/cp -f $banana_home/latest/build/banana*.war $solr_home/server/webapps/banana.war
