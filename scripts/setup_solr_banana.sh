@@ -95,7 +95,6 @@ sudo /bin/cp -f $banana_home/latest/build/banana*.war $solr_home/server/webapps/
 sudo /bin/cp -f $banana_home/latest/jetty-contexts/banana-context.xml $solr_home/server/contexts
 
 #####Restart Solr#######
-#sudo $solr_home/ranger_audit_server/scripts/stop_solr.sh
 sudo $solr_home/ranger_audit_server/scripts/start_solr.sh
 
 rm -rf /usr/local/ranger_solr_setup*
