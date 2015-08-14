@@ -82,7 +82,7 @@ exit
 cd
 wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/setup_solr_banana.sh
 chmod +x setup_solr_banana.sh
-sudo ./setup_solr_banana.sh
+sudo ./setup_solr_banana.sh <arguments>
 ```
   - argument options:
     - if no arguments passed, FQDN will be used as hostname to setup dashboard/view (use this if you have created local hosts entry for host where Solr will run e.g. sandbox.hortonworks.com)
