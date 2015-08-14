@@ -48,6 +48,13 @@ service ntpd start
 
 #Install HDP search
 yum install -y lucidworks-hdpsearch
+
+if [ ! -d "/opt/lucidworks-hdpsearch" ]
+then
+	echo "HDP Search did not install correctly or may have times out. Run yum install -y lucidworks-hdpsearch and re-run this script"
+	exit 1
+fi
+
 cd /usr/local/
 sudo wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/ranger_solr_setup.zip
 sudo unzip ranger_solr_setup.zip
