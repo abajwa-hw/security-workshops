@@ -33,11 +33,28 @@ service ntpd start
 
 
 #####Install and start Solr#######
+
+#cd /usr/local/
+#sudo wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/ranger_solr_setup.zip
+#sudo unzip ranger_solr_setup.zip
+#sudo rm -rf __MACOSX
+#cd ranger_solr_setup
+
+#Install HDP search
+yum install -y lucidworks-hdpsearch
 cd /usr/local/
 sudo wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/ranger_solr_setup.zip
 sudo unzip ranger_solr_setup.zip
 sudo rm -rf __MACOSX
 cd ranger_solr_setup
+
+echo "SOLR_INSTALL=false" > install.properties   
+echo "SOLR_INSTALL_FOLDER=/opt/lucidworks-hdpsearch/solr" >> install.properties   
+echo "SOLR_RANGER_HOME=/opt/lucidworks-hdpsearch/solr/ranger_audit_server" >> install.properties   
+echo "SOLR_RANGER_DATA_FOLDER=/opt/lucidworks-hdpsearch/solr/ranger_audit_server/data" >> install.properties   
+echo "SOLR_RANGER_PORT=6083" >> install.properties   
+echo "SOLR_MAX_MEM=512m" >> install.properties
+
 sudo ./setup.sh
 sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
 
