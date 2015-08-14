@@ -4,6 +4,8 @@
 #    if "publicip" is passed, the public ip address will be used as hostname to setup dashboard/view
 #    otherwise the passed in value will be assumed to be the hostname to setup dashboard/view
 
+set -e
+
 arg=$1
 solr_home=/opt/lucidworks-hdpsearch/solr
 #solr_home=/opt/solr
@@ -15,7 +17,11 @@ echo "arg is $arg"
 
 if [ ! -z "$arg" ]
 then
-    if [ "$arg" == "publicip" ]
+	if [ "$arg" == "<arguments>" ]
+	then
+		echo "Invalid argument: $arg"
+		exit 1
+    elif [ "$arg" == "publicip" ]
     then
         echo "Argument publicip passed in..detecting public ip"
         host=`curl icanhazip.com`
