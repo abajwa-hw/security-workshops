@@ -5,6 +5,12 @@
 #    otherwise the passed in value will be assumed to be the hostname to setup dashboard/view
 
 arg=$1
+solr_home=/opt/lucidworks-hdpsearch/solr
+#solr_home=/opt/solr
+banana_home=/opt/banana-ranger
+#banana_home=/opt/banana
+
+
 echo "arg is $arg"
 
 if [ ! -z "$arg" ]
@@ -56,11 +62,11 @@ echo "SOLR_RANGER_PORT=6083" >> install.properties
 echo "SOLR_MAX_MEM=512m" >> install.properties
 
 sudo ./setup.sh
-#sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
+#sudo $solr_home/ranger_audit_server/scripts/start_solr.sh
 
 #####Install and start Banana#######
-sudo mkdir /opt/banana
-cd /opt/banana
+sudo mkdir $banana_home
+cd $banana_home
 sudo git clone https://github.com/LucidWorks/banana.git
 sudo mv banana latest
 
@@ -68,29 +74,29 @@ sudo mv banana latest
 #####Setup Ranger dashboard#######
 
 #change references to logstash_logs
-sudo sed -i 's/logstash_logs/ranger_audits/g'  /opt/banana/latest/src/config.js
+sudo sed -i 's/logstash_logs/ranger_audits/g'  $banana_home/latest/src/config.js
 
 
 #copy ranger audit dashboard json and replace sandbox.hortonworks.com with host where Solr is installed
-sudo wget https://raw.githubusercontent.com/abajwa-hw/security-workshops/master/scripts/default.json -O /opt/banana/latest/src/app/dashboards/default.json
-sudo sed -i "s/sandbox.hortonworks.com/$host/g" /opt/banana/latest/src/app/dashboards/default.json
+sudo wget https://raw.githubusercontent.com/abajwa-hw/security-workshops/master/scripts/default.json -O $banana_home/latest/src/app/dashboards/default.json
+sudo sed -i "s/sandbox.hortonworks.com/$host/g" $banana_home/latest/src/app/dashboards/default.json
 
 #clean any previous webapp compilations
-sudo /bin/rm -f /opt/banana/latest/build/banana*.war
-sudo /bin/rm -f /opt/solr/server/webapps/banana.war
+sudo /bin/rm -f $banana_home/latest/build/banana*.war
+sudo /bin/rm -f $solr_home/server/webapps/banana.war
 
 #compile latest dashboard json
 sudo yum install -y ant
-cd /opt/banana/latest
-sudo mkdir /opt/banana/latest/build/
+cd $banana_home/latest
+sudo mkdir $banana_home/latest/build/
 sudo ant
 
-sudo /bin/cp -f /opt/banana/latest/build/banana*.war /opt/solr/server/webapps/banana.war
-sudo /bin/cp -f /opt/banana/latest/jetty-contexts/banana-context.xml /opt/solr/server/contexts
+sudo /bin/cp -f $banana_home/latest/build/banana*.war $solr_home/server/webapps/banana.war
+sudo /bin/cp -f $banana_home/latest/jetty-contexts/banana-context.xml $solr_home/server/contexts
 
 #####Restart Solr#######
-#sudo /opt/solr/ranger_audit_server/scripts/stop_solr.sh
-sudo /opt/solr/ranger_audit_server/scripts/start_solr.sh
+#sudo $solr_home/ranger_audit_server/scripts/stop_solr.sh
+sudo $solr_home/ranger_audit_server/scripts/start_solr.sh
 
 rm -rf /usr/local/ranger_solr_setup*
 
