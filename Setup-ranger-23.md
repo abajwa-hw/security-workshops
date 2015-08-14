@@ -98,18 +98,26 @@ sudo ./setup_solr_banana.sh <arguments>
 - Start the Ranger install by navigating to below link in Ambari
   - Admin -> Stacks/Versions -> Ranger -> Add service
   - When prompted, click "I have met all the requirements above" and click Proceed and choose which host to install on
-- Below is a summary of the congfigurations needed to enable LDAP user/group sync.
+
+#### Summary of Ranger config changes
+
+-  Below is a summary of the congfigurations needed to enable LDAP user/group sync.
 - **The settings shown are for our IPA howto. Tweak to fit your own LDAP configuration.**
   - There are many more options which you may want to review, but should not need to change.
 
 ```
+Admin settings (if prompted): 
+  - Ranger Admin user's password for Ambari: admin
+  
 DB Settings:
   - Ranger DB root password: hortonworks (or whatever you set earlier in this document)
   - Other passwords: hortonworks (or whatever you want)
+  
 Ranger Settings:
   - External URL = http://localhost:6080
     - *(If deploying on a cluster, this should be the FQDN of the Ranger server)*
-Advanced ranger-ugsync-site
+    
+Advanced ranger-ugsync-site (to sync users/groups with IPA LDAP)
   - ranger.usersync.ldap.ldapbindpassword = hortonworks (or whatever you set for 'rangeradmin')
   - ranger.usersync.ldap.searchBase = cn=users,cn=accounts,dc=hortonworks,dc=com
   - ranger.usersync.source.impl.class = ldap
@@ -127,6 +135,9 @@ Advanced ranger-admin-site
   - ranger.audit.solr.urls = http://(your solr host fqdn):6083/solr/ranger_audits
   - ranger.audit.source.type = solr  
 ```
+
+#### Details of Ranger config changes
+
 - Configure passwords to your preference and from earlier in this document. Also set "Ranger DB root user" to same mysql user created above:
 
 ![Image](../master/screenshots/23-rangersetup-1.png?raw=true)
