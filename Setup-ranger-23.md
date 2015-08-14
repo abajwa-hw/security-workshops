@@ -76,7 +76,7 @@ exit
   - Depending upon the volume of audit logs and the resources allocated to Solr, they can be retained for anywhere from 3 months to 1 year. 
   - If Solr is the only storage, then the compliance requirement of the enterprise will determine how long to retain these for
 
-- Download and run script to setup solr/banana and ranger_audit dashboard:
+- Download and run script to setup solr/banana and ranger_audit dashboard using HDP Search (Solr 5.2):
 ```
 cd
 wget https://github.com/abajwa-hw/security-workshops/raw/master/scripts/setup_solr_banana.sh
