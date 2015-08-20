@@ -772,7 +772,7 @@ bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client 
 
 - Try sumbiting a test topology using below
 ```
-storm jar /usr/hdp/2.2.0.0-2041/storm/contrib/storm-starter/storm-starter-topologies-0.9.3.2.2.0.0-2041.jar storm.starter.WordCountTopology WordCountTopology -c nimbus.host=sandbox.hortonworks.com
+storm jar /usr/hdp/current/storm-client/contrib/storm-starter/storm-starter-topologies-*.jar storm.starter.WordCountTopology WordCountTopology -c localhost
 ```
   -  Notice that you get a AuthorizationException
   ```
