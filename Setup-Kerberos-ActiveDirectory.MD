@@ -89,7 +89,6 @@ This guide uses:
     - Trust CA cert in Java:
       ```
 mycert=/etc/pki/ca-trust/source/anchors/activedirectory.pem
-sudo keytool -import -trustcacerts -noprompt -storepass changeit -file ${mycert} -keystore /etc/pki/java/cacerts
 sudo keytool -importcert -noprompt -storepass changeit -file ${mycert} -alias ad -keystore /etc/pki/java/cacerts
       ```
 
