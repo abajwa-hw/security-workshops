@@ -58,6 +58,8 @@ ssh root@ldap.hortonworks.com
 - Setup /etc/hosts entry 
 ```
 #setup /etc/hosts - you may need to replace eth0 below
+host=`hostname`
+eth="eth0"
 ip=$(/sbin/ip -o -4 addr list $eth | awk '{print $4}' | cut -d/ -f1)
 echo "${ip} $host" | sudo tee -a /etc/hosts
 ```
