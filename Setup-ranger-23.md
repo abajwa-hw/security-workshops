@@ -719,6 +719,13 @@ bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client 
 - Notice that the Kafka agent shows up in the list of agents.  
 ![Image](../master/screenshots/ranger23-kafka-agent.png?raw=true)
 
+
+- Create topic. This must be done as kafka user (no kinit needed)
+```
+su kafka
+
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic test
+```
 --------------------
 
 #####  Setup Storm plugin for Ranger
