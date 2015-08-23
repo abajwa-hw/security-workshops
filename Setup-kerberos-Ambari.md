@@ -98,6 +98,9 @@ ssh root@sandbox.hortonworks.com
 
 - Setup Ambari 2.0 repo
 ```
+#for HDP 2.3/Ambari 2.1
+wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.1.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+
 #for HDP 2.2.4/Ambari 2.0
 wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.0.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
