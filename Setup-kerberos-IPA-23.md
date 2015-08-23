@@ -43,6 +43,19 @@ sudo install_ambari_server=true ./ambari-bootstrap.sh
 
 ambari-server restart
 ```
+  - Alternatively for a single node setup you can use below to install Ambari, generate BP (based on a list of passed in services) and start install
+```
+## use ambari-bootstrap to install Ambari
+sudo yum -y install git python-argparse
+git clone https://github.com/seanorama/ambari-bootstrap
+cd ambari-bootstrap
+sudo install_ambari_server=true install_ambari-agent=true ./ambari-bootstrap.sh
+
+#Next, you can use recommendation API wrapper to generate blueprint and kick off HDP2.3  cluster install:
+
+export ambari_services="AMBARI_METRICS KNOX YARN ZOOKEEPER TEZ PIG SLIDER MAPREDUCE2 HIVE HDFS HBASE"
+bash ./deploy/deploy-recommended-cluster.bash
+```
 
 2. Deploy HDP 2.3
 
