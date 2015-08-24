@@ -152,7 +152,7 @@ kinit admin
 ```
 
 ```
-awk -F"," '/SERVICE/ {print "ipa service-add "$3}' kerberos.csv | sort -u > ipa-add-spn.sh
+awk -F"," '/SERVICE/ {print "ipa service-add --force "$3}' kerberos.csv | sort -u > ipa-add-spn.sh
 awk -F"," '/USER/ {print "ipa user-add "$5" --first="$5" --last=Hadoop --shell=/sbin/nologin"}' kerberos.csv > ipa-add-upn.sh
 sh ipa-add-spn.sh
 sh ipa-add-upn.sh
