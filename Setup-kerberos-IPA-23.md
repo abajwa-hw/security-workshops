@@ -22,7 +22,7 @@
 ## Pre-requisites if not done already
 
 
-0. Create /etc/hosts entry
+0- Create /etc/hosts entry
 ```
 #you may need to replace eth0 below
 host=`hostname -f`
@@ -31,7 +31,7 @@ ip=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 echo "${ip} $(hostname -f) $(hostname) sandbox.hortonworks.com" | sudo tee -a /etc/hosts
 ```
 
-1. Install Ambari 2.1 
+1- Install Ambari 2.1 
 
   - For CentOS 7 you can use the below:
 ```
@@ -61,7 +61,7 @@ cd ambari-bootstrap
 sudo install_ambari_server=true install_ambari-agent=true ./ambari-bootstrap.sh
 ```
 
-2. Deploy HDP 2.3
+2- Deploy HDP 2.3
 
   - Deploy manually from http://YOURHOST:8080
     - choosing to manually register the hosts since the Ambari Agent is already registered
@@ -71,7 +71,7 @@ export ambari_services="AMBARI_METRICS KNOX YARN ZOOKEEPER TEZ PIG SLIDER MAPRED
 bash ./deploy/deploy-recommended-cluster.bash
 ```
 
-3. Setup FreeIPA on a separate CentOS host by configuring and running the sample scripts. 
+3- Setup FreeIPA on a separate CentOS host by configuring and running the sample scripts. 
 ```
 yum install -y git
 cd ~
@@ -85,7 +85,7 @@ git clone https://github.com/abajwa-hw/security-workshops
 ```
 More details/video can be found [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
   
-4. Ensure IP and sandbox VMs are reachable from each other by 
+4- Ensure IP and sandbox VMs are reachable from each other by:
   - adding entry for ldap.hortonworks.com on sandbox VM
   - adding entry for sandbox.hortonworks.com on IPA VM 
 ```
