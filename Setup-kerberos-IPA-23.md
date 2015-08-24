@@ -85,7 +85,12 @@ git clone https://github.com/abajwa-hw/security-workshops
 ```
 More details/video can be found [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-LDAP-IPA.md)
   
-
+4. Ensure IP and sandbox VMs are reachable from each other by 
+  - adding entry for ldap.hortonworks.com on sandbox VM
+  - adding entry for sandbox.hortonworks.com on IPA VM 
+```
+vi /etc/hosts
+```
 ------------------
 
 ## Check/Setup OS-LDAP integration 
