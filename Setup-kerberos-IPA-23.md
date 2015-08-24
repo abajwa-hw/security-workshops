@@ -21,49 +21,44 @@
 
 ## Pre-requisites if not done already
 
-1. Install Ambari 2.1 
 
-  - For CentOS 7 yo can use the below:
+0. Create /etc/hosts entry
 ```
-systemctl stop firewalld
-systemctl disable firewalld
-
 #you may need to replace eth0 below
 host=`hostname -f`
 eth="eth0"
 ip=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
 echo "${ip} $(hostname -f) $(hostname) sandbox.hortonworks.com" | sudo tee -a /etc/hosts
+```
+
+1. Install Ambari 2.1 
+
+  - For CentOS 7 you can use the below:
+```
+systemctl stop firewalld
+systemctl disable firewalld
+
 
 ## el7 defaults to MariaDB so we need the community release of MySQL
 sudo rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 
 ## use ambari-bootstrap to install Ambari
-sudo yum -y install git
+sudo yum -y install git python-argparse
 git clone -b centos-7 https://github.com/seanorama/ambari-bootstrap
 cd ambari-bootstrap
-sudo install_ambari_server=true ./ambari-bootstrap.sh
+sudo install_ambari_server=true install_ambari-agent=true ./ambari-bootstrap.sh
 
 ambari-server restart
 ```
-  - Alternatively for a single node setup you can use below to install Ambari, generate BP (based on a list of passed in services) and start install
+
+  - For CentOS6.x you can use the below:
 ```
 ## use ambari-bootstrap to install Ambari
-
-#you may need to replace eth0 below
-host=`hostname -f`
-eth="eth0"
-ip=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-echo "${ip} $(hostname -f) $(hostname) sandbox.hortonworks.com" | sudo tee -a /etc/hosts
 
 sudo yum -y install git python-argparse
 git clone https://github.com/seanorama/ambari-bootstrap
 cd ambari-bootstrap
 sudo install_ambari_server=true install_ambari-agent=true ./ambari-bootstrap.sh
-
-#Next, you can use recommendation API wrapper to generate blueprint and kick off HDP2.3  cluster install:
-
-export ambari_services="AMBARI_METRICS KNOX YARN ZOOKEEPER TEZ PIG SLIDER MAPREDUCE2 HIVE HDFS HBASE"
-bash ./deploy/deploy-recommended-cluster.bash
 ```
 
 2. Deploy HDP 2.3
