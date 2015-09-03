@@ -170,6 +170,8 @@ To run on multiple nodes, you can also setup SSSD via Ambari service:
 
 - User sync: In Ambari, set the following values for usersync with AD in “Advanced ranger-ugsync-site” accordion of Ranger configs:
 
+| Property | Sample value |
+| -------- | ------------ |   
 | ranger.usersync.ldap.url | ldap://ad-hdp.cloud.hortonworks.com:389 | 
 | ranger.usersync.ldap.binddn | CN=LDAP Access,OU=Service Accounts,DC=AD-HDP,DC=COM | 
 | ranger.usersync.ldap.ldapbindpassword | |
