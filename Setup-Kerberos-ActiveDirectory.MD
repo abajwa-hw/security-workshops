@@ -186,6 +186,7 @@ To run on multiple nodes, you can also setup SSSD via Ambari service:
 
 - AD authentication in Ranger
 As a next step, add AD authentication for Ranger. Use the below as sample values in “AD Settings” accordion of Ranger configs:
+
 | Property | Sample value |
 | -------- | ------------ |   
 | ranger.ldap.ad.domain | AD-HDP.COM | 
