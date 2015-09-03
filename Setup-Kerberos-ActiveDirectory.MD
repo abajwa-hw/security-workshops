@@ -352,8 +352,6 @@ hadoop.proxyuser.knox.groups = *
 
 ```
 
-- 
-
-- To setup the Ranger Knox plugin and do audit exercises for WebHDFS/Hive over Knox, you can follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md) 
+- Now run through the audit exercises for WebHDFS/Hive over Knox (plus Ranger plugin setup), you can follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md) 
 
 
