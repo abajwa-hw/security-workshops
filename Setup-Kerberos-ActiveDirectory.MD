@@ -47,7 +47,8 @@ This guide uses:
   - *Note: This is only required if generating your own certificates for Active Directory*
 
 1. Create a container, kerberos admin, and permissions for the cluster
-  - Server Manager -> Active Directory Users & Computers
+    
+  - Manually: Server Manager -> Active Directory Users & Computers
     - View -> Check "Advanced Features"
     - Create a container named "hdp"
       - Action -> New -> Organization Unit: "hdp"
@@ -64,6 +65,12 @@ This guide uses:
       - Security -> Advanced -> Permissions -> Add
     - Screenshot showing the AD containers and user
       - ![Screenshot showing the AD containers and user](http://i.imgur.com/y28pE0tm.png)
+
+  - You can also create users via script:
+    - Download and modify [template csv](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/NewUsers.csv) with users
+    - Download script from [here](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/Create-BulkADUsers-CSV.ps1). Update the location to where you downloaded the csv file
+    - Run the script to create the users. Then under Server Manager -> Active Directory Users & Computers, highlight all users and right click > Properties. Open the Account tab and uncheck all the boxes and click Apply
+            
 
 1. *(Not always required)* Add the domain of your linux host(s) to be recognized by Active Directory
   - *Note: This may not be required. It is only required if the domain of your Linux servers is different than that of the Active Directory.*
@@ -152,5 +159,187 @@ Configuration of this is identical across all nodes, with one exception in the s
 Todo: I (seanorama) will put documentation here. For now you can see this script:
 https://github.com/seanorama/ambari-bootstrap/blob/master/extras/sssd-kerberos-ad.sh
 
+To run on multiple nodes, you can also setup SSSD via Ambari service:
+  - https://github.com/abajwa-hw/sssd-service
+  
 - Further reading on setting up kerberos on Hadoop
   - [Steve L](https://github.com/steveloughran/kerberos_and_hadoop)
+
+
+### Ranger/AD integration
+
+- User sync: In Ambari, set the following values for usersync with AD in “Advanced ranger-ugsync-site” accordion of Ranger configs:
+
+| ranger.usersync.ldap.url | ldap://ad-hdp.cloud.hortonworks.com:389 | 
+| ranger.usersync.ldap.binddn | CN=LDAP Access,OU=Service Accounts,DC=AD-HDP,DC=COM | 
+| ranger.usersync.ldap.ldapbindpassword | |
+| ranger.usersync.ldap.searchBase | DC=AD-HDP,DC=COM | 
+| ranger.usersync.source.impl.class | ldap | 
+| ranger.usersync.ldap.user.searchbase | OU=MyUsers,DC=AD-HDP,DC=COM | 
+| ranger.usersync.ldap.user.searchfilter | set to single empty space if no value. Do not leave it as "empty" | 
+| ranger.ldap.group.searchfilter | (member=CN={0},OU=MyUsers,DC=AD-HDP,DC=COM) | 
+| ranger.usersync.ldap.groupname.caseconversion | none | 
+| ranger.usersync.ldap.username.caseconversion | none |
+| ranger.usersync.ldap.user.nameattribute | sAMAccountName | 
+
+- AD authentication in Ranger
+As a next step, add AD authentication for Ranger. Use the below as sample values in “AD Settings” accordion of Ranger configs:
+| ranger.ldap.ad.domain | AD-HDP.COM | 
+| ranger.ldap.ad.url | ldap://ad-hdp.cloud.hortonworks.com:389 | 
+
+
+### Ranger/Knox integration
+
+- Configure Knox to allow groups to proxy. 
+Make below changes under HDFS > Configs and restart HDFS
+hadoop.proxyuser.knox.groups = *
+
+- In Knox > Config under Advanced topology, make below changes and restart the service
+```
+        <topology>
+
+            <gateway>
+
+                <provider>
+                    <role>authentication</role>
+                    <name>ShiroProvider</name>
+                    <enabled>true</enabled>
+                    <param>
+                        <name>sessionTimeout</name>
+                        <value>30</value>
+                    </param>
+                    <param>
+                        <name>main.ldapRealm</name>
+                        <!-- <value>org.apache.shiro.realm.ldap.JndiLdapRealm</value> -->
+                        <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm</value> 
+                    </param>
+
+<!-- changes for AD/user sync -->
+
+<param>
+    <name>main.ldapContextFactory</name>
+    <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapContextFactory</value>
+</param>
+
+<!-- main.ldapRealm.contextFactory needs to be placed before other main.ldapRealm.contextFactory* entries  -->
+<param>
+    <name>main.ldapRealm.contextFactory</name>
+    <value>$ldapContextFactory</value>
+</param>
+
+                    <param>
+                        <name>main.ldapRealm.contextFactory.url</name>
+                        <value>ldap://ad-hdp.cloud.hortonworks.com:389</value> 
+
+                    </param>
+
+<param>
+    <name>main.ldapRealm.contextFactory.systemUsername</name>
+    <value>CN=LDAP Access,OU=Service Accounts,DC=AD-HDP,DC=COM</value>
+</param>
+
+<param>
+    <name>main.ldapRealm.contextFactory.systemPassword</name>
+    <value>Welcome1</value>
+</param>
+
+                    <param>
+                        <name>main.ldapRealm.contextFactory.authenticationMechanism</name>
+                        <value>simple</value>
+                    </param>
+                    <param>
+                        <name>urls./**</name>
+                        <value>authcBasic</value> 
+                    </param>
+
+<param>
+    <name>main.ldapRealm.searchBase</name>
+    <value>OU=MyUsers,DC=AD-HDP,DC=COM</value>
+</param>
+<param>
+    <name>main.ldapRealm.userObjectClass</name>
+    <value>person</value>
+</param>
+<param>
+    <name>main.ldapRealm.userSearchAttributeName</name>
+    <value>sAMAccountName</value>
+</param>
+
+<!-- changes needed for group sync-->
+<param>
+    <name>main.ldapRealm.authorizationEnabled</name>
+    <value>true</value>
+</param>
+<param>
+    <name>main.ldapRealm.groupSearchBase</name>
+    <value>OU=MyUsers,DC=AD-HDP,DC=COM</value>
+</param>
+<param>
+    <name>main.ldapRealm.groupObjectClass</name>
+    <value>group</value>
+</param>
+<param>
+    <name>main.ldapRealm.groupIdAttribute</name>
+    <value>cn</value>
+</param>
+
+
+                </provider>
+
+                <provider>
+                    <role>identity-assertion</role>
+                    <name>Default</name>
+                    <enabled>true</enabled>
+                </provider>
+
+                <provider>
+                    <role>authorization</role>
+                    <name>XASecurePDPKnox</name>
+                    <enabled>true</enabled>
+                </provider>
+
+            </gateway>
+
+            <service>
+                <role>NAMENODE</role>
+                <url>hdfs://{{namenode_host}}:{{namenode_rpc_port}}</url>
+            </service>
+
+            <service>
+                <role>JOBTRACKER</role>
+                <url>rpc://{{rm_host}}:{{jt_rpc_port}}</url>
+            </service>
+
+            <service>
+                <role>WEBHDFS</role>
+                <url>http://{{namenode_host}}:{{namenode_http_port}}/webhdfs</url>
+            </service>
+
+            <service>
+                <role>WEBHCAT</role>
+                <url>http://{{webhcat_server_host}}:{{templeton_port}}/templeton</url>
+            </service>
+
+            <service>
+                <role>OOZIE</role>
+                <url>http://{{oozie_server_host}}:{{oozie_server_port}}/oozie</url>
+            </service>
+
+            <service>
+                <role>WEBHBASE</role>
+                <url>http://{{hbase_master_host}}:{{hbase_master_port}}</url>
+            </service>
+
+            <service>
+                <role>HIVE</role>
+                <url>http://{{hive_server_host}}:{{hive_http_port}}/{{hive_http_path}}</url>
+            </service>
+
+            <service>
+                <role>RESOURCEMANAGER</role>
+                <url>http://{{rm_host}}:{{rm_port}}/ws</url>
+            </service>
+        </topology>
+
+```
+
