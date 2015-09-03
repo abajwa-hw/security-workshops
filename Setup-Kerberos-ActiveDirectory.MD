@@ -38,7 +38,8 @@ This guide uses:
 
 #### On the Windows Host: 
 1. [Add Active Directory services to the Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
-
+  - [Here](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/Install_DC_AD.ps1) is a sample powershell script to automate this. Replace values for `convertto-securestring` (password) and `-DomainName` (domain) and `-DomainNetbiosName` based on your requirements
+  
 1. [Install Identity Management for UNIX Components](https://msdn.microsoft.com/en-us/library/cc731178.aspx)
 
 1. [Install Active Directory Certificate Services](https://technet.microsoft.com/en-us/library/jj717285.aspx)
