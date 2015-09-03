@@ -156,11 +156,12 @@ Configuration of this is identical across all nodes, with one exception in the s
   - for identity of users in order to create YARN containers
 - Edge nodes will need NSS, PAM, SSH in order to login
 
-Todo: I (seanorama) will put documentation here. For now you can see this script:
+**Todo**: add documentation here. For now you can see this script:
 https://github.com/seanorama/ambari-bootstrap/blob/master/extras/sssd-kerberos-ad.sh
 
 To run on multiple nodes, you can also setup SSSD via Ambari service:
   - https://github.com/abajwa-hw/sssd-service
+  - **TODO**: update the service to reflect script
   
 - Further reading on setting up kerberos on Hadoop
   - [Steve L](https://github.com/steveloughran/kerberos_and_hadoop)
