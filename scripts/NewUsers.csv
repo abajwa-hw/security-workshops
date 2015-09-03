@@ -1,0 +1,11 @@
+samAccountName,Name,ParentOU
+adadmin,"adadmin","OU=ServiceUsers,DC=HORTONWORKS,DC=COM"
+legal1,"Legal1 Legal","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+legal2,"Legal2 Legal","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+legal3,"Legal3 Legal","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+abajwa,"Ali Bajwa","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+phearmon,"Paul Hearmon","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+sales3,"Sales3 Sales","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+hr1,"Hr1 HR","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+hr2,"Hr2 HR","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
+hr3,"Hr3 HR","OU=CorpUsers,DC=HORTONWORKS,DC=COM"
