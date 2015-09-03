@@ -192,6 +192,9 @@ As a next step, add AD authentication for Ranger. Use the below as sample values
 | ranger.ldap.ad.domain | AD-HDP.COM | 
 | ranger.ldap.ad.url | ldap://ad-hdp.cloud.hortonworks.com:389 | 
 
+- restart Ranger service
+
+- Now you should be able to login to Ranger as AD user and also see the users were pulled into Ranger
 
 ### Ranger/Knox integration
 
@@ -215,7 +218,6 @@ hadoop.proxyuser.knox.groups = *
                     </param>
                     <param>
                         <name>main.ldapRealm</name>
-                        <!-- <value>org.apache.shiro.realm.ldap.JndiLdapRealm</value> -->
                         <value>org.apache.hadoop.gateway.shirorealm.KnoxLdapRealm</value> 
                     </param>
 
