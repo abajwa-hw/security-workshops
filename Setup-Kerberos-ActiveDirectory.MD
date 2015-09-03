@@ -196,6 +196,8 @@ As a next step, add AD authentication for Ranger. Use the below as sample values
 
 - Now you should be able to login to Ranger as AD user and also see the users were pulled into Ranger
 
+- To setup the Ranger plugins and do audit exercises follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md) (changing LDAP related config values to your AD)
+
 ### Ranger/Knox integration
 
 - Configure Knox to allow groups to proxy. 
@@ -349,4 +351,9 @@ hadoop.proxyuser.knox.groups = *
         </topology>
 
 ```
+
+- 
+
+- To setup the Ranger Knox plugin and do audit exercises for WebHDFS/Hive over Knox, you can follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md) 
+
 
