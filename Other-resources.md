@@ -35,9 +35,12 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
   - Also see guide here: https://github.com/steveloughran/kerberos_and_hadoop
 
 
+##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.3
+- see updated steps here: https://github.com/abajwa-hw/security-workshops/blob/master/Setup-TDE-23.md
   
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
 - see blog for more details on this topic: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
+
 
 - Set up a Key Management Service backed by Java KeyStore
 ```
