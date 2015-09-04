@@ -1,5 +1,7 @@
 ### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.3 using Ranger KMS
-- see blog for more details on this topic: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
+
+- see 2.3 blog for more details on this topic: http://hortonworks.com/blog/new-in-hdp-2-3-enterprise-grade-hdfs-data-at-rest-encryption/
+- 2.2 blog: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
 
 ##### Install Ranger KMS 
 
