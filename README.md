@@ -1,9 +1,9 @@
 ## Securing the Hadoop Data Lake workshop
 
 These workshops is part of a 'Securing the Data Lake' webinar.
-
-The full list of available workshops is available at:
 - http://hortonworks.com/partners/learn/#secure
+
+Also see webinar on Ambari 2.0 for demo on using custom services for KDC, OpenLDAP, NSLCD
 - http://hortonworks.com/partners/learn/#ambari2
 
 #### Goals 
