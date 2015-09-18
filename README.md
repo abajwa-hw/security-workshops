@@ -2,7 +2,9 @@
 
 These workshops is part of a 'Securing the Data Lake' webinar.
 
-The full list of available workshops is available at http://hortonworks.com/partners/learn
+The full list of available workshops is available at:
+- http://hortonworks.com/partners/learn/#secure
+- http://hortonworks.com/partners/learn/#ambari2
 
 #### Goals 
 To demonstrate: 
