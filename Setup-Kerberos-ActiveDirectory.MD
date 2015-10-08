@@ -18,6 +18,8 @@ In this guide we will:
 
 **Warning: All HDP services will be STOPPED while using the Kerberos Wizard.**
 
+More details available in [official security guide](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.1.0/bk_Ambari_Security_Guide/content/ch_amb_sec_guide.html)
+
 ## Prerequisites:
 
 This guide uses:
@@ -34,7 +36,6 @@ This guide uses:
 
 ### Active Directory configuration
 
-**Note: These is not a guide in managing/configuring Active Directory. The below configuration is for our test environment to facilitate this workshop.** *In fact this is my (@seanorama) 1st experience with AD since 2006 (9 years)*
 
 #### On the Windows Host: 
 1. [Add Active Directory services to the Windows Server 2012 host](http://social.technet.microsoft.com/wiki/contents/articles/12370.windows-server-2012-set-up-your-first-domain-controller-step-by-step.aspx)
@@ -136,10 +137,6 @@ EOF
 - Click through the rest of the wizard.
 - If all was set properly you should now have a Kerberized cluster.
 
-## Use Hadoop in Secure Mode
-
-TODO: Link to another workshop on using Hadoop in Secure Mode
-
 
 ## OS integration with AD after Ambari Kerberos of Hadoop
 
@@ -195,7 +192,10 @@ As a next step, add AD authentication for Ranger. Use the below as sample values
 
 - Now you should be able to login to Ranger as AD user and also see the users were pulled into Ranger
 
+#### Use Hadoop in Secure Mode with Ranger
+
 - To setup the Ranger plugins and do audit exercises follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md) (changing LDAP related config values to your AD)
+
 
 ### Ranger/Knox integration
 
@@ -351,6 +351,8 @@ hadoop.proxyuser.knox.groups = *
 
 ```
 
-- Now run through the audit exercises for WebHDFS/Hive over Knox (plus Ranger plugin setup), you can follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md) 
+#### Use Hadoop in Secure Mode with Knox
+
+-  Run through the audit exercises for WebHDFS/Hive over Knox (plus Ranger plugin setup), you can follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-knox-23.md) 
 
 
