@@ -15,6 +15,9 @@ In this guide we will:
     - create Kerberos principals in Active Directory,
     - configure Kerberos on the HDP host(s) (including distribution of keytabs) and
     - configure Hadoop services for Kerberos.
+  - Configure Ranger user sync to work with Active Directory
+  - Configure Knox to work with Active Directory
+
 
 **Warning: All HDP services will be STOPPED while using the Kerberos Wizard.**
 
@@ -70,7 +73,8 @@ This guide uses:
     - Download script from [here](https://github.com/abajwa-hw/security-workshops/blob/master/scripts/Create-BulkADUsers-CSV.ps1). Update the location to where you downloaded the csv file
     - Run the script to create the users. Then under Server Manager -> Active Directory Users & Computers, highlight all users and right click > Properties. Open the Account tab and uncheck all the boxes and click Apply
             
-
+  - For a full step by step walk through on AD install and setup check the tutorial series [here](https://wiki.hortonworks.com/display/IK/Integrating+Active+Directory+with+Hadoop+-+Tutorial+Series) (currently internal)
+  
 1. *(Not always required)* Add the domain of your linux host(s) to be recognized by Active Directory
   - *Note: This may not be required. It is only required if the domain of your Linux servers is different than that of the Active Directory.*
     - For example: ActiveDirectory Domain is "hortonworks.com", while my Linux hosts are "lab01.hdp.internal".
