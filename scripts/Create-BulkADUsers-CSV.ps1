@@ -1,3 +1,4 @@
+powershell.exe -executionpolicy ByPass
 Import-Module ActiveDirectory
 Import-Csv "C:\Users\Administrator\Downloads\NewUsers.csv" | ForEach-Object {
  $userPrincinpal = $_."samAccountName" + "@HORTONWORKS.COM"
