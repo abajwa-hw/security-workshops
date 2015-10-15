@@ -17,7 +17,7 @@ Documentation:
 
 --------
 
-## Authentication via LDAP or Active Directory
+## Authentication via LDAP
 
 The following uses FreeIPA as detailed in the [Kerberos Guide](./Setup-kerberos-IPA-23.md). The steps can be modified for any LDAP service.
 
