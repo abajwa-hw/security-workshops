@@ -9,9 +9,9 @@
 ####  Part 1: Setup OpenLDAP on HDP Virtual Machine and setup Authentication
 - Option 1: 
   - Manually install HDP 2.2.4.2 and setup KDC and enable kerberos using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari.md). Then setup OpenLDAP, PAM using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-OpenLDAP-PAM.md)
-- Option 2: 
+- Option 2 (**not for prod use/demo only**): 
   - Manually install HDP 2.2.4.2 and use Ambari services to setup OpenLDAP,PAM, KDC and enable kerberos using steps [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-kerberos-Ambari-services.md)
-- Option 3: 
+- Option 3 (**not for prod use/demo only**): 
   - Install HDP 2.2.4.2 with OpenLDAP, PAM, KDC as Ambari services using blueprints and enable kerberos using steps [here](https://github.com/abajwa-hw/ambari-workshops/blob/master/blueprints-demo-security.md)
 
        
