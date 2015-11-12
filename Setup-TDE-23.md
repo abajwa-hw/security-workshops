@@ -92,7 +92,11 @@ sudo sudo -u hdfs hadoop key list -metadata
 - (Optional) In case of errors, check that:
   - Click edit icon next to Ranger > Access Manager > KMS > Sandbox_kms to edit the service. Ensure the correct values are present for KMS URL, user, password and that test connection works
   - In previous step, the proxyuser was created for the same user as above
-  
+
+- If you see the below error when creating zones, you may need to restart HDFS
+```
+RemoteException: Can't create an encryption zone for /enczone2 since no key provider is available.
+```  
   
 ##### Create encryption zones
 
