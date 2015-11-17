@@ -1,15 +1,20 @@
 #### Other useful security resources/scripts
 
 - Contents
+  - [Community support](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#community-support)
   - [Troubleshooting](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#troubleshooting)
   - [Transparent Data at Rest Encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-transparent-data-at-rest-encryption-in-hdp-22)
   - [Volume encryption using LUKS](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#encryption-at-rest-volume-encryption-using-luks)
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
   - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-ambari-services)
-  - [Added services to Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#adding-services-to-knox)  
+  - [Adding custom services to Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#adding-services-to-knox)  
   - [Custom Ranger plugins](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#custom-ranger-plugins)  
+  - [Code samples for interacting with secure cluster](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#custom-ranger-plugins)  
+  
+##### Community Support
 
+Hortonworks Answers is a great resource for getting help for HDP/security: http://community.hortonworks.com
 
 ##### Troubleshooting
 
@@ -200,6 +205,8 @@ echo "crypted_disk2 /dev/sdb mydisk.key luks" >> /etc/crypttab
 
 ##### Ranger Audit logs in HDFS in 2.2
 
+- This section is out of date. In 2.3 Ranger audits to HDFS are configured via Ambari
+
 - Background: Initially, Ranger logs had to be located on local disk. These were first moved moved to the MySQL database for realtime query but this still takes up space
 In 2.2, these can be configured to be live in HDFS (or combination of above). The format of this is also normalized to JSON so can run Hive queries for analysis
 There is also an idea of 'Store and forward': write to local file and periodically write to HDFS. In the future, we can aggregate same calls and write to kafka and other components
@@ -263,3 +270,7 @@ There are a number of security related Ambari services available [here](https://
 
 - Documentation to do this [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.2/bk_Ranger_User_Guide/content/ch10.html)
 - Also see wiki [here](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=53741207)
+
+##### Code samples for interacting with secure cluster
+
+- For code samples for interacting with HDP components on kerborized cluster see [here](http://community.hortonworks.com/questions/2327/sample-java-code-for-working-with-hdp-components-o.html)

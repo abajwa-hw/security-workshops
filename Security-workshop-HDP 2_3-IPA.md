@@ -30,11 +30,12 @@ Enable encryption at rest by setting up Ranger KMS, its Ranger plugin and encryp
 
 #### Other resources
 For resources on topics such as the below, refer to [here](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md)
+  - Community support
   - Troubleshooting
-  - Audit logs in HDFS
   - Wire encryption
   - Security related Ambari services
-  - Added services to Knox
+  - Adding custom services to Knox
   - Custom Ranger plugins
+  - Code samples for interacting with secure cluster
   
   
