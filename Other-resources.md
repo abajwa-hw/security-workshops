@@ -8,6 +8,7 @@
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
   - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-ambari-services)
   - [Added services to Knox](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#adding-services-to-knox)  
+  - [Custom Ranger plugins](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#custom-ranger-plugins)  
 
 
 ##### Troubleshooting
