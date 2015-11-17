@@ -7,7 +7,7 @@
   - [Ranger Audit logs in HDFS in 2.2](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#ranger-audit-logs-in-hdfs-in-22)
   - [Wire encryption](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#wire-encryption)
   - [Security related Ambari services](https://github.com/abajwa-hw/security-workshops/blob/master/Other-resources.md#security-related-ambari-services)
-  
+  - []  
 
 
 ##### Troubleshooting
@@ -41,6 +41,7 @@ sudo sudo -u hdfs kinit -kt /etc/security/keytabs/hdfs.headless.keytab hdfs@HORT
 ##### Encryption at rest: Transparent Data at Rest Encryption in HDP 2.2
 - see blog for more details on this topic: http://hortonworks.com/kb/hdfs-transparent-data-encryption/
 
+- Note: this feature was tech preview in 2.2. It is only officially supported from 2.3 onwards
 
 - Set up a Key Management Service backed by Java KeyStore
 ```
@@ -242,14 +243,18 @@ XAAUDIT.HDFS.LOCAL_ARCHIVE_DIRECTORY=/var/log/hadoop/%app-type%/audit/archive
 ##### Wire encryption
 
 - See blog http://hortonworks.com/blog/end-end-wire-encryption-apache-knox/
-
+- Steps available in documentation [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.0/Wire_Encryption_v22/index.html#Item1.1) 
 
 ##### Security related Ambari services
 
-There are a number of security related services available [here](https://github.com/abajwa-hw/ambari-workshops#ambari-stacksservices):
+There are a number of security related Ambari services available [here](https://github.com/abajwa-hw/ambari-workshops#ambari-stacksservices) for demo purposes:
  - FreeIPA
  - OpenLDAP
  - Kerberos KDC
  - NSLCD/SSSD
   
+##### Adding services to Knox
+
+- Official doc [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.0/bk_Knox_Gateway_Admin_Guide/content/adding_new_service_knox_gateway.html)
+- Step by step example [here](http://kminder.github.io/knox/2015/11/16/adding-a-service-to-knox.html)
 
