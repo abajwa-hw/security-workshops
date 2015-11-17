@@ -258,3 +258,7 @@ There are a number of security related Ambari services available [here](https://
 - Official doc [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.0/bk_Knox_Gateway_Admin_Guide/content/adding_new_service_knox_gateway.html)
 - Step by step example [here](http://kminder.github.io/knox/2015/11/16/adding-a-service-to-knox.html)
 
+##### Custom Ranger plugins
+
+- Documentation to do this [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.2/bk_Ranger_User_Guide/content/ch10.html)
+- Also see wiki [here](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=53741207)
