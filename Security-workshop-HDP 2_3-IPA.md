@@ -34,5 +34,6 @@ For resources on topics such as the below, refer to [here](https://github.com/ab
   - Audit logs in HDFS
   - Wire encryption
   - Security related Ambari services
+  - Added services to Knox
   
   
