@@ -201,7 +201,7 @@ As a next step, add AD authentication for Ranger. Use the below as sample values
 - To setup the Ranger plugins and do audit exercises follow the [usual guide](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-ranger-23.md) (changing LDAP related config values to your AD)
 
 
-### Ranger/Knox integration
+### Knox/AD integration
 
 - Configure Knox to allow groups to proxy. 
 Make below changes under HDFS > Configs and restart HDFS
