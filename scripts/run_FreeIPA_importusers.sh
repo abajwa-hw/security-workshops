@@ -20,13 +20,14 @@ ipa user-add hr2 --first=hr2 --last=hr2
 ipa user-add hr3 --first=hr3 --last=hr3
 ipa user-add xapolicymgr --first=XAPolicy --last=Manager
 ipa user-add rangeradmin --first=Ranger --last=Admin
+ipa user-add keyadmin --first=Key --last=Admin
 
 #Add users to groups
 ipa group-add-member sales --users=ali,paul
 ipa group-add-member finance --users=ali,paul
 ipa group-add-member legal --users=legal1,legal2,legal3
 ipa group-add-member hr --users=hr1,hr2,hr3
-ipa group-add-member admins --users=xapolicymgr,rangeradmin
+ipa group-add-member admins --users=xapolicymgr,rangeradmin,keyadmin
 
 #Set passwords for accounts: hortonworks
 echo $password >> tmp.txt
@@ -42,4 +43,5 @@ ipa passwd hr2 < tmp.txt
 ipa passwd hr3 < tmp.txt
 ipa passwd xapolicymgr < tmp.txt
 ipa passwd rangeradmin < tmp.txt
+ipa passwd keyadmin < tmp.txt
 rm -f tmp.txt
