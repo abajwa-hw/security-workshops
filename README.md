@@ -32,7 +32,9 @@ Why integrate security with LDAP?
 
 1. Enable security on **HDP 2.3/Ambari 2.1** single node setup using **FreeIPA** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Security-workshop-HDP 2_3-IPA.md) 
-  - Prebuilt secured sandbox available [here](https://www.dropbox.com/sh/zdmu521sfhi728x/AADdh4jVXRAqRwh9WNTe4mt9a?dl=0)
+  - Prebuilt secured sandboxes:
+    - 2 node setup (IPA node + secured sandbox node) available [here](https://www.dropbox.com/sh/zdmu521sfhi728x/AADdh4jVXRAqRwh9WNTe4mt9a?dl=0)
+    - 1 node setup (secured sandbox including IPA) available [here](https://www.dropbox.com/sh/oq1mez47alg3g1g/AACz_Yg6u789jpWmL7UR-irDa?dl=0)
 
 2. Enable security on **HDP 2.3/Ambari 2.1** single node setup using **ActiveDirectory** as LDAP
   - Instructions available [here](https://github.com/abajwa-hw/security-workshops/blob/master/Setup-Kerberos-ActiveDirectory.MD) 
