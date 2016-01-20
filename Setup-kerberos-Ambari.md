@@ -241,7 +241,7 @@ shutdown now
 
 ##### Setup kerberos
 
-- Install kerberos (usually needed on each node but sandbox only has one)
+- Install kerberos (on cluster this is only needed on one node)
 ```
 yum -y install krb5-server krb5-libs krb5-auth-dialog krb5-workstation
 ```
