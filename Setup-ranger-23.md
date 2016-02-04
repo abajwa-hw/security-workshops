@@ -757,6 +757,8 @@ su kafka
 - The Storm agent now shows up under Audit->Agents
 ![Image](../master/screenshots/ranger-storm-agent.png?raw=true)
 
+######  Access Storm UI
+
 - Open kerborized browser
 
   - Close all Safari Windows on your local Mac
