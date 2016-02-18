@@ -511,7 +511,7 @@
     "dropdown_collections": false
   },
   "solr": {
-    "server": "http://sandbox.hortonworks.com:6083/solr/",
+    "server": "/solr/",
     "core_name": "ranger_audits",
     "core_list": [
       "hadoop_logs",
