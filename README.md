@@ -19,12 +19,6 @@ Why integrate security with LDAP?
 
 #### Workshop Materials
 
-##### Beta release:
-
-1. Enable security on **HDP 2.3.3/Ambari 2.1.3** multi-node setup using **ActiveDirectory** as LDAP
-  - Instructions to setup AD [here](https://github.com/seanorama/masterclass/blob/master/security-advanced/extras/active-directory.md)
-  - Instructions to enable security [here](https://github.com/seanorama/masterclass/tree/master/security-advanced) 
-
 
 ##### Current release:
 
