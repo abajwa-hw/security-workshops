@@ -1,4 +1,3 @@
-
 #####  Authorization & Audit: allow users to specify access policies and enable audit around Hadoop from a central location via a UI, integrated with LDAP
 
 - Goals: 
@@ -50,7 +49,7 @@
 - `sudo mysql -h $(hostname -f)`
 - Execute following in the MySQL shell. Change the password to your preference. 
 
-    ```sql
+```sql
 CREATE USER 'root'@'%';
 GRANT ALL PRIVILEGES ON *.* to 'root'@'%' WITH GRANT OPTION;
 SET PASSWORD FOR 'root'@'%' = PASSWORD('hortonworks');
@@ -211,10 +210,10 @@ Advanced ranger-admin-site
 - Once successfully installed/started, confirm Agent/Ranger started: `ps -f -C java | grep "Dproc_ranger" | awk '{print $9}'`
   - output should contain at least:
   
-    ```
+```
     -Dproc_rangeradmin
     -Dproc_rangerusersync
-    ```
+```
 
 - Open log file to confirm agent was able to import users/groups from LDAP
   - `sudo tail -f /var/log/ranger/usersync/usersync.log`
