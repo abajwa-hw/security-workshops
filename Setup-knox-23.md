@@ -27,22 +27,22 @@ This workshop will enable Knox to work with kerberos enabled cluster.
 1. Update the HDFS 'custom-site' config via Ambari and restart HDFS.
   - Note: Do not change 'hosts' if it's already set to your servers hostname
 
-  ```
+```
 hadoop.proxyuser.knox.groups = users,admin,sales,marketing,legal,hr
 hadoop.proxyuser.knox.hosts = localhost
-  ```	
+```	
 
 2. (Optional) If you wanted to restrict a group (e.g. hr) from access via Knox simply remove from hadoop.proxyuser.knox.groups property. In such a scenario, attempting a webdhfs call over Knox (see below) will fail with an impersonation error like below:
 
-  ```
+```
 {"RemoteException":{"exception":"SecurityException","javaClassName":"java.lang.SecurityException","message":"Failed to obtain user group information: org.apache.hadoop.security.authorize.AuthorizationException: User: knox is not allowed to impersonate hr1"}}
-  ```
+```
 
 3. Recall that a WebHDFS request *without Knox* uses the below format it goes over HTTP (not HTTPS) on port 50070 and no credentials needed
 
-  ```
+```
 curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
-  ```
+```
 
 ## (Optional) Try Knox with the "Demo LDAP"
 
@@ -54,9 +54,9 @@ curl -sk -L "http://$(hostname -f):50070/webhdfs/v1/user/?op=LISTSTATUS
   * Their is a guest user pre-configured in the "demo LDAP" service.
   * Note that the traffic goes over HTTPS & credentials are required.
 
-  ```
+```
 curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-  ```
+```
 
 - Confirm that the demo LDAP has this user by going to Ambari > Knox > Config > Advanced users-ldif
 ![Image](../master/screenshots/knox-default-ldap.png?raw=true)
@@ -68,7 +68,7 @@ curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhd
 1. Add the following configurations in Ambari at "Knox > Configs > Advanced Topology":
 
   - First, modify the below ```<value>```entries:
-  ```                      
+```                      
                     <param>
                         <name>main.ldapRealm.userDnTemplate</name>
                         <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value> 
@@ -77,9 +77,9 @@ curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhd
                         <name>main.ldapRealm.contextFactory.url</name>
                        <value>ldap://ldap.hortonworks.com:389</value> 
                     </param>                     
-  ```
+```
   - Then, add these params directly under the above params (before the ```</provider>``` tag):
-  ```                    
+```                    
                     <param>
                         <name>main.ldapRealm.authorizationEnabled</name>
                         <value>true</value>
@@ -92,7 +92,7 @@ curl -iv -k -u guest:guest-password https://localhost:8443/gateway/default/webhd
                         <name>main.ldapRealm.memberAttributeValueTemplate</name>
                         <value>uid={0},cn=users,cn=accounts,dc=hortonworks,dc=com</value>
                     </param> 
-  ```
+```
 
 1. Restart Knox via Ambari
 
@@ -121,15 +121,15 @@ sudo chmod o+r /var/lib/knox/data/security/keystores/gateway.jks
 Now lets use Knox with our LDAP credentials
 
 #### WebHDFS
-  ```
+```
 curl -ik -u gooduser https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-  ```
+```
 
 - Notice the guest user no longer works because we did not create it in IPA
 
-  ```
+```
 curl -ivk -u guest:guest-password https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS
-  ```
+```
 
 #### Hive
 
